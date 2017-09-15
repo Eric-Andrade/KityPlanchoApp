@@ -234,7 +234,7 @@ class AuthenticationScreen extends Component {
                                     <ButtonLoginText>Ingresar</ButtonLoginText>
                                 </ButtonLogin>
                                 <ButtonSignup onPress={this._onShowSignupPress}>
-                                    <ButtonSignupText>¿No tienes cuenta aún? <ButtonSignupText2>Registrate</ButtonSignupText2></ButtonSignupText>
+                                    <ButtonSignupText>¿No tienes cuenta aún? <ButtonSignupText2>RegÍstrate</ButtonSignupText2></ButtonSignupText>
                                 </ButtonSignup>
                                 <ButtonLoginDeliver onPress={this._onShowLoginDeliverPress}>
                                     <ButtonLoginRutero>Acceso rutero</ButtonLoginRutero>

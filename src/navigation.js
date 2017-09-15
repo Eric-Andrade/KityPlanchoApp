@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
-import { Ionicons, EvilIcons } from '@expo/vector-icons';
+import { Ionicons, EvilIcons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Keyboard } from 'react-native';
 
 import { colors } from './util/constants';
 import HistoricalScreen from './screens/HistoricalScreen';
 import MeScreen from './screens/MeScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen'
-import NewClientScreen from './screens/NewClientScreen';
+import MapScreen from './screens/MapScreen';
 import ButtonHeader from './components/ButtonHeader';
 
 const tabIcon = 27;
 
 const TNavigator = TabNavigator({
-    Clientes:{
+    Historical:{
         screen: HistoricalScreen,
         navigationOptions:() =>({
-            headerTitle: 'Clientes',
+            title: 'Mis pedidos',
+            headerTitle: 'Mis pedidos',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-people' : 'ios-people-outline'} size={tabIcon} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-list' : 'ios-list'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
     },
@@ -37,7 +38,18 @@ const TNavigator = TabNavigator({
             title: 'Mi cuenta',
             headerTitle: 'Mi cuenta',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-person' : 'ios-person-outline'} size={tabIcon} style={{color: tintColor}}/>
+                <MaterialCommunityIcons name={focused ? 'account-circle' : 'account-circle'} size={tabIcon} style={{color: tintColor}}/>
+            )
+        })
+    },
+    Map:{
+        screen: MapScreen,
+        headerMode: 'none', 
+        navigationOptions:() =>({
+            title: 'Mapa',
+            headerMode: 'none',
+            tabBarIcon: ({ tintColor, focused }) =>( 
+                <MaterialCommunityIcons name={focused ? 'map-marker' : 'map-marker'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
     }
@@ -46,7 +58,7 @@ const TNavigator = TabNavigator({
     tabBarPosition: 'bottom',
     swipeEnabled: false,
     animationEnabled: false,
-    initialRouteName: 'Clientes',
+    initialRouteName: 'Historical',
     tabBarOptions:{
         showIcon: true,
         showLabel: true,
@@ -64,16 +76,16 @@ const TNavigator = TabNavigator({
     }
 });
 
-const NewClientModal = StackNavigator({
-    NewClient: {
-        screen: NewClientScreen,
+const NewOrderModal = StackNavigator({
+    NewOrder: {
+        screen: MapScreen,
         navigationOptions: ({ navigation }) => ({
             headerRight: (
                 <ButtonHeader side="right" onPress={() => {
                     Keyboard.dismiss();
                     navigation.goBack(null)
                     }}>
-                    <EvilIcons name="close" size={tabIcon} color={colors.PRIMARY}/>
+                    <EvilIcons name="close" size={tabIcon} color={colors.WHITE}/>
                 </ButtonHeader>
             ),
             headerLeft: (undefined)
@@ -88,14 +100,14 @@ const SNavigator = StackNavigator({
         screen: TNavigator,
         navigationOptions: ({ navigation }) => ({
             headerRight: (
-                <ButtonHeader side="right" onPress={() => navigation.navigate('NewClient')}>
-                    <Ionicons name='md-person-add' size={25} color={colors.WHITE}/>
+                <ButtonHeader side="right" onPress={() => navigation.navigate('NewOrder')}>
+                    <MaterialCommunityIcons name='map-marker-plus' size={25} color={colors.WHITE}/>
                 </ButtonHeader>
             )
         })
     },
-    NewClient:{
-        screen: NewClientModal,
+    NewOrder:{
+        screen: NewOrderModal,
         navigationOptions:() => ({
             title: 'Nuevo cliente'
         })

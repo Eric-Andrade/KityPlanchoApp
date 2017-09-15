@@ -29,7 +29,7 @@ const Touch = styled(Touchable).attrs({
     }),
     { fetchClients })
 
-class HomeScreen extends Component {
+class HistoricalScreen extends Component {
     
     componentDidMount(){
         this.props.fetchClients();
@@ -69,4 +69,4 @@ class HomeScreen extends Component {
     }
 }
 
-export default HomeScreen;
+export default HistoricalScreen;

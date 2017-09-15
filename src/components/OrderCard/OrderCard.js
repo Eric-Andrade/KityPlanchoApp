@@ -53,12 +53,12 @@ function OrderCard({client}){
                 <CardContentContainer>
                     <Ionicons name="ios-card" size={sizeIcon} color={colors.GRAY900}/>
                     <CardContentText>
-                        {client.CTELEFONO}
+                        {PFORMA}
                     </CardContentText>
                 </CardContentContainer>
                 <CardContentContainer>
                     <CardContentP>
-                        {client.CEMAIL}
+                        {PPAGADO}
                     </CardContentP>
                 </CardContentContainer>
             </CardContainer>

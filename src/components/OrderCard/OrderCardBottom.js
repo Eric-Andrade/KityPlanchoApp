@@ -37,7 +37,7 @@ function OrderCardBottom(){
         <Root>
             <StatusContainer>
                 <StatusText>
-                    Estado de cuenta
+                    Estado del pedido
                 </StatusText>
                 <Status />
             </StatusContainer>

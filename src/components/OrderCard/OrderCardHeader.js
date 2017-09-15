@@ -86,18 +86,18 @@ function OrderCardHeader({ID, CNOMBRE, CAPELLIDOS, CPASSWORD}){
             <MetadataContainer>
                 <MetadataTopContainer>
                     <OrderInfo>
-                        ID Cliente 
+                        ID Pedido 
                         <OrderInfoID> {ID} </OrderInfoID>
                     </OrderInfo>
                     <OrderAmountContainer>
                         <OrderAmountText>
-                            {CPASSWORD}
+                            ${PCANTIDAD}
                         </OrderAmountText>
                     </OrderAmountContainer>
                 </MetadataTopContainer>
                 <MetadataBottomContainer>
                     <MetadataBottomText>
-                    {CNOMBRE} {CAPELLIDOS}
+                        Hace {PDPFECHA}
                     </MetadataBottomText>
                 </MetadataBottomContainer>
                 <Separator />
