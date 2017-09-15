@@ -63,7 +63,7 @@ const TNavigator = TabNavigator({
         showIcon: true,
         showLabel: true,
         activeTintColor: colors.PRIMARY,
-        inactiveTintColor: '#333',
+        inactiveTintColor: colors.GRAY600,
         pressColor: colors.PRIMARY,
         indicatorStyle: { backgroundColor: colors.PRIMARY },
         style:{
@@ -101,7 +101,7 @@ const SNavigator = StackNavigator({
         navigationOptions: ({ navigation }) => ({
             headerRight: (
                 <ButtonHeader side="right" onPress={() => navigation.navigate('NewOrder')}>
-                    <MaterialCommunityIcons name='map-marker-plus' size={25} color={colors.WHITE}/>
+                    <MaterialCommunityIcons name='plus' size={tabIcon} color={colors.WHITE}/>
                 </ButtonHeader>
             )
         })

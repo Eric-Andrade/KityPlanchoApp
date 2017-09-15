@@ -1,17 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components/native';
 import { Keyboard } from 'react-native';
 import { MapView } from 'expo';
-import Touchable from '@appandflow/touchable';
-
-const Root = styled(Touchable).attrs({
-    feedback: 'none'
-})`
-    flex: 1;
-    backgroundColor: ${props => props.theme.WHITE};
-    justifyContent: center;
-    alignItems: center;
-`;
 
 class MapScreen extends Component {
     state = { 
@@ -23,7 +12,6 @@ class MapScreen extends Component {
         loading: false
      }
 
-     _onOutSidePress = () => Keyboard.dismiss();
     _onChangeText = (text, type) => this.setState({[type]:text});
     _checkIfDisabled(){
         const { nombre, apellidos, telefono, email, contrasena } = this.state;
@@ -35,7 +23,7 @@ class MapScreen extends Component {
 
     render() {
         return (
-            <Root onPress={this._onOutSidePress}>
+           
                 <MapView
                     style={{ flex: 1 }}
                     initialRegion={{
@@ -47,8 +35,7 @@ class MapScreen extends Component {
                         // 24.0293014,-104.6762739
                     }}
                     />                
-            </Root>
-        );
+       );
     }
 }
 

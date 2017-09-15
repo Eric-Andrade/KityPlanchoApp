@@ -14,11 +14,13 @@ const T = styled.Text`
     color: ${colors.GRAY600};
     fontSize: 16;
     textAlign: left;
+    fontFamily: sspRegural
 `;
 const T2 = styled.Text`
     color: ${colors.GRAY600};
     fontSize: 16;
     textAlign: left;
+    fontFamily: sspRegural
 `;
 
 class MeScreen extends Component {
@@ -26,8 +28,8 @@ class MeScreen extends Component {
     render() {
         return (
             <Root>
-                <T style={{fontFamily: 'montserratRegular'}}>MeScreen</T>
-                <T2 style={{fontFamily: 'sspRegural'}}>MeScreen con sspRegular</T2>
+                <T >MeScreen</T>
+                <T2 >MeScreen con sspRegular</T2>
             </Root>
         );
     }

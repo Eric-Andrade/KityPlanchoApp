@@ -43,7 +43,7 @@ class HistoricalScreen extends Component {
         } 
     } = this.props; 
         if(!isFetched){
-            return <LoadingScreen size="small" color={colors.PRIMARY}/>
+            return <LoadingScreen size="large" color={colors.PRIMARY}/>
         } else if (error.on){
             return (
                 <Root>
@@ -57,9 +57,9 @@ class HistoricalScreen extends Component {
                     data={data}
                     renderItem={
                         ({item: client}) => (
-                                <Touch>
-                                    <OrderCard client={client} />
-                                </Touch>
+                            <Touch>
+                                <OrderCard client={client} />
+                            </Touch>
                         )
                     }
                     keyExtractor={(item, index) => index}
