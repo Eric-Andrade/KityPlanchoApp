@@ -5,17 +5,27 @@ axios.defaults.baseURL = URL;
 
 class KityPlanchoAPI {
     constructor(){
-        this.path = 'clientes'
+        this.getclientes = 'clientes'
+        this.getserviciosactivos = 'servicios/getallactivos'
     }
 
     async getClients (){
        try {
-            const { data } = await axios.get(this.path)
+            const { data } = await axios.get(this.getclientes)
             return data;
        } catch (error) {
-            console.log(e);
+            console.log(error);
        }
     }
+
+    async getServices (){
+        try {
+             const { data } = await axios.get(this.getserviciosactivos);
+             return data;
+        } catch (error) {
+             console.log(error);
+        }
+     }
 }
 
 // export const getClients = () => {

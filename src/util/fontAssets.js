@@ -7,6 +7,6 @@ export const fontAssets = cachedFonts([
     { montserratRegular: require('../../assets/fonts/Montserrat-Regular.ttf') },
 
     // * Source Sans Pro
-    { sspRegural: require('../../assets/fonts/SourceSansPro-Regular.ttf') },
+    { sspRegular: require('../../assets/fonts/SourceSansPro-Regular.ttf') },
 
 ])

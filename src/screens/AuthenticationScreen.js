@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Platform, Keyboard, StatusBar } from 'react-native';
+import { Platform, Keyboard } from 'react-native';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
+import { EvilIcons } from '@expo/vector-icons';
 import SignupForm from '../components/SignupForm';
 import LoginDeliver from '../components/LoginDeliver'
 import {colors} from '../util/constants'
@@ -9,12 +10,32 @@ import {colors} from '../util/constants'
 const slogan = 'Consentimos a tu ropa para que ella te consienta a ti';
 const kpLogoSize = 110;
 const avatarRadius = kpLogoSize / 2;
-
+ 
 const Root = styled(Touchable).attrs({
     feedback: 'none'
 })`
     flex: 1;
     backgroundColor: ${props => props.theme.GRAY100};
+`;
+const RootContainer = styled.KeyboardAvoidingView.attrs({
+    behavior: 'padding'
+})`
+    flex: 1;
+    position: relative; 
+    justifyContent: center;
+    width: 100%;
+    backgroundColor: ${props => props.theme.GRAY600RGBA};
+`;
+const BackButton = styled(Touchable).attrs({
+    feedback: 'opacity',
+    hitSlot: {top: 25, bottom: 25, right: 25, left: 25}
+})`
+    justifyContent: center;
+    alignItems: center;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    zIndex: 2;
 `;
 const TopContainer = styled.View`
     flex: 1;
@@ -28,23 +49,15 @@ const BackImage = styled.Image`
     resizeMode: cover;
     zIndex: 1;
 `;
-const Slogan = styled.Text`
-    color: ${props => props.theme.WHITE};
-    width: 190;
-    textAlign: center;
-    fontSize: 14;
-    fontStyle: italic;
-    fontWeight: 600;
-    marginTop: 15;    
-    zIndex: 100;
-`;
 const CompanyName = styled.Text`
     color: ${props => props.theme.WHITE};
-    fontSize: 18;
-    fontWeight: 500;
+    fontSize: 20;
+    fontWeight: 200;
     zIndex: 100;
+    marginBottom: 15;
+    fontFamily: sspRegular;
 `;
-const LogoContainer = styled.Image`
+const LogoContainer = styled.View`
     height: 115;
     width: 115;
     borderRadius: 55;
@@ -56,6 +69,16 @@ const Logo = styled.Image`
     height: ${kpLogoSize};
     width: ${kpLogoSize};
     borderRadius: ${avatarRadius};
+`;
+const Slogan = styled.Text`
+    color: ${props => props.theme.WHITE};
+    width: 190;
+    textAlign: center;
+    fontSize: 14;
+    fontStyle: italic;
+    fontWeight: 600;
+    marginTop: 15;    
+    zIndex: 100;
 `;
 const BottomContainer = styled.KeyboardAvoidingView.attrs({
     behavior: 'padding'
@@ -79,7 +102,7 @@ const ButtonLogin = styled(Touchable).attrs({
     borderWidth: 1;
     width: 70%;
     height: 50;
-    marginTop: 15;
+    marginTop: 20;
     borderColor: ${props => props.theme.PRIMARY};
     backgroundColor: ${props => props.theme.PRIMARY};
     justifyContent: center;
@@ -159,15 +182,18 @@ class AuthenticationScreen extends Component {
     state = { 
         initialState,
         email: '',
-        password: ''
-     }
+        contrasena: ''
+     
+    }
+
     _onOutSidePress = () => Keyboard.dismiss();
+    _onChangeText = (text, type) => this.setState({[type]:text});
     _onShowSignupPress = () => this.setState({ showSignup: true });
     _onShowLoginDeliverPress = () => this.setState({ showLoginDeliver: true });
     _onBackPress = () => this.setState({ ...initialState });
     _checkIfDisabled(){
-        const { email, password } = this.state;
-        if(!email || !password ){
+        const { email, contrasena } = this.state;
+        if(!email || !contrasena ){
             return true
         }
         return false
@@ -190,9 +216,10 @@ class AuthenticationScreen extends Component {
         }
         return (
             <Root onPress={this._onOutSidePress}>
-                <StatusBar
-                    barStyle="light-content"
-                />
+                <RootContainer>
+                    <BackButton > 
+                        <EvilIcons name="close" size={27} color={colors.WHITE}/>
+                    </BackButton>
                     <BackImage style={{width: null, height: null}}
                             source={require('../../assets/backgroundpink.png')}>
                         <TopContainer>
@@ -217,7 +244,8 @@ class AuthenticationScreen extends Component {
                                     keyboardType="email-address"
                                     autoCorrect={false}
                                     autoCapitalize="none"
-                                    underlineColorAndroid="transparent"        
+                                    onChangeText={text => this._onChangeText(text, 'email')}
+                                    underlineColorAndroid="transparent"      
                                     returnKeyType={"next"}
                                     />
                                 </InputWrapper>
@@ -227,6 +255,7 @@ class AuthenticationScreen extends Component {
                                     secureTextEntry
                                     autoCorrect={false}
                                     autoCapitalize="none"
+                                    onChangeText={text => this._onChangeText(text, 'contrasena')}
                                     underlineColorAndroid="transparent"
                                     />
                                 </InputWrapper>
@@ -234,7 +263,7 @@ class AuthenticationScreen extends Component {
                                     <ButtonLoginText>Ingresar</ButtonLoginText>
                                 </ButtonLogin>
                                 <ButtonSignup onPress={this._onShowSignupPress}>
-                                    <ButtonSignupText>¿No tienes cuenta aún? <ButtonSignupText2>RegÍstrate</ButtonSignupText2></ButtonSignupText>
+                                    <ButtonSignupText>¿No tienes cuenta aún? <ButtonSignupText2>Regístrate</ButtonSignupText2></ButtonSignupText>
                                 </ButtonSignup>
                                 <ButtonLoginDeliver onPress={this._onShowLoginDeliverPress}>
                                     <ButtonLoginRutero>Acceso rutero</ButtonLoginRutero>
@@ -242,6 +271,7 @@ class AuthenticationScreen extends Component {
                         </BottomContainerForm>
                     </BackImage>
                     </BottomContainer>
+                </RootContainer> 
             </Root>
         );
     }

@@ -56,7 +56,7 @@ git branch nombre // Crea una rama.
 git checkout [NombreRama]// Moverse en las ramas. 
 git branch -D [NombreRama]// Borra ramas. 
 git merge [NombreRama] // Adiciona toda la rama en la rama que estamos pocicionados.
-git commit --amend -m "mensaje" //Cambiar mensaje del último commit
+git commit --amend -m "mensaje" //Cambiar mensaje del último commit, luego se usa push --forzado
 ----GIT + GITHUB----
 git remote add origin [linkGithub.git] // Conectar con github.
 git remote remove origin // Eliminar repositorio remoto.

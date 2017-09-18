@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Keyboard } from 'react-native';
 import { MapView } from 'expo';
 
 class MapScreen extends Component {
+    
     state = { 
         nombre: '',
         apellidos: '',
@@ -27,12 +27,13 @@ class MapScreen extends Component {
                 <MapView
                     style={{ flex: 1 }}
                     initialRegion={{
-                        latitude: 40.757908,
-                        longitude: -73.972649,
+                        latitude: 24.02780775285771,
+                        longitude: -104.65332895517349,
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                         
                         // 24.0293014,-104.6762739
+                        // 40.757908
                     }}
                     />                
        );

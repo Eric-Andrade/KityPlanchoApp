@@ -10,7 +10,21 @@ const Root = styled.View`
     flexDirection: row;
     alignSelf: stretch;
     alignItems: center;
-    justifyContent: flex-end;
+    justifyContent: space-between;
+`;
+const NameContainer = styled(Touchable).attrs({
+    feedback: 'opacity',
+    hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
+})`
+    flexDirection: row;
+    alignItems: center;
+`;
+const ClientText = styled.Text`
+    fontSize: 12;
+    fontWeight: 400;
+    color: ${props => props.theme.PRIMARY}
+    marginLeft: 10;
+    textAlign: center
 `;
 const StatusContainer = styled(Touchable).attrs({
     feedback: 'opacity',
@@ -22,7 +36,9 @@ const StatusContainer = styled(Touchable).attrs({
 const StatusText = styled.Text`
     fontSize: 12;
     color: ${props => props.theme.GRAY600}
-    textAlign: center
+    textAlign: center;
+    alignSelf: flex-end;
+
 `;
 const Status = styled.View`
     marginHorizontal: 10;
@@ -30,11 +46,16 @@ const Status = styled.View`
     width: ${sizeStatus};
     borderRadius: ${radiusStatus}
     backgroundColor: ${props => props.theme.STATUSGREEN};
-`
+`;
 
 function OrderCardBottom(){
     return(
         <Root>
+            <NameContainer>
+                <ClientText>
+                    Eric Torres Andrade
+                </ClientText>
+            </NameContainer>
             <StatusContainer>
                 <StatusText>
                     Estado del pedido

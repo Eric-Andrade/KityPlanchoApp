@@ -4,11 +4,13 @@ import { Ionicons, EvilIcons, MaterialIcons, MaterialCommunityIcons } from '@exp
 import { Keyboard } from 'react-native';
 
 import { colors } from './util/constants';
+import ButtonHeader from './components/ButtonHeader';
 import HistoricalScreen from './screens/HistoricalScreen';
 import MeScreen from './screens/MeScreen';
-import AuthenticationScreen from './screens/AuthenticationScreen'
+import AuthenticationScreen from './screens/AuthenticationScreen';
 import MapScreen from './screens/MapScreen';
-import ButtonHeader from './components/ButtonHeader';
+import ServicesScreen from './screens/ServicesScreen';
+import HowScreen from './screens/HowScreen';
 
 const tabIcon = 27;
 
@@ -23,12 +25,13 @@ const TNavigator = TabNavigator({
             )
         })
     },
-    Autenticación:{
-        screen: AuthenticationScreen,
+    Services:{
+        screen: ServicesScreen,
         navigationOptions:() =>({
-            headerTitle: 'Autenticación',
+            title: 'Servicios',
+            headerTitle: 'Servicios',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'md-log-in' : 'md-log-in'} size={tabIcon} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
     },
@@ -43,16 +46,25 @@ const TNavigator = TabNavigator({
         })
     },
     Map:{
-        screen: MapScreen,
-        headerMode: 'none', 
+        screen: MapScreen, 
         navigationOptions:() =>({
             title: 'Mapa',
-            headerMode: 'none',
+            header: null,
             tabBarIcon: ({ tintColor, focused }) =>( 
                 <MaterialCommunityIcons name={focused ? 'map-marker' : 'map-marker'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
-    }
+    },
+    // How:{
+    //     screen: HowScreen,
+    //     navigationOptions:() =>({
+    //         title: 'Cómo funciona',
+    //         headerTitle: '¿Cómo funciona...?',
+    //         tabBarIcon: ({ tintColor, focused }) =>( 
+    //             <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={tabIcon} style={{color: tintColor}}/>
+    //         )
+    //     })
+    // }
 },{
     lazy: true,
     tabBarPosition: 'bottom',
@@ -68,7 +80,7 @@ const TNavigator = TabNavigator({
         indicatorStyle: { backgroundColor: colors.PRIMARY },
         style:{
             backgroundColor: colors.WHITE,
-            height: 47,
+            height: 50,
             paddingVertical: 5,
             borderTopWidth: 2,
             borderTopColor: colors.PRIMARYRGBA,
@@ -76,9 +88,9 @@ const TNavigator = TabNavigator({
     }
 });
 
-const NewOrderModal = StackNavigator({
-    NewOrder: {
-        screen: MapScreen,
+const AuthenticationModal = StackNavigator({
+    Authentication: {
+        screen: AuthenticationScreen,
         navigationOptions: ({ navigation }) => ({
             headerRight: (
                 <ButtonHeader side="right" onPress={() => {
@@ -88,7 +100,7 @@ const NewOrderModal = StackNavigator({
                     <EvilIcons name="close" size={tabIcon} color={colors.WHITE}/>
                 </ButtonHeader>
             ),
-            headerLeft: (undefined)
+            headerLeft: null
         })
     }
 },
@@ -100,16 +112,18 @@ const SNavigator = StackNavigator({
         screen: TNavigator,
         navigationOptions: ({ navigation }) => ({
             headerRight: (
-                <ButtonHeader side="right" onPress={() => navigation.navigate('NewOrder')}>
+                <ButtonHeader side="right" onPress={() => navigation.navigate('Authentication')}>
                     <MaterialCommunityIcons name='plus' size={tabIcon} color={colors.WHITE}/>
                 </ButtonHeader>
-            )
+            ),
+            headerLeft: (null)
         })
     },
-    NewOrder:{
-        screen: NewOrderModal,
+    Authentication:{
+        screen: AuthenticationModal,
         navigationOptions:() => ({
-            title: 'Nuevo cliente'
+            title: 'Ingresar',
+            header: null
         })
     }
 },{
@@ -119,12 +133,12 @@ const SNavigator = StackNavigator({
     navigationOptions: () => ({
         headerStyle:{
             backgroundColor: colors.PRIMARY,
-            borderBottomWidth: 2,
-            borderBottomColor: colors.PRIMARYRGBA,
         },
         headerTitleStyle:{
             color: colors.WHITE,
-            fontWeight: '400'
+            fontSize: 20,
+            fontWeight: '400',
+            fontFamily: 'sspRegular'
         }
     }),
     gesturesEnabled: true,

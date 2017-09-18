@@ -8,9 +8,11 @@ import {colors} from '../../util/constants'
 const PFORMA = 'Tarjeta';
 const PPAGADO = 'Pago por adelantado'
 const sizeIcon = 20;
+const sizeDisccount = 28;
+const radiusDisccount = sizeDisccount / 2;
 
 const Root = styled.View`
-    minHeight: 140;
+    minHeight: 145;
     backgroundColor: ${props => props.theme.WHITE};
     width: 100%;
     padding: 5px;
@@ -23,7 +25,7 @@ const Root = styled.View`
 const CardContainer = styled.View`
     flex: 1;
     flexDirection: row;
-    paddingHorizontal: 30;
+    paddingHorizontal: 55;
     alignItems: center
 `;
 const CardContentContainer = styled.View`
@@ -35,13 +37,27 @@ const CardContentContainer = styled.View`
 const CardContentText = styled.Text`
     marginLeft: 5;
     fontSize: 14;
-    color: ${props => props.theme.GRAY900}
+    color: ${props => props.theme.GRAY777}
 `;
 const CardContentP = styled.Text`
     fontSize: 12;
     width: 80;
-    color: ${props => props.theme.GRAY900}
+    color: ${props => props.theme.GRAY777}
     textAlign: center;
+`;
+const DisccountContainer = styled.View`
+    height: ${sizeDisccount};
+    width: ${sizeDisccount};
+    borderRadius: ${radiusDisccount}
+    backgroundColor: ${props => props.theme.PINK200};
+    alignItems: center;
+    justifyContent: center;
+    bottom: 7;
+`;
+const DisccountText = styled.Text`
+    fontSize: 9;
+    fontWeight: 600;
+    color: ${props => props.theme.WHITE}
 `;
 
 function OrderCard({client}){
@@ -51,7 +67,7 @@ function OrderCard({client}){
             <OrderCardHeader {...client}/>
             <CardContainer>
                 <CardContentContainer>
-                    <Ionicons name="ios-card" size={sizeIcon} color={colors.GRAY900}/>
+                    <Ionicons name="ios-card" size={sizeIcon} color={colors.GRAY777}/>
                     <CardContentText>
                         {PFORMA}
                     </CardContentText>
@@ -60,6 +76,11 @@ function OrderCard({client}){
                     <CardContentP>
                         {PPAGADO}
                     </CardContentP>
+                    <DisccountContainer>
+                        <DisccountText>
+                            -10%
+                        </DisccountText>
+                    </DisccountContainer>
                 </CardContentContainer>
             </CardContainer>
             <OrderCardBottom />

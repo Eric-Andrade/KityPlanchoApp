@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { Provider } from 'react-redux';
-import { UIManager } from 'react-native';
+import { UIManager, StatusBar } from 'react-native';
 import AppNavigator from './src/navigation';
 import store from './src/redux/store';
 import { colors } from './src/util/constants';
@@ -32,10 +32,10 @@ export default class App extends React.Component {
       return <LoadingScreen size="large" color={colors.GRAY600}/>
     }
     return (
-
       <Provider store={store}>
-        <ActionSheetProvider>    
+        <ActionSheetProvider>          
           <ThemeProvider theme={colors}>
+            {/* <StatusBar barStyle="light-content" /> */}
             <AppNavigator />
           </ThemeProvider>
         </ActionSheetProvider>

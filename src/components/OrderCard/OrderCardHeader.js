@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const kpLogoSize = 40;
+const kpLogoSize = 30;
 const logoRadius = kpLogoSize / 2;
 const IDPEDIDO = 12;
 const PDPFECHA = 'un día';
-const PCANTIDAD = '216.00';
+const PCANTIDAD = '217.00';
 
 const Root = styled.View`
     height: 50;
@@ -26,8 +26,6 @@ const KPLogoContainer = styled.View`
 const KPLogo = styled.Image`
     height: ${kpLogoSize};
     width: ${kpLogoSize};
-    borderRadius: ${logoRadius}
-
 `;
 const MetadataContainer = styled.View`
     flex: 1;
@@ -42,7 +40,7 @@ const MetadataTopContainer = styled.View`
 const OrderInfo = styled.Text`
     fontSize: 15;
     fontWeight: 500;
-    color: ${props => props.theme.GRAY777}
+    color: ${props => props.theme.GRAY900}
 `;
 const OrderInfoID = styled.Text`
     fontSize: 15;
@@ -54,10 +52,8 @@ const OrderAmountContainer = styled.View`
     backgroundColor:${props => props.theme.PRIMARY};
     alignItems: center;
     justifyContent: center;
-    marginRight: 20;
+    marginRight: 15;
     borderRadius: 20;
-    padding: 10px;
-
 `;
 const OrderAmountText = styled.Text`
     alignItems: center;
@@ -81,7 +77,7 @@ function OrderCardHeader({ID, CNOMBRE, CAPELLIDOS, CPASSWORD}){
     return(
         <Root>
             <KPLogoContainer>
-                <KPLogo source={require('../../../assets/logokity.png')}/>
+                <KPLogo source={require('../../../assets/rutero.png')}/>
             </KPLogoContainer>
             <MetadataContainer>
                 <MetadataTopContainer>

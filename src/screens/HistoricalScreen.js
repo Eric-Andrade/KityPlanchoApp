@@ -36,11 +36,12 @@ class HistoricalScreen extends Component {
     }
 
     render() {
-        const { Clients: {
-            isFetched,
-            data, 
-            error
-        } 
+        const { 
+            Clients: {
+                isFetched,
+                data, 
+                error
+            }
     } = this.props; 
         if(!isFetched){
             return <LoadingScreen size="large" color={colors.PRIMARY}/>
