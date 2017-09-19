@@ -10,6 +10,10 @@ import MeScreen from './screens/MeScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import MapScreen from './screens/MapScreen';
 import ServicesScreen from './screens/ServicesScreen';
+import AboutUsScreen from './screens/AboutUsScreen';
+import EmployeeHomeScreen from './screens/Employee.HomeScreen'
+import EmployeeOrderListScreen from './screens/Employee.OrdersListScreen';
+import EmployeeOrderDetailScreen from './screens/EmployeeOrderDetailScreen';
 import HowScreen from './screens/HowScreen';
 
 const tabIcon = 27;
@@ -19,27 +23,27 @@ const TNavigator = TabNavigator({
         screen: HistoricalScreen,
         navigationOptions:() =>({
             title: 'Mis pedidos',
-            headerTitle: 'Mis pedidos',
+            headerTitle: 'HistoricalScreen',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 <Ionicons name={focused ? 'ios-list' : 'ios-list'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
     },
     Services:{
-        screen: ServicesScreen,
+        screen: EmployeeHomeScreen,
         navigationOptions:() =>({
             title: 'Servicios',
-            headerTitle: 'Servicios',
+            headerTitle: 'EmployeeHomeScreen',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
     },
     Perfil:{
-        screen: MeScreen,
+        screen: AboutUsScreen,
         navigationOptions:() =>({
             title: 'Mi cuenta',
-            headerTitle: 'Mi cuenta',
+            headerTitle: 'AboutUsScreen',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 <MaterialCommunityIcons name={focused ? 'account-circle' : 'account-circle'} size={tabIcon} style={{color: tintColor}}/>
             )
@@ -55,16 +59,16 @@ const TNavigator = TabNavigator({
             )
         })
     },
-    // How:{
-    //     screen: HowScreen,
-    //     navigationOptions:() =>({
-    //         title: 'Cómo funciona',
-    //         headerTitle: '¿Cómo funciona...?',
-    //         tabBarIcon: ({ tintColor, focused }) =>( 
-    //             <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={tabIcon} style={{color: tintColor}}/>
-    //         )
-    //     })
-    // }
+    How:{
+        screen: HowScreen,
+        navigationOptions:() =>({
+            title: 'Cómo funciona',
+            headerTitle: '¿Cómo funciona...?',
+            tabBarIcon: ({ tintColor, focused }) =>( 
+                <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={tabIcon} style={{color: tintColor}}/>
+            )
+        })
+    }
 },{
     lazy: true,
     tabBarPosition: 'bottom',

@@ -1,3 +1,6 @@
+r.fuentes@itecor.onmicrosoft.com
+
+
 Run services
   run APIGraphQL: backend -> javascript: yarn start
   run App: frontend -> mobile: exp start

@@ -12,11 +12,6 @@ const Root = styled(Touchable).attrs({
 })`
     flex: 1;
 `;
-const BackImage = styled.Image`
-    flex: 1;
-    resizeMode: cover;
-    zIndex: 1;
-`;
 const LogoContainer = styled.View`
     height: 95;
     width: 95;
@@ -148,8 +143,7 @@ class MeScreen extends Component {
     render() {
         return (
             <Root onPress={this._onOutSidePress}>
-                <BackImage style={{width: null, height: null}}
-                                source={require('../../assets/backgroundgray.png')}>
+                
                 <Wrapper>
                 <LogoContainer>
                     <Logo source={require('../../assets/logokity.png')}/>
@@ -221,7 +215,6 @@ class MeScreen extends Component {
                         </ButtonRemoveText>
                     </ButtonRemoveAccount>
                 </Wrapper>
-                </BackImage>
             </Root>
         );
     }

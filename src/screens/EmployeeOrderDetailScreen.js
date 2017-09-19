@@ -21,16 +21,16 @@ const T2 = styled.Text`
     textAlign: left;
 `;
 
-class EmployeeOrderDetail extends Component {
+class EmployeeOrderDetailScreen extends Component {
     state = {  }
     render() {
         return (
             <Root>
                 <T>EmployeeOrderDetail</T>
-                <T2 style={{fontFamily: 'sspRegural'}}>EmployeeOrderDetail con sspRegular</T2>
+                <T2 style={{fontFamily: 'sspRegular'}}>EmployeeOrderDetail con sspRegular</T2>
             </Root>
         );
     }
 }
 
-export default EmployeeOrderDetail;
+export default EmployeeOrderDetailScreen;
