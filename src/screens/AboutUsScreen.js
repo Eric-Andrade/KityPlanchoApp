@@ -28,7 +28,7 @@ const RootContainer = styled.View`
     marginHorizontal: 44
 `;
 const InfoContainer = styled.View`
-    marginHorizontal: 20
+    marginHorizontal: 15
 `;
 const T = styled.Text`
     color: ${colors.GRAY600};
@@ -36,7 +36,7 @@ const T = styled.Text`
     textAlign: left;
     fontFamily: sspRegular;
     textAlign: center;
-    fontWeight: 400
+    fontWeight: 300
 `;
 const IconsContainer = styled.View`
     flexDirection: row;
@@ -57,7 +57,7 @@ const Logo = styled.Image`
     width: ${kpLogoSize};
 `;
 const LogoContainer2 = styled.View`
-    height: 50;
+    height: 60;
     width: 150;
     borderRadius: 45;
     justifyContent: center;
@@ -89,8 +89,8 @@ class AboutUsScreen extends Component {
                         </IconsContainer>
                         <InfoContainer>
                             <T>10 Jun 2017</T>
-                            <T style={{color: colors.GRAY900, fontWeight: 'bold'}}>Contáctanos.</T>
-                            <T style={{fontSize: 16, marginTop: 10}}>©Itecor Durango Dirección: Zaragoza #109 int #7, Zona Centro 34000 Durango / México</T>
+                            <T style={{color: colors.GRAY900, fontWeight: '900', marginTop: 10}}>Contáctanos.</T>
+                            <T style={{fontSize: 16, marginTop: 5}}>©Itecor Durango Dirección: Zaragoza #109 int #7, Zona Centro C.P. 34000 Durango / México.</T>
                             <T style={{fontSize: 16}}>Correo Electrónico: contacto@itecordurango.com</T>
                             <T tyle={{fontSize: 16}}>Teléfono: +52 618 8 25 12 31</T>
                         </InfoContainer>
