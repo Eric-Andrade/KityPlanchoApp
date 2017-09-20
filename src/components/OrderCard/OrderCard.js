@@ -5,8 +5,6 @@ import OrderCardHeader from './OrderCardHeader';
 import OrderCardBottom from './OrderCardBottom';
 import {colors} from '../../util/constants'
 
-const PFORMA = 'Tarjeta';
-const PPAGADO = 'Pago por adelantado'
 const sizeIcon = 20;
 const sizeDisccount = 28;
 const radiusDisccount = sizeDisccount / 2;
@@ -51,6 +49,7 @@ const DisccountContainer = styled.View`
     borderRadius: ${radiusDisccount}
     backgroundColor: ${props => props.theme.PINK200};
     alignItems: center;
+    marginHorizontal: 3;
     justifyContent: center;
     bottom: 7;
 `;
@@ -60,21 +59,36 @@ const DisccountText = styled.Text`
     color: ${props => props.theme.WHITE}
 `;
 
-function OrderCard({client}){
-    
+// this.state = {
+//     PAGADO: '',
+//     FORMA: ''
+// }
+
+// const PAGADO = this.state.PAGADO;
+// const FORMA = this.state.FORMA;
+
+function OrderCard({pdp}){
+    // if (pdp.PPAGADO === 'por_adelantado') {
+    //     this.setState({PAGADO: 'Pagado por adelantado'})
+    // }
+    // if (pdp.PFORMA === 'efectivo') {
+    //     this.setState({FORMA: 'Efectivo'})
+    // }else if(pdp.PFORMA === 'tarjeta'){
+    //     this.setState({FORMA: 'Tarjeta'})
+    // }
     return(
         <Root>
-            <OrderCardHeader {...client}/>
+            <OrderCardHeader {...pdp}/>
             <CardContainer>
                 <CardContentContainer>
                     <Ionicons name="ios-card" size={sizeIcon} color={colors.GRAY777}/>
                     <CardContentText>
-                        {PFORMA}
+                        {pdp.PFORMA}
                     </CardContentText>
                 </CardContentContainer>
                 <CardContentContainer>
                     <CardContentP>
-                        {PPAGADO}
+                        {pdp.PPAGADO}
                     </CardContentP>
                     <DisccountContainer>
                         <DisccountText>
@@ -83,7 +97,7 @@ function OrderCard({client}){
                     </DisccountContainer>
                 </CardContentContainer>
             </CardContainer>
-            <OrderCardBottom />
+            <OrderCardBottom  {...pdp}/>
         </Root>
     )
 }

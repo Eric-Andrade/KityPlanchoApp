@@ -1,7 +1,7 @@
-import { FETCHCLIENTS } from './actions';
+import { FETCHPDP } from './actions';
 
 const INITIAL_STATE = {
-    Clients: {
+    pdp: {
         data: [],
         isFetched: false,
         error: {
@@ -13,11 +13,11 @@ const INITIAL_STATE = {
 
  export default (state = INITIAL_STATE, action) => {
      switch (action.type) {
-         case `${FETCHCLIENTS}_PENDING`:
+         case `${FETCHPDP}_PENDING`:
             return INITIAL_STATE;
-         case `${FETCHCLIENTS}_FULFILLED`:
+         case `${FETCHPDP}_FULFILLED`:
             return{
-                Clients: {
+                pdp: {
                     data: action.payload,
                     isFetched: true,
                     error: {
@@ -26,14 +26,14 @@ const INITIAL_STATE = {
                     }
                 }
             };
-         case `${FETCHCLIENTS}_REJECTED`:
+         case `${FETCHPDP}_REJECTED`:
             return{
-                Clients: {
+                pdp: {
                     data: [],
                     isFetched: true,
                     error: {
                         on: true,
-                        message: 'Error fetching clients list'
+                        message: 'Error fetching pdp list'
                     }
                 }
             };

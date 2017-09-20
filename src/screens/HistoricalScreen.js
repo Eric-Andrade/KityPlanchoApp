@@ -6,7 +6,7 @@ import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
 import OrderCard from '../components/OrderCard/OrderCard'
 import { LoadingScreen } from '../commons/LoadingScreen'
-import { fetchClients } from './redux/actions'
+import { fetchPDP } from './redux/actions'
 
 const Root = styled.View`
     flex: 1;
@@ -25,19 +25,19 @@ const Touch = styled(Touchable).attrs({
 `;
 
 @connect(state => ({
-    Clients: state.home.Clients
+    pdp: state.home.pdp
     }),
-    { fetchClients })
+    { fetchPDP })
 
 class HistoricalScreen extends Component {
     
     componentDidMount(){
-        this.props.fetchClients();
+        this.props.fetchPDP();
     }
 
     render() {
         const { 
-            Clients: {
+            pdp: {
                 isFetched,
                 data, 
                 error
@@ -57,9 +57,9 @@ class HistoricalScreen extends Component {
                 <FlatList
                     data={data}
                     renderItem={
-                        ({item: client}) => (
+                        ({item: pdp}) => (
                             <Touch>
-                                <OrderCard client={client} />
+                                <OrderCard pdp={pdp} />
                             </Touch>
                         )
                     }

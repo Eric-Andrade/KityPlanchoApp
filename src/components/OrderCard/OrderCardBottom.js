@@ -48,12 +48,13 @@ const Status = styled.View`
     backgroundColor: ${props => props.theme.STATUSGREEN};
 `;
 
-function OrderCardBottom(){
+function OrderCardBottom({CNOMBRE, CAPELLIDOS }){
+    
     return(
         <Root>
             <NameContainer>
                 <ClientText>
-                    Eric Torres Andrade
+                    {CNOMBRE} {CAPELLIDOS}
                 </ClientText>
             </NameContainer>
             <StatusContainer>

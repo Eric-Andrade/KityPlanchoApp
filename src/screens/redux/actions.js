@@ -2,9 +2,9 @@ import { KityPlanchoAPI } from '../../util/api';
 
 const kityplanchoapi = new KityPlanchoAPI();
 
-export const FETCHCLIENTS = 'FETCHCLIENTS';
+export const FETCHPDP = 'FETCHPDP';
 
-export const fetchClients = () => ({
-    type: FETCHCLIENTS,
-    payload: kityplanchoapi.getClients()
+export const fetchPDP = () => ({
+    type: FETCHPDP,
+    payload: kityplanchoapi.getPDP()
 })

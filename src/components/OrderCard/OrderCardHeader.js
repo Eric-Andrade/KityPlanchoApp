@@ -3,9 +3,9 @@ import styled from 'styled-components/native';
 
 const kpLogoSize = 30;
 const logoRadius = kpLogoSize / 2;
-const IDPEDIDO = 12;
-const PDPFECHA = 'un día';
-const PCANTIDAD = '217.00';
+// const IDPEDIDO = 12;
+// const PDPFECHA = 'un día';
+// const PCANTIDAD = '217.00';
 
 const Root = styled.View`
     height: 50;
@@ -73,7 +73,7 @@ const MetadataBottomText = styled.Text`
     color: ${props => props.theme.GRAY600}
 `; 
 
-function OrderCardHeader({ID, CNOMBRE, CAPELLIDOS, CPASSWORD}){
+function OrderCardHeader({IDPEDIDO, PPRECIOTOTAL, PFECHA }){
     return(
         <Root>
             <KPLogoContainer>
@@ -83,17 +83,17 @@ function OrderCardHeader({ID, CNOMBRE, CAPELLIDOS, CPASSWORD}){
                 <MetadataTopContainer>
                     <OrderInfo>
                         ID Pedido 
-                        <OrderInfoID> {ID} </OrderInfoID>
+                        <OrderInfoID> {IDPEDIDO} </OrderInfoID>
                     </OrderInfo>
                     <OrderAmountContainer>
                         <OrderAmountText>
-                            ${PCANTIDAD}
+                            ${PPRECIOTOTAL}.00
                         </OrderAmountText>
                     </OrderAmountContainer>
                 </MetadataTopContainer>
                 <MetadataBottomContainer>
                     <MetadataBottomText>
-                        Hace {PDPFECHA}
+                         {PFECHA}
                     </MetadataBottomText>
                 </MetadataBottomContainer>
                 <Separator />
