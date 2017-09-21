@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
+import { FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
+import { LoadingScreen } from '../commons/LoadingScreen'
+import { getAllServiciosActivos } from './redux/actions';
 
 const Root = styled(Touchable).attrs({
     feedback: 'none'
@@ -9,10 +13,7 @@ const Root = styled(Touchable).attrs({
     flex: 1;
     alignItems: center;
 `;
-const ServicesCardContainer = styled(Touchable).attrs({
-    feedback: 'opacity',
-    hitSlot: {top: 25, bottom: 25, right: 25, left: 25}
-})`
+const ServicesCardContainer = styled.View`
     minHeight: 140;
     backgroundColor: ${props => props.theme.WHITE};
     width: 100%;
@@ -29,14 +30,57 @@ const T = styled.Text`
     textAlign: left;
     fontFamily: sspRegular
 `;
+const Touch = styled(Touchable).attrs({
+    feedback: 'opacity',
+    hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
+})`
+    flexDirection: row;
+`;
+
+@connect(state => ({
+    allserviciosactivos: state.services.allserviciosactivos
+    }),
+    { getAllServiciosActivos })
 
 class ServicesScreen extends Component {
-    state = {  }
+
+     componentDidMount(){
+        this.props.getAllServiciosActivos();
+    }
+
     render() {
+        const { 
+            allserviciosactivos: {
+                isFetched,
+                data, 
+                error
+            }
+    } = this.props; 
+        if(!isFetched){
+            return <LoadingScreen size="large" color={colors.PRIMARY}/>
+        } else if (error.on){
+            return (
+                <Root>
+                    <T>{error.on}</T>
+                </Root>
+            )
+        }
+
         return (
             <Root>
-                <T>Servicios de KityPlancho</T>
-                <ServicesCardContainer />
+                <FlatList
+                    data={data}
+                    renderItem={
+                        ({item: allserviciosactivos}) => (
+                            <Touch>
+                                <ServicesCardContainer >
+                                    <T>{allserviciosactivos.SERVNOMBRE}</T>
+                                </ServicesCardContainer>
+                            </Touch>
+                        )
+                    }
+                    keyExtractor={(item, index) => index}
+                    />
             </Root>
         );
     }

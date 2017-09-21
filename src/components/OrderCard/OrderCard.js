@@ -67,28 +67,28 @@ const DisccountText = styled.Text`
 // const PAGADO = this.state.PAGADO;
 // const FORMA = this.state.FORMA;
 
-function OrderCard({pdp}){
-    // if (pdp.PPAGADO === 'por_adelantado') {
+function OrderCard({allpdpr}){
+    // if (allpdpr.PPAGADO === 'por_adelantado') {
     //     this.setState({PAGADO: 'Pagado por adelantado'})
     // }
-    // if (pdp.PFORMA === 'efectivo') {
+    // if (allpdpr.PFORMA === 'efectivo') {
     //     this.setState({FORMA: 'Efectivo'})
-    // }else if(pdp.PFORMA === 'tarjeta'){
+    // }else if(allpdpr.PFORMA === 'tarjeta'){
     //     this.setState({FORMA: 'Tarjeta'})
     // }
     return(
         <Root>
-            <OrderCardHeader {...pdp}/>
+            <OrderCardHeader {...allpdpr}/>
             <CardContainer>
                 <CardContentContainer>
                     <Ionicons name="ios-card" size={sizeIcon} color={colors.GRAY777}/>
                     <CardContentText>
-                        {pdp.PFORMA}
+                        {allpdpr.PFORMA}
                     </CardContentText>
                 </CardContentContainer>
                 <CardContentContainer>
                     <CardContentP>
-                        {pdp.PPAGADO}
+                        {allpdpr.PPAGADO}
                     </CardContentP>
                     <DisccountContainer>
                         <DisccountText>
@@ -97,7 +97,7 @@ function OrderCard({pdp}){
                     </DisccountContainer>
                 </CardContentContainer>
             </CardContainer>
-            <OrderCardBottom  {...pdp}/>
+            <OrderCardBottom  {...allpdpr}/>
         </Root>
     )
 }

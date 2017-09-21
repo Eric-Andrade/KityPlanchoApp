@@ -1,7 +1,7 @@
-import { FETCHPDP } from './actions';
+import { FETCHALLSERVICIOSACTIVOS } from './actions';
 
 const INITIAL_STATE = {
-    pdp: {
+    allserviciosactivos: {
         data: [],
         isFetched: false,
         error: {
@@ -13,11 +13,11 @@ const INITIAL_STATE = {
 
  export default (state = INITIAL_STATE, action) => {
      switch (action.type) {
-         case `${FETCHPDP}_PENDING`:
+         case `${FETCHALLSERVICIOSACTIVOS}_PENDING`:
             return INITIAL_STATE;
-         case `${FETCHPDP}_FULFILLED`:
+         case `${FETCHALLSERVICIOSACTIVOS}_FULFILLED`:
             return{
-                pdp: {
+                allserviciosactivos: {
                     data: action.payload,
                     isFetched: true,
                     error: {
@@ -26,14 +26,14 @@ const INITIAL_STATE = {
                     }
                 }
             };
-         case `${FETCHPDP}_REJECTED`:
+         case `${FETCHALLSERVICIOSACTIVOS}_REJECTED`:
             return{
-                pdp: {
+                allserviciosactivos: {
                     data: [],
                     isFetched: true,
                     error: {
                         on: true,
-                        message: 'Error fetching pdp list'
+                        message: 'Error fetching services active list'
                     }
                 }
             };

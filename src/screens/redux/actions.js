@@ -2,9 +2,16 @@ import { KityPlanchoAPI } from '../../util/api';
 
 const kityplanchoapi = new KityPlanchoAPI();
 
-export const FETCHPDP = 'FETCHPDP';
+export const FETCHALLPDPR = 'FETCHALLPDPR';
 
-export const fetchPDP = () => ({
-    type: FETCHPDP,
-    payload: kityplanchoapi.getPDP()
+export const fetchALLPDPR = () => ({
+    type: FETCHALLPDPR,
+    payload: kityplanchoapi.getALLPDPR()
+})
+
+export const FETCHALLSERVICIOSACTIVOS = 'FETCHALLSERVICIOSACTIVOS';
+
+export const getAllServiciosActivos = () => ({
+    type: FETCHALLSERVICIOSACTIVOS,
+    payload: kityplanchoapi.getAllServiciosActivos()
 })

@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import Homereducer from '../screens/redux/Homereducer'
+import HistoricalReducer from '../screens/redux/HistoricalReducer'
+import ServicesReducer from '../screens/redux/ServicesReducer'
 
 export default combineReducers({
-    home: Homereducer
+    historical: HistoricalReducer,
+    services: ServicesReducer
 });

@@ -1,5 +1,5 @@
 r.fuentes@itecor.onmicrosoft.com
-
+api/actions/HistoricalReducer/reducers/store/HistoricalScreen/...etc
 
 Run services
   run APIGraphQL: backend -> javascript: yarn start

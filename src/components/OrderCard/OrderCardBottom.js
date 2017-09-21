@@ -48,7 +48,7 @@ const Status = styled.View`
     backgroundColor: ${props => props.theme.STATUSGREEN};
 `;
 
-function OrderCardBottom({CNOMBRE, CAPELLIDOS }){
+function OrderCardBottom({ CNOMBRE, CAPELLIDOS }){
     
     return(
         <Root>

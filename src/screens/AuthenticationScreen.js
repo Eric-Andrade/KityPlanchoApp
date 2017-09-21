@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform, Keyboard } from 'react-native';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
-import { EvilIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import SignupForm from '../components/SignupForm';
 import LoginDeliver from '../components/LoginDeliver'
 import {colors} from '../util/constants'
@@ -218,7 +218,7 @@ class AuthenticationScreen extends Component {
             <Root onPress={this._onOutSidePress}>
                 <RootContainer>
                     <BackButton > 
-                        <EvilIcons name="close" size={27} color={colors.WHITE}/>
+                        <Entypo name="chevron-thin-down" size={27} color={colors.WHITE}/>
                     </BackButton>
                     <BackImage style={{width: null, height: null}}
                             source={require('../../assets/backgroundpink.png')}>

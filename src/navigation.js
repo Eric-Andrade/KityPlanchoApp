@@ -22,30 +22,30 @@ const TNavigator = TabNavigator({
     Historical:{
         screen: HistoricalScreen,
         navigationOptions:() =>({
-            title: 'Mis pedidos',
-            headerTitle: 'HistoricalScreen',
+            title: 'Pedidos',
+            headerTitle: 'Pedidos del día',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-list' : 'ios-list'} size={tabIcon} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
     },
     Services:{
-        screen: EmployeeHomeScreen,
+        screen: ServicesScreen,
         navigationOptions:() =>({
             title: 'Servicios',
-            headerTitle: 'EmployeeHomeScreen',
+            headerTitle: 'ServicesScreen',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
     },
     Perfil:{
-        screen: AboutUsScreen,
+        screen: EmployeeHomeScreen,
         navigationOptions:() =>({
             title: 'Mi cuenta',
-            headerTitle: 'AboutUsScreen',
+            headerTitle: 'EmployeeHomeScreen',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <MaterialCommunityIcons name={focused ? 'account-circle' : 'account-circle'} size={tabIcon} style={{color: tintColor}}/>
+                <MaterialCommunityIcons name={focused ? 'account' : 'account-outline'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
     },
@@ -55,7 +55,7 @@ const TNavigator = TabNavigator({
             title: 'Mapa',
             header: null,
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <MaterialCommunityIcons name={focused ? 'map-marker' : 'map-marker'} size={tabIcon} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={tabIcon} style={{color: tintColor}}/>
             )
         })
     },
