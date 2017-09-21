@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MapView } from 'expo';
+import { LoadingScreen } from '../commons/LoadingScreen';
 
 class MapScreen extends Component {
     
@@ -9,7 +10,21 @@ class MapScreen extends Component {
         telefono: '',
         email: '',
         contrasena: '',
-        loading: false
+        loading: false,
+        region: {
+            latitude: 24.025112476834142,
+            longitude: -104.66076859577711,
+            latitudeDelta: 0.0698849341966401,
+            longitudeDelta: 0.047562460492812875,
+        },
+        latlng: {
+            latitude: 224.025112476834142,
+            longitude: -104.66076859577711,
+        }
+     }
+
+     componentDidMount (){
+         this.setState({loading: true})
      }
 
     _onChangeText = (text, type) => this.setState({[type]:text});
@@ -20,22 +35,24 @@ class MapScreen extends Component {
         }
         return false
     }
+    _onRegionChangeComplete = (region) =>{
+        console.log(region)
+        this.setState({region})
+    }
 
     render() {
+        if(!this.state.loading){
+            return <LoadingScreen size="large"/>
+        }
         return (
-           
-                <MapView
-                    style={{ flex: 1 }}
-                    initialRegion={{
-                        latitude: 24.02780775285771,
-                        longitude: -104.65332895517349,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                        
-                        // 24.0293014,-104.6762739
-                        // 40.757908
-                    }}
-                    />                
+                <MapView style={{ flex: 1 }} 
+                    initialRegion={this.state.region}
+                    onRegionChangeComplete={this._onRegionChangeComplete}>
+                        <MapView.Marker
+                        coordinate={this.state.latlng}
+                        image={require('../../assets/rutero.png')}
+                        />
+                </MapView>
        );
     }
 }

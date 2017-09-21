@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
+import eoLocale from 'date-fns/locale/es';
 
 const kpLogoSize = 30;
 const logoRadius = kpLogoSize / 2;
@@ -93,7 +95,7 @@ function OrderCardHeader({IDPEDIDO, PPRECIOTOTAL, PFECHA }){
                 </MetadataTopContainer>
                 <MetadataBottomContainer>
                     <MetadataBottomText>
-                         {PFECHA}
+                    hace {distanceInWordsToNow(PFECHA, {locale: eoLocale})}
                     </MetadataBottomText>
                 </MetadataBottomContainer>
                 <Separator />
