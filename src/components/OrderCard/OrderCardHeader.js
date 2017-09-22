@@ -95,7 +95,7 @@ function OrderCardHeader({IDPEDIDO, PPRECIOTOTAL, PFECHA }){
                 </MetadataTopContainer>
                 <MetadataBottomContainer>
                     <MetadataBottomText>
-                    hace {distanceInWordsToNow(PFECHA, {locale: eoLocale})}
+                    Hace {distanceInWordsToNow(PFECHA, {locale: eoLocale})}
                     </MetadataBottomText>
                 </MetadataBottomContainer>
                 <Separator />

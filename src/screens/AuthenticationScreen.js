@@ -217,7 +217,7 @@ class AuthenticationScreen extends Component {
         return (
             <Root onPress={this._onOutSidePress}>
                 <RootContainer>
-                    <BackButton > 
+                    <BackButton>
                         <Entypo name="chevron-thin-down" size={27} color={colors.WHITE}/>
                     </BackButton>
                     <BackImage style={{width: null, height: null}}

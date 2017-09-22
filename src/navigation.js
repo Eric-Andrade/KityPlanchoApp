@@ -6,6 +6,7 @@ import { Keyboard } from 'react-native';
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
 import HistoricalScreen from './screens/HistoricalScreen';
+import HOrderScreen from './screens/HOrderScreen';
 import MeScreen from './screens/MeScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import MapScreen from './screens/MapScreen';
@@ -40,10 +41,10 @@ const TNavigator = TabNavigator({
         })
     },
     Perfil:{
-        screen: EmployeeHomeScreen,
+        screen: HOrderScreen,
         navigationOptions:() =>({
             title: 'Mi cuenta',
-            headerTitle: 'EmployeeHomeScreen',
+            headerTitle: 'HOrderScreen',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 <MaterialCommunityIcons name={focused ? 'account' : 'account-outline'} size={tabIcon} style={{color: tintColor}}/>
             )
@@ -101,7 +102,7 @@ const AuthenticationModal = StackNavigator({
                     Keyboard.dismiss();
                     navigation.goBack(null)
                     }}>
-                    <EvilIcons name="close" size={tabIcon} color={colors.WHITE}/>
+                    <EvilIcons name="close" size={30} color={colors.WHITE}/>
                 </ButtonHeader>
             ),
             headerLeft: null
@@ -116,7 +117,8 @@ const SNavigator = StackNavigator({
         screen: TNavigator,
         navigationOptions: ({ navigation }) => ({
             headerRight: (
-                <ButtonHeader side="right" onPress={() => navigation.navigate('Authentication')}>
+                <ButtonHeader side="right" 
+                onPress={() => { navigation.navigate('Authentication')}}>
                     <MaterialCommunityIcons name='plus' size={tabIcon} color={colors.WHITE}/>
                 </ButtonHeader>
             ),

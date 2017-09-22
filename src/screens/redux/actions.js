@@ -9,6 +9,13 @@ export const fetchALLPDPR = () => ({
     payload: kityplanchoapi.getALLPDPR()
 })
 
+export const FETCHONEPDPR = 'FETCHONEPDPR';
+
+export const fetchONEPDPR = () => ({
+    type: FETCHONEPDPR,
+    payload: kityplanchoapi.getONEPDPR()
+})
+
 export const FETCHALLSERVICIOSACTIVOS = 'FETCHALLSERVICIOSACTIVOS';
 
 export const getAllServiciosActivos = () => ({

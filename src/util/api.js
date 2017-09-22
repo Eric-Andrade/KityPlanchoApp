@@ -7,6 +7,7 @@ class KityPlanchoAPI {
     constructor(){
         //* pedidos
         this.getallpdpr = 'dedicados/getallpdpr'
+        this.getonepdpr = '/dedicados/getonepdpr?id=13'
         //* servicios
         this.getserviciosactivos = 'servicios/getallactivos'
     }
@@ -19,6 +20,15 @@ class KityPlanchoAPI {
             console.log(error);
        }
     }
+
+    async getONEPDPR (){
+        try {
+             const { data } = await axios.get(this.getonepdpr)
+             return data;
+        } catch (error) {
+             console.log(error);
+        }
+     }
 //* servicios
     async getAllServiciosActivos (){
         try {
