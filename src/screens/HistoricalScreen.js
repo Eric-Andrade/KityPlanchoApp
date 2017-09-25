@@ -42,7 +42,8 @@ class HistoricalScreen extends Component {
                 data, 
                 error
             }
-    } = this.props; 
+        } = this.props;
+
         if(!isFetched){
             return <LoadingScreen size="large" color={colors.PRIMARY}/>
         } else if (error.on){

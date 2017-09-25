@@ -64,10 +64,6 @@ class HOrderScreen extends Component {
             longitude:  -104.67266356446854,
             latitudeDelta: 0.006446834062519002,
             longitudeDelta: 0.006199840871872198,
-        },
-        latlng: {
-            latitude: 224.025112476834142,
-            longitude: -104.66076859577711,
         }
      }
         
@@ -100,6 +96,17 @@ class HOrderScreen extends Component {
                     </Root>
                 )
             }
+
+            console.warn(`ID PEDIDO: ${data.IDPEDIDO} CoordenadasR: ${data.COORDENADAS_R}`)
+           
+
+            const latlngR = data.COORDENADAS_R;
+            const latlngsplit = latlngR.split(",");
+            const latlng = {
+                latitude: parseInt(latlngsplit[0]),
+                longitude: parseInt(latlngsplit[1])
+            };
+
             return (
                 <Root>
                     <OrderContainer>
@@ -112,11 +119,12 @@ class HOrderScreen extends Component {
                         <MapView style={{ flex: 1 }} 
                         initialRegion={this.state.region}
                         onRegionChangeComplete={this._onRegionChangeComplete}
-                        showsUserLocation={true}
-                        followUserLocation={true}>
+                        showsUserLocation
+                        followUserLocation>
                             <MapView.Marker
-                            coordinate={this.state.latlng}
-                            image={require('../../assets/rutero.png')}
+                            coordinate={latlng}
+                            title={`ID pedido ${data.IDPEDIDO}`}
+                            description={`${data.CNOMBRE} ${data.CAPELLIDOS}`}
                             />
                         </MapView>
                     </MapContainer>

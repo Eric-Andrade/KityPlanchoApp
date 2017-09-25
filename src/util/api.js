@@ -7,7 +7,7 @@ class KityPlanchoAPI {
     constructor(){
         //* pedidos
         this.getallpdpr = 'dedicados/getallpdpr'
-        this.getonepdpr = '/dedicados/getonepdpr?id=13'
+        this.getonepdpr = '/dedicados/getonepdpr?id=4'
         //* servicios
         this.getserviciosactivos = 'servicios/getallactivos'
     }

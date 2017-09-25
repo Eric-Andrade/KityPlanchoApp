@@ -56,7 +56,7 @@ function OrderCardBottom({ CNOMBRE, CAPELLIDOS, PSTATUS }){
             STATUSCOLOR = `${colors.STATUSYELLOW}`
             break;
         case 'para_entregar':
-            STATUSCOLOR = `${colors.STATUSBLUESTRONG}`
+            STATUSCOLOR = `${colors.STATUSBLUELIGHT}`
             break;
         case 'entregado':
             STATUSCOLOR = `${colors.STATUSGREEN}`
