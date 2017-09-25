@@ -5,7 +5,7 @@ import Touchable from '@appandflow/touchable';
 import { Entypo } from '@expo/vector-icons';
 import SignupForm from '../components/SignupForm';
 import LoginDeliver from '../components/LoginDeliver'
-import {colors} from '../util/constants'
+import { colors } from '../util/constants'
 
 const slogan = 'Consentimos a tu ropa para que ella te consienta a ti';
 const kpLogoSize = 110;
@@ -51,7 +51,7 @@ const BackImage = styled.Image`
 `;
 const CompanyName = styled.Text`
     color: ${props => props.theme.WHITE};
-    fontSize: 20;
+    fontSize: 23;
     fontWeight: 200;
     zIndex: 100;
     marginBottom: 15;
@@ -80,17 +80,14 @@ const Slogan = styled.Text`
     marginTop: 15;    
     zIndex: 100;
 `;
-const BottomContainer = styled.KeyboardAvoidingView.attrs({
-    behavior: 'padding'
-})`
-    flex: 1;
+const BottomContainer = styled.View`
+    flex: ${Platform.OS === 'ios' ? 0.6 : 0.8};
     position: relative; 
     justifyContent: center;
     width: 100%;
-    backgroundColor: ${props => props.theme.GRAY600RGBA};
 `;
 const BottomContainerForm = styled.View`
-    marginTop: 30;
+    marginTop: 25;
     alignItems: center
 `;
 const ButtonLogin = styled(Touchable).attrs({
@@ -266,7 +263,7 @@ class AuthenticationScreen extends Component {
                                     <ButtonSignupText>¿No tienes cuenta aún? <ButtonSignupText2>Regístrate</ButtonSignupText2></ButtonSignupText>
                                 </ButtonSignup>
                                 <ButtonLoginDeliver onPress={this._onShowLoginDeliverPress}>
-                                    <ButtonLoginRutero>Acceso rutero</ButtonLoginRutero>
+                                    <ButtonLoginRutero>Acceso a empleado</ButtonLoginRutero>
                                 </ButtonLoginDeliver>
                         </BottomContainerForm>
                     </BackImage>

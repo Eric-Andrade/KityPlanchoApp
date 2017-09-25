@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
+import Display from 'react-native-display';
 import OrderCardHeader from './OrderCardHeader';
 import OrderCardBottom from './OrderCardBottom';
-import {colors} from '../../util/constants'
+import { colors } from '../../util/constants';
 
 const sizeIcon = 20;
 const sizeDisccount = 28;
@@ -18,12 +19,14 @@ const Root = styled.View`
     shadowOffset: 0px 2px;
     shadowRadius: 2;
     shadowOpacity: 0.1;
+    elevation: 2;
     marginVertical: 2;
 `;
 const CardContainer = styled.View`
     flex: 1;
     flexDirection: row;
     paddingHorizontal: 55;
+    minHeight: 34;
     alignItems: center
 `;
 const CardContentContainer = styled.View`
@@ -33,8 +36,8 @@ const CardContentContainer = styled.View`
     justifyContent: center;
 `;
 const CardContentText = styled.Text`
+    fontSize: 12;
     marginLeft: 5;
-    fontSize: 14;
     color: ${props => props.theme.GRAY777}
 `;
 const CardContentP = styled.Text`
@@ -59,45 +62,33 @@ const DisccountText = styled.Text`
     color: ${props => props.theme.WHITE}
 `;
 
-// this.state = {
-//     PAGADO: '',
-//     FORMA: ''
-// }
-
-// const PAGADO = this.state.PAGADO;
-// const FORMA = this.state.FORMA;
 
 function OrderCard({allpdpr}){
-    // if (allpdpr.PPAGADO === 'por_adelantado') {
-    //     this.setState({PAGADO: 'Pagado por adelantado'})
-    // }
-    // if (allpdpr.PFORMA === 'efectivo') {
-    //     this.setState({FORMA: 'Efectivo'})
-    // }else if(allpdpr.PFORMA === 'tarjeta'){
-    //     this.setState({FORMA: 'Tarjeta'})
-    // }
-    return(
+
+return(
         <Root>
             <OrderCardHeader {...allpdpr}/>
             <CardContainer>
                 <CardContentContainer>
-                    <Ionicons name="ios-card" size={sizeIcon} color={colors.GRAY777}/>
+                    <Ionicons name={allpdpr.PFORMA === 'tarjeta' ? 'ios-card' : 'ios-cash'} size={sizeIcon} color={colors.GRAY777}/>
                     <CardContentText>
-                        {allpdpr.PFORMA}
+                        {allpdpr.PFORMA === 'efectivo' ? 'Efectivo' : 'Tarjeta'}
                     </CardContentText>
                 </CardContentContainer>
                 <CardContentContainer>
                     <CardContentP>
-                        {allpdpr.PPAGADO}
+                        {allpdpr.PPAGADO === 'por_adelantado' ? 'Pago por adelantado' : 'Pago a contraentrega'}
                     </CardContentP>
-                    <DisccountContainer>
-                        <DisccountText>
-                            -10%
-                        </DisccountText>
-                    </DisccountContainer>
+                    <Display enable={allpdpr.PPAGADO === 'por_adelantado' ? true : false}>
+                        <DisccountContainer>
+                            <DisccountText>
+                                -10%
+                            </DisccountText>
+                        </DisccountContainer>
+                    </Display>
                 </CardContentContainer>
             </CardContainer>
-            <OrderCardBottom  {...allpdpr}/>
+            <OrderCardBottom {...allpdpr}/>
         </Root>
     )
 }

@@ -29,8 +29,8 @@ const Touch = styled(Touchable).attrs({
     }),
     { fetchALLPDPR })
 
-class HistoricalScreen extends Component {
-
+class ClientOrdersScreen extends Component {
+    
     componentDidMount(){
         this.props.fetchALLPDPR();
     }
@@ -74,4 +74,4 @@ class HistoricalScreen extends Component {
     }
 }
 
-export default HistoricalScreen;
+export default ClientOrdersScreen;

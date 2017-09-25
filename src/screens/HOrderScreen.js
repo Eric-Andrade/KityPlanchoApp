@@ -17,10 +17,27 @@ const T = styled.Text`
     textAlign: left;
 `;
 const OrderContainer = styled.View`
-    flex: 0.32;
+    flex: 0.35;
 `;
 const MapContainer = styled.View`
     flex: 1;
+`;
+const Title = styled.View`
+    alignItems: center;
+    padding: 10px;
+    width: 100%;
+    backgroundColor: ${props =>props.theme.WHITE};
+    shadowColor: ${props => props.theme.GRAY777};
+    shadowOffset: 0px 2px;
+    shadowRadius: 2;
+    shadowOpacity: 0.1;
+    elevation: 2;
+
+`;
+const TitleText = styled.Text`
+    color: ${colors.PINK800};
+    fontSize: 18;
+    fontFamily: sspRegular
 `;
 const Touch = styled(Touchable).attrs({
     feedback: 'opacity',
@@ -88,10 +105,15 @@ class HOrderScreen extends Component {
                     <OrderContainer>
                         <OrderCard allpdpr={data}/>
                     </OrderContainer>
+                    <Title>
+                        <TitleText>Detalles de pedido</TitleText>
+                    </Title>
                     <MapContainer>
                         <MapView style={{ flex: 1 }} 
                         initialRegion={this.state.region}
-                        onRegionChangeComplete={this._onRegionChangeComplete}>
+                        onRegionChangeComplete={this._onRegionChangeComplete}
+                        showsUserLocation={true}
+                        followUserLocation={true}>
                             <MapView.Marker
                             coordinate={this.state.latlng}
                             image={require('../../assets/rutero.png')}

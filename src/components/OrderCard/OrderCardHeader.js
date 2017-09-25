@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import Touchable from '@appandflow/touchable';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 import eoLocale from 'date-fns/locale/es';
 
 const kpLogoSize = 30;
-const logoRadius = kpLogoSize / 2;
+// const logoRadius = kpLogoSize / 2;
 // const IDPEDIDO = 12;
 // const PDPFECHA = 'un día';
 // const PCANTIDAD = '217.00';
@@ -12,7 +13,7 @@ const logoRadius = kpLogoSize / 2;
 const Root = styled.View`
     height: 50;
     flexDirection: row;
-    alignItems: center;    
+    alignItems: center;
 `;
 const Separator = styled.View`
     width: 95%;
@@ -31,7 +32,8 @@ const KPLogo = styled.Image`
 `;
 const MetadataContainer = styled.View`
     flex: 1;
-    alignSelf: stretch
+    alignSelf: stretch;
+    justifyContent: center;
 `;
 const MetadataTopContainer = styled.View`
     flex: 1;
@@ -66,13 +68,25 @@ const OrderAmountText = styled.Text`
 `;
 const MetadataBottomContainer = styled.View`
     flex: 1;
+    flexDirection: row;
+`;
+const MetadataBottomContainerRight = styled.View`
     alignSelf: stretch;
-    alignItems: flex-start
+    alignItems: flex-start;
+`;
+const MetadataBottomContainerLeft = styled(Touchable).attrs({
+    feedback: 'opacity',
+    hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
+})`
+    alignSelf: stretch;
+    alignItems: flex-start;
+    justifyContent: center;
 `;
 const MetadataBottomText = styled.Text`
-    fontSize: 14;
+    fontSize: 12;
     fontWeight: 400;
     color: ${props => props.theme.GRAY600}
+    textAlign: center;
 `; 
 
 function OrderCardHeader({IDPEDIDO, PPRECIOTOTAL, PFECHA }){
@@ -94,10 +108,13 @@ function OrderCardHeader({IDPEDIDO, PPRECIOTOTAL, PFECHA }){
                     </OrderAmountContainer>
                 </MetadataTopContainer>
                 <MetadataBottomContainer>
-                    <MetadataBottomText>
-                    Hace {distanceInWordsToNow(PFECHA, {locale: eoLocale})}
-                    </MetadataBottomText>
-                </MetadataBottomContainer>
+                    <MetadataBottomContainerLeft>
+                        <MetadataBottomText>
+                        Hace {distanceInWordsToNow(PFECHA, {locale: eoLocale})}
+                        </MetadataBottomText>
+                    </MetadataBottomContainerLeft>
+                    <MetadataBottomContainerRight />
+                 </MetadataBottomContainer>   
                 <Separator />
             </MetadataContainer>
         </Root>

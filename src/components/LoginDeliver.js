@@ -3,8 +3,7 @@ import { Entypo }  from '@expo/vector-icons'
 import { Platform, Keyboard, AsyncStorage } from 'react-native';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
-import { Font } from 'expo';
-import {colors} from '../util/constants'
+import { colors } from '../util/constants'
 import { LoadingScreen } from '../commons/LoadingScreen';
 
 const Root = styled(Touchable).attrs({

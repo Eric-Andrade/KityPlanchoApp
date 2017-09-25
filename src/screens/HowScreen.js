@@ -1,49 +1,39 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
+import { Platform } from 'react-native';
+import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
 
-const kpLogoSize = 90;
-const avatarRadius = kpLogoSize / 2;
-const kpIcon = 30;
-const logoRadius = kpIcon / 2;
+const tabIcon = 27;
+
 
 const Root = styled(Touchable).attrs({
     feedback: 'none'
 })`
     flex: 1;
 `
-const LogoContainer = styled.View`
-    alignSelf: center;
-    height: 95;
-    width: 95;
-    borderRadius: 45;
-    justifyContent: center;
-    alignItems: center;
-    backgroundColor: ${props => props.theme.WHITE};
-`;
-const Logo = styled.Image`
-    height: ${kpLogoSize};
-    width: ${kpLogoSize};
-    borderRadius: ${avatarRadius};
-`;
 const Title = styled.View`
     alignItems: center;
-    justifyContent: center;
-    marginTop: 15;
-    padding: 20px;
+    padding: 10px;
+    width: 100%;
+    backgroundColor: ${props => props.theme.WHITE};
+    shadowColor: ${props => props.theme.GRAY777};
+    shadowOffset: 0px 2px;
+    shadowRadius: 2;
+    shadowOpacity: 0.1;
+    elevation: 2;
 `;
-const T = styled.Text`
+const TitleText = styled.Text`
     color: ${colors.PINK800};
-    fontSize: 22;
+    fontSize: 18;
     fontFamily: sspRegular
 `;
 const ListContainer = styled.View`
     minHeight: 100;
     width: 100%;
-    marginTop: 50
+    marginTop: 40
 `;
 const ItemContainer = styled(Touchable).attrs({
     feedback: 'opacity',
@@ -52,18 +42,13 @@ const ItemContainer = styled(Touchable).attrs({
     height: 60;
     flexDirection: row;
     alignItems: center;
-    backgroundColor: white
+    backgroundColor: ${props => props.theme.WHITE};
 `;
 const ItemContainerIcon = styled.View`
     flex: 0.2;
     alignSelf: stretch;
     alignItems: center;
     justifyContent: center;
-`;
-const ItemIcon = styled.Image`
-    height: ${kpIcon};
-    width: ${kpIcon};
-    borderRadius: ${logoRadius};
 `;
 const Separator = styled.View`
     alignSelf: flex-end;
@@ -76,7 +61,8 @@ const ItemContainerText = styled.View`
 `;
 const ItemText = styled.Text`
     color: ${colors.GRAY600};
-    fontSize: 16;
+    fontSize: ${Platform.OS === 'ios' ? 15 : 13};
+    fontWeight: ${Platform.OS === 'ios' ? 400 : 300 };
 `;
 const ArrowContainer = styled(Touchable).attrs({
     feedback: 'opacity',
@@ -94,13 +80,13 @@ class HowScreen extends Component {
                     <Logo source={require('../../assets/logokity.png')}/>
                 </LogoContainer> */}
                 <Title>
-                    <T>KityPlancho Ayuda</T>
+                    <TitleText>KityPlancho Ayuda</TitleText>
                 </Title>
                 <ScrollView>
                 <ListContainer>
                     <ItemContainer>
                         <ItemContainerIcon>
-                            <ItemIcon source={require('../../assets/logokity.png')}/>
+                            <Entypo name="emoji-happy" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/>
                         </ItemContainerIcon>
                         <ItemContainerText>
                             <ItemText>Mi primer pedido</ItemText>
@@ -112,7 +98,7 @@ class HowScreen extends Component {
                     <Separator />
                     <ItemContainer>
                         <ItemContainerIcon>
-                            <ItemIcon source={require('../../assets/logokity.png')}/>
+                            <Ionicons name="md-time" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/>
                         </ItemContainerIcon>
                         <ItemContainerText>
                             <ItemText>Horario de recogida/entrega</ItemText>
@@ -124,7 +110,7 @@ class HowScreen extends Component {
                     <Separator />
                     <ItemContainer>
                         <ItemContainerIcon>
-                            <ItemIcon source={require('../../assets/logokity.png')}/>
+                            <MaterialCommunityIcons name="map-marker-radius" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/> 
                         </ItemContainerIcon>
                         <ItemContainerText>
                             <ItemText>Disponibilidad por ubicación</ItemText>
@@ -136,7 +122,7 @@ class HowScreen extends Component {
                     <Separator />
                     <ItemContainer>
                         <ItemContainerIcon>
-                            <ItemIcon source={require('../../assets/logokity.png')}/>
+                            <Entypo name="heart" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/> 
                         </ItemContainerIcon>
                         <ItemContainerText>
                             <ItemText>Garantía KityPlancho</ItemText>
@@ -148,7 +134,7 @@ class HowScreen extends Component {
                     <Separator />
                     <ItemContainer>
                         <ItemContainerIcon>
-                            <ItemIcon source={require('../../assets/logokity.png')}/>
+                            <Ionicons name="md-contacts" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/> 
                         </ItemContainerIcon>
                         <ItemContainerText>
                             <ItemText>Contáctanos</ItemText>

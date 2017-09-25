@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
 import { Ionicons, EvilIcons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Keyboard } from 'react-native';
+import { Keyboard, Platform, StatusBar } from 'react-native';
 
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
 import HistoricalScreen from './screens/HistoricalScreen';
 import HOrderScreen from './screens/HOrderScreen';
 import MeScreen from './screens/MeScreen';
+import ClientOrdersScreen from './screens/ClientOrdersScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import MapScreen from './screens/MapScreen';
 import ServicesScreen from './screens/ServicesScreen';
@@ -24,9 +25,9 @@ const TNavigator = TabNavigator({
         screen: HistoricalScreen,
         navigationOptions:() =>({
             title: 'Pedidos',
-            headerTitle: 'Pedidos del día',
+            headerTitle: 'Pedidos',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={tabIcon} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
         })
     },
@@ -36,7 +37,7 @@ const TNavigator = TabNavigator({
             title: 'Servicios',
             headerTitle: 'ServicesScreen',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={tabIcon} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
         })
     },
@@ -46,7 +47,7 @@ const TNavigator = TabNavigator({
             title: 'Mi cuenta',
             headerTitle: 'HOrderScreen',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <MaterialCommunityIcons name={focused ? 'account' : 'account-outline'} size={tabIcon} style={{color: tintColor}}/>
+                <MaterialCommunityIcons name={focused ? 'account' : 'account-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
         })
     },
@@ -56,7 +57,7 @@ const TNavigator = TabNavigator({
             title: 'Mapa',
             header: null,
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={tabIcon} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
         })
     },
@@ -66,7 +67,7 @@ const TNavigator = TabNavigator({
             title: 'Cómo funciona',
             headerTitle: '¿Cómo funciona...?',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={tabIcon} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
         })
     }
@@ -119,7 +120,7 @@ const SNavigator = StackNavigator({
             headerRight: (
                 <ButtonHeader side="right" 
                 onPress={() => { navigation.navigate('Authentication')}}>
-                    <MaterialCommunityIcons name='plus' size={tabIcon} color={colors.WHITE}/>
+                    <MaterialCommunityIcons name='plus' size={Platform.OS === 'ios' ? tabIcon : 25} color={colors.WHITE}/>
                 </ButtonHeader>
             ),
             headerLeft: (null)
@@ -133,11 +134,16 @@ const SNavigator = StackNavigator({
         })
     }
 },{
-    cardStyle: {
+    cardStyle: {        
+        paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.PRIMARY,
         backgroundColor: colors.GRAY100
     },
     navigationOptions: () => ({
         headerStyle:{
+            borderBottomWidth: 1,
+            borderBottomColor: colors.PRIMARY,
             backgroundColor: colors.PRIMARY,
         },
         headerTitleStyle:{
