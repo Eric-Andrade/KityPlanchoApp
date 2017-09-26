@@ -53,11 +53,6 @@ const Touch = styled(Touchable).attrs({
 
 class HOrderScreen extends Component {
     state = { 
-        nombre: '',
-        apellidos: '',
-        telefono: '',
-        email: '',
-        contrasena: '',
         loading: false,
         region: {
             latitude: 24.02725253393618,
@@ -96,7 +91,6 @@ class HOrderScreen extends Component {
                     </Root>
                 )
             }
-           
             const latlngR = data.COORDENADAS_R;
             const latlngRsplit = latlngR.split(',',2);
             const latlng1 = {
@@ -110,6 +104,13 @@ class HOrderScreen extends Component {
                 latitude: parseFloat(latlngEsplit[0]),
                 longitude: parseFloat(latlngEsplit[1])
             };
+            const regionInitial ={
+                latitude: latlng2.latitude,
+                longitude:  latlng2.longitude,
+                latitudeDelta: 0.006446834062519002,
+                longitudeDelta: 0.006199840871872198
+            }
+            // this.setState({region: regionInitial})
 
             return (
                 <Root>
@@ -141,17 +142,6 @@ class HOrderScreen extends Component {
                             />
                         </MapView>
                     </MapContainer>
-                    {/* <FlatList
-                        data={data}
-                        renderItem={
-                            ({item: onepdpr}) => (
-                                <Touch>
-                                    <OrderCard onepdpr={onepdpr} />
-                                </Touch>
-                            )
-                        }
-                        keyExtractor={(item, index) => index}
-                        /> */}
                 </Root>
             );
         }

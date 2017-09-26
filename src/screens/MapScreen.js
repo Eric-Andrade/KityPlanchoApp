@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, Dimensions } from 'react-native';
 // import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-import { MapView } from 'expo';
+import { MapView, Location, Permissions } from 'expo';
 import { LoadingScreen } from '../commons/LoadingScreen';
 import { colors } from '../util/constants';
 import { fetchALLPDPR } from './redux/actions'
 
 const kpContainerSize = 42;
 const avatarRadius = kpContainerSize / 2;
+const {width, height} = Dimensions.get('window');
+const SCREEN_HEIGHT = height;
+const SCREEN_WIDTH = width;
+const ASPECT_RATIO = width / height;
+const LATDELTA = 0.0108849341966401;
+const LNGDELTA = LATDELTA * ASPECT_RATIO;
 
 const Root = styled.View`
     flex: 1;
@@ -29,7 +35,7 @@ const T = styled.Text`
 //     backgroundColor: ${props => props.theme.WHITE};
 // `;
 const Logo = styled.Image`
-    height: 39;
+    height: 42;
     width: 37;
 `;
 
@@ -40,20 +46,28 @@ const Logo = styled.Image`
 
 class MapScreen extends Component {
     
-    state = { 
-        nombre: '',
-        apellidos: '',
-        telefono: '',
-        email: '',
-        contrasena: '',
+   constructor(props){
+       super(props)
+
+       this.state = { 
         loading: false,
-        region: {
-            latitude: 24.025112476834142,
-            longitude: -104.66076859577711,
-            latitudeDelta: 0.0698849341966401,
-            longitudeDelta: 0.047562460492812875
+        mapRegion: {
+            latitude: 0,
+            longitude: 0,
+            latitudeDelta: 0,
+            longitudeDelta: 0
         },
-        latlng: {
+        markerPosition:{
+            latitude: 0,
+            longitude: 0
+        },
+        // region: {
+        //     latitude: 24.025112476834142,
+        //     longitude: -104.66076859577711,
+        //     latitudeDelta: 0.0698849341966401,
+        //     longitudeDelta: 0.047562460492812875
+        // },
+        kpsucursal: {
             latitude: 24.025112476834142,
             longitude: -104.66076859577711,
         },
@@ -101,18 +115,55 @@ class MapScreen extends Component {
                 pincolor: colors.STATUSYELLOW}
             ],
      }
-     
+   }
+    watchID: ?number = null
+    
      componentDidMount (){
          this.setState({loading: true});
          this.props.fetchALLPDPR();
+
+         navigator.geolocation.getCurrentPosition((position) =>{
+            const lat = parseFloat(position.coords.latitude) 
+            const lng = parseFloat(position.coords.longitude)
+            
+            const initialRegion = {
+              latitude: lat,
+              longitude: lng,
+              latitudeDelta: LATDELTA,
+              longitudeDelta: LNGDELTA
+            }
+            this.setState({mapRegion: initialRegion})
+            this.setState({markerPosition: initialRegion})
+            console.warn(this.state.mapRegion);
+          },
+          (error) => alert(JSON.stringify(error)),
+          {enableHighAccuracy: true, timeout: 20000, maximumAge: 5000})
+
+          this.watchID = navigator.geolocation.watchPosition((position) => {
+            const lat = parseFloat(position.coords.latitude) 
+            const lng = parseFloat(position.coords.longitude)
+
+            const lastRegion = {
+                latitude: lat,
+                longitude: lng,
+                latitudeDelta: LATDELTA,
+                longitudeDelta: LNGDELTA
+              }
+              this.setState({mapRegion: lastRegion})
+              this.setState({markerPosition: lastRegion})
+          })
      }
      
+    componentWillUnmount(){
+        navigator.geolocation.clearWatch(this.watchID)
+    }
+
     _onRegionChangeComplete = (region) =>{ 
         this.setState({region});
         // Geocoder.geocodeAddress('New York')
         // .then(response => { console.log('response', response); })
         // .catch(err => console.log(err))
-        console.warn(`latitude: ${ region.latitude } longitude: ${ region.longitude }`);
+        // console.warn(`latitude: ${ region.latitude } longitude: ${ region.longitude }`);
     }
 
     
@@ -134,9 +185,9 @@ class MapScreen extends Component {
                 </Root>
             )
         }
-        let cont = 0;
+        
         let latlng;
-        for (let i = 0; i < data.length; i++) { 
+        for (let i = 0; i < data.length; i++) {
             const latlngR = data[i].COORDENADAS_R;
             if (latlngR != null) {
                 const latlngsplit = latlngR.split(',',2);
@@ -145,11 +196,13 @@ class MapScreen extends Component {
                     longitude: parseFloat(latlngsplit[1])
                 };
             }
+            // console.log(`ID Pedido ${data[i].IDPEDIDO} lat: ${latlng.latitude}, lng: ${latlng.longitude}`);
         }
+        console.log(`state array markers: ${this.state.markers}`);
         // this.setState({latlngr:latlng})
         return (
-                <MapView style={{ flex: 1 }}
-                    initialRegion={this.state.region}
+                <MapView style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH}}
+                    region={this.state.mapRegion}
                     onRegionChangeComplete={this._onRegionChangeComplete}
                     showsUserLocation
                     followUserLocation> 
@@ -158,16 +211,17 @@ class MapScreen extends Component {
                     barStyle="default"
                 />
                     <MapView.Marker
-                        coordinate={this.state.latlng}
+                        coordinate={this.state.markerPosition}
                         title={'Durango'}
                         description={'Consentimos a tu ropa para que ella te consienta a ti'}>
                             {/* <LogoContainer> */}
-                                <Logo source={require('../../assets/logokity.png')}/>
+                                <Logo source={require('../../assets/rutero.png')}/>
                             {/* </LogoContainer> */}
                     </MapView.Marker>
 
-                    {this.state.markers.map(marker => (
+                    {this.state.markers.map((marker, i) => (
                         <MapView.Marker
+                            key={i}
                             coordinate={marker.latlng}
                             title={marker.title}
                             description={marker.description}

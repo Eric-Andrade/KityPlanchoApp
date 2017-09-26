@@ -34,13 +34,13 @@ const ButtonAddOrder = styled(Touchable).attrs({
     feedback: 'opacity',
     hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
 })`
-    marginTop: 2;
+    marginTop: 20;
     width: 55%;
     height: 40;
     backgroundColor: transparent;
     borderRadius: 10;
-    borderWidth: 2;
-    borderColor: #b7b7b7;
+    borderWidth: 1;
+    borderColor: #d8d8d8;
     justifyContent: center;
     alignItems: center;
 `;

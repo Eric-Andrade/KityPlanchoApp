@@ -41,7 +41,8 @@ Scalares{
   }
 
 
-
+GPS:
+  https://www.youtube.com/watch?v=MqLC0kOqrwk
 
 ----GIT----
 git init // Inicia proyecto, se usa solo una vez.
