@@ -134,17 +134,20 @@ class MapScreen extends Component {
                 </Root>
             )
         }
-
-        for (let i = 0; i < data.length; i++) {
+        let cont = 0;
+        let latlng;
+        for (let i = 0; i < data.length; i++) { 
             const latlngR = data[i].COORDENADAS_R;
-            const latlngsplit = latlngR.split(",");
-            const latlng = {
-                latitude: latlngsplit[0],
-                longitude: latlngsplit[1]
-            };
-              console.warn(`---LOG ID PEDIDO: ${data[i].IDPEDIDO} CoordenadasRlat: ${latlng.latitude} CoordenadasRlat: ${latlng.longitude}`)
+            if (latlngR != null) {
+                const latlngsplit = latlngR.split(',',2);
+                latlng = {
+                    latitude:  parseFloat(latlngsplit[0]),
+                    longitude: parseFloat(latlngsplit[1])
+                };
+                  console.warn(`---LOG ID PEDIDO: ${data[i].IDPEDIDO} CoordenadasRlat: ${latlng.latitude} CoordenadasRlat: ${latlng.longitude}`)
+            }
         }
-
+        this.setState({latlngr:latlng})
         return (
                 <MapView style={{ flex: 1 }}
                     initialRegion={this.state.region}
@@ -166,6 +169,13 @@ class MapScreen extends Component {
                             title={marker.title}
                             description={marker.description}
                             pinColor={marker.pincolor}
+                            draggable
+                            />
+                        ))}
+
+                        {this.state.latlngr.map(markerR => (
+                            <MapView.Marker
+                            coordinate={markerR.latlng}
                             draggable
                             />
                         ))}

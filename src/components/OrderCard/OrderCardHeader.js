@@ -53,6 +53,7 @@ const OrderInfoID = styled.Text`
 `;
 const OrderAmountContainer = styled.View`
     minWidth: 85;
+    padding: 0px 10px 0px 10px;
     backgroundColor:${props => props.theme.PRIMARY};
     alignItems: center;
     justifyContent: center;
@@ -103,7 +104,7 @@ function OrderCardHeader({IDPEDIDO, PPRECIOTOTAL, PFECHA }){
                     </OrderInfo>
                     <OrderAmountContainer>
                         <OrderAmountText>
-                            ${PPRECIOTOTAL}.00
+                            {PPRECIOTOTAL === 0 ? 'sin servicios' :`$${PPRECIOTOTAL}.00`}
                         </OrderAmountText>
                     </OrderAmountContainer>
                 </MetadataTopContainer>

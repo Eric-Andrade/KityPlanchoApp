@@ -52,14 +52,26 @@ function OrderCardBottom({ CNOMBRE, CAPELLIDOS, PSTATUS }){
     let STATUSCOLOR;
 
     switch (PSTATUS) {
+        case 'cotizando':
+            STATUSCOLOR = `${colors.GRAY600}`
+            break;
+        case 'en_cola':
+            STATUSCOLOR = `${colors.STATUSORANGE}`
+            break;
         case 'en_camino':
             STATUSCOLOR = `${colors.STATUSYELLOW}`
+            break;
+        case 'en_proceso':
+            STATUSCOLOR = `${colors.STATUSBLUESTRONG}`
             break;
         case 'para_entregar':
             STATUSCOLOR = `${colors.STATUSBLUELIGHT}`
             break;
         case 'entregado':
             STATUSCOLOR = `${colors.STATUSGREEN}`
+            break;
+        case 'no_atendido':
+            STATUSCOLOR = `${colors.STATUSRED}`
             break;
         default:
             STATUSCOLOR = `${colors.GRAY600}`

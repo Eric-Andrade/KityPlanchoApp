@@ -96,15 +96,19 @@ class HOrderScreen extends Component {
                     </Root>
                 )
             }
-
-            console.warn(`ID PEDIDO: ${data.IDPEDIDO} CoordenadasR: ${data.COORDENADAS_R}`)
            
-
             const latlngR = data.COORDENADAS_R;
-            const latlngsplit = latlngR.split(",");
-            const latlng = {
-                latitude: parseInt(latlngsplit[0]),
-                longitude: parseInt(latlngsplit[1])
+            const latlngRsplit = latlngR.split(',',2);
+            const latlng1 = {
+                latitude: parseFloat(latlngRsplit[0]),
+                longitude: parseFloat(latlngRsplit[1])
+            };
+
+            const latlngE = data.COORDENADAS_E;
+            const latlngEsplit = latlngE.split(',',2);
+            const latlng2 = {
+                latitude: parseFloat(latlngEsplit[0]),
+                longitude: parseFloat(latlngEsplit[1])
             };
 
             return (
@@ -121,10 +125,19 @@ class HOrderScreen extends Component {
                         onRegionChangeComplete={this._onRegionChangeComplete}
                         showsUserLocation
                         followUserLocation>
+                            
                             <MapView.Marker
-                            coordinate={latlng}
-                            title={`ID pedido ${data.IDPEDIDO}`}
-                            description={`${data.CNOMBRE} ${data.CAPELLIDOS}`}
+                                coordinate={latlng1}
+                                title={`Dirección a recoger`}
+                                description={`${data.PDIRECCION_R}`}
+                                pinColor={colors.STATUSYELLOW}
+                            />
+
+                            <MapView.Marker
+                                coordinate={latlng2}
+                                title={`Dirección a entregar`}
+                                description={`${data.PDIRECCION_E}`}
+                                pinColor={colors.STATUSBLUELIGHT}
                             />
                         </MapView>
                     </MapContainer>

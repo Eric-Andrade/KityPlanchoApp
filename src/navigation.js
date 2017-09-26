@@ -8,7 +8,7 @@ import ButtonHeader from './components/ButtonHeader';
 import HistoricalScreen from './screens/HistoricalScreen';
 import HOrderScreen from './screens/HOrderScreen';
 import MeScreen from './screens/MeScreen';
-import ClientOrdersScreen from './screens/ClientOrdersScreen';
+import OrdersClientScreen from './screens/OrdersClientScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import MapScreen from './screens/MapScreen';
 import ServicesScreen from './screens/ServicesScreen';
@@ -32,10 +32,10 @@ const TNavigator = TabNavigator({
         })
     },
     Services:{
-        screen: ServicesScreen,
+        screen: OrdersClientScreen,
         navigationOptions:() =>({
-            title: 'Servicios',
-            headerTitle: 'ServicesScreen',
+            title: 'Mis pedidos',
+            headerTitle: 'OrdersClientScreen',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
