@@ -9,7 +9,7 @@ class KityPlanchoAPI {
         this.getallpdpr = 'dedicados/getallpdpr'
         this.getonepdpr = '/dedicados/getonepdpr?id=4'
             // Todos los pedidos de un cliente
-            this.getallpdpc = '/dedicados/getallpdpc?id=2'
+            this.getallpdpc = '/dedicados/getallpdpc?id=7'
         //* servicios
         this.getserviciosactivos = 'servicios/getallactivos'
     }

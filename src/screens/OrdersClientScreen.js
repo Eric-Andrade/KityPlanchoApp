@@ -11,22 +11,43 @@ import { fetchALLPDPC } from './redux/actions'
 
 const Root = styled.View`
     flex: 1;
-    justifyContent: center;
 `;
 const TextContainer = styled.View`
-    flex: 1;
+    marginBottom: 85%;
     justifyContent: center;
-    alignItems: center
+    alignItems: center;
+    backgroundColor: transparent;
 `;
 const T = styled.Text`
-    color: ${colors.GRAY600};
+    color: #b7b7b7;
     fontSize: 16;
     textAlign: left;
+    
 `;
 const Touch = styled(Touchable).attrs({
     feedback: 'opacity',
     hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
 })`
+
+`;
+const ButtonAddOrder = styled(Touchable).attrs({
+    feedback: 'opacity',
+    hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
+})`
+    marginTop: 2;
+    width: 55%;
+    height: 40;
+    backgroundColor: transparent;
+    borderRadius: 10;
+    borderWidth: 2;
+    borderColor: #b7b7b7;
+    justifyContent: center;
+    alignItems: center;
+`;
+const ButtonAddOrderText = styled.Text`
+    color: #b7b7b7;
+    fontWeight: 500;
+    fontSize: 14;
 
 `;
 
@@ -62,25 +83,29 @@ class ClientOrdersScreen extends Component {
         }
         return (
             <Root>
-                <Display enable={data.length > 0 ? true : false}>
-                        <StatusBar
-                            backgroundColor="#E72B73"
-                            barStyle="light-content"/>
-                        <FlatList
-                            data={data}
-                            renderItem={
-                                ({item: allpdpc}) => (
-                                    <Touch>
-                                        <OrderCard allpdpr={allpdpc} />
-                                    </Touch>
-                                )
-                            }
-                            keyExtractor={(item, index) => index}
-                        />
-                </Display>
+                <StatusBar
+                    backgroundColor="#E72B73"
+                    barStyle="light-content"/>
+                <FlatList
+                    data={data}
+                    renderItem={
+                        ({item: allpdpc}) => (
+                            <Touch>
+                                <OrderCard allpdpr={allpdpc} />
+                            </Touch>
+                        )
+                    }
+                    keyExtractor={(item, index) => index}
+                />
+                
                 <Display enable={data.length === 0 ? true : false}>
                         <TextContainer>
                             <T>Aún no hay pedidos :'(</T>
+                            <ButtonAddOrder>
+                                <ButtonAddOrderText>
+                                    Nuevo pedido
+                                </ButtonAddOrderText>
+                            </ButtonAddOrder>
                         </TextContainer>
                 </Display>
             </Root>

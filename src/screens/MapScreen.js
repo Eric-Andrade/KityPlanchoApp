@@ -144,45 +144,45 @@ class MapScreen extends Component {
                     latitude:  parseFloat(latlngsplit[0]),
                     longitude: parseFloat(latlngsplit[1])
                 };
-                  console.warn(`---LOG ID PEDIDO: ${data[i].IDPEDIDO} CoordenadasRlat: ${latlng.latitude} CoordenadasRlat: ${latlng.longitude}`)
             }
         }
-        this.setState({latlngr:latlng})
+        // this.setState({latlngr:latlng})
         return (
                 <MapView style={{ flex: 1 }}
                     initialRegion={this.state.region}
                     onRegionChangeComplete={this._onRegionChangeComplete}
                     showsUserLocation
-                    followUserLocation>
-                        <MapView.Marker
+                    followUserLocation> 
+                <StatusBar
+                    backgroundColor="#E72B73"
+                    barStyle="default"
+                />
+                    <MapView.Marker
                         coordinate={this.state.latlng}
                         title={'Durango'}
                         description={'Consentimos a tu ropa para que ella te consienta a ti'}>
                             {/* <LogoContainer> */}
                                 <Logo source={require('../../assets/logokity.png')}/>
                             {/* </LogoContainer> */}
-                        </MapView.Marker>
+                    </MapView.Marker>
 
-                        {this.state.markers.map(marker => (
-                            <MapView.Marker
+                    {this.state.markers.map(marker => (
+                        <MapView.Marker
                             coordinate={marker.latlng}
                             title={marker.title}
                             description={marker.description}
                             pinColor={marker.pincolor}
                             draggable
-                            />
-                        ))}
-
-                        {this.state.latlngr.map(markerR => (
+                        />
+                    ))}
+                        
+                        {/* {this.state.latlngr.map(markerR => (
                             <MapView.Marker
                             coordinate={markerR.latlng}
                             draggable
                             />
-                        ))}
-                        <StatusBar
-                            backgroundColor="#E72B73"
-                            barStyle="default"
-                        />
+                        ))} */}
+                       
                 </MapView>
        );
     }
