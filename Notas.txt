@@ -1,6 +1,8 @@
 r.fuentes@itecor.onmicrosoft.com
 api/actions/HistoricalReducer/reducers/store/HistoricalScreen/...etc
 
+/*eslint no-console: "error"*/
+
 Run services
   run APIGraphQL: backend -> javascript: yarn start
   run App: frontend -> mobile: exp start
