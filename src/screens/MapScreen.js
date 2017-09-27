@@ -172,13 +172,13 @@ class MapScreen extends Component {
                     longitude: parseFloat(latlngsplit[1])
                 };
             }
-            console.log(`ID Pedido ${data[i].IDPEDIDO} lat: ${markersapi.latitude}, lng: ${markersapi.longitude}`);
+            // console.log(`ID Pedido ${data[i].IDPEDIDO} lat: ${markersapi.latitude}, lng: ${markersapi.longitude}`);
       
         }
             
         setTimeout(()=>{
             this.setState({latlngr: markersapi})
-            console.warn(this.state.latlngr);
+          // console.warn(this.state.latlngr);
             }, 10000);
     }
      
@@ -216,9 +216,8 @@ class MapScreen extends Component {
         // this.setState({latlngr:latlng})
         return (
                 <MapView style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH}}
-                    initialRegion={this.state.mapRegion}
+                    region={this.state.mapRegion}
                     onRegionChangeComplete={this._onRegionChangeComplete}
-                    showsUserLocation
                     followUserLocation> 
                 <StatusBar
                     backgroundColor="#E72B73"

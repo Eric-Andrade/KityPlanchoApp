@@ -5,20 +5,23 @@ import { Keyboard, Platform, StatusBar, Dimensions } from 'react-native';
 
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
+import AboutUsScreen from './screens/AboutUsScreen';
+import AuthenticationScreen from './screens/AuthenticationScreen';
 import HistoricalScreen from './screens/HistoricalScreen';
 import HOrderScreen from './screens/HOrderScreen';
+import InfoScreen from './screens/InfoScreen';
 import MeScreen from './screens/MeScreen';
-import OrdersClientScreen from './screens/OrdersClientScreen';
-import AuthenticationScreen from './screens/AuthenticationScreen';
 import MapScreen from './screens/MapScreen';
+import OrdersClientScreen from './screens/OrdersClientScreen';
+import ServicesPScreen from './screens/ServicesPScreen';
 import ServicesScreen from './screens/ServicesScreen';
-import AboutUsScreen from './screens/AboutUsScreen';
-import EmployeeHomeScreen from './screens/Employee.HomeScreen'
-import EmployeeOrderListScreen from './screens/Employee.OrdersListScreen';
-import EmployeeOrderDetailScreen from './screens/EmployeeOrderDetailScreen';
+// import EmployeeHomeScreen from './screens/Employee.HomeScreen'
+// import EmployeeOrderListScreen from './screens/Employee.OrdersListScreen';
+// import EmployeeOrderDetailScreen from './screens/EmployeeOrderDetailScreen';
 import HowScreen from './screens/HowScreen';
 
 const tabIcon = 27;
+const slideIcon = 25;
 const {width} = Dimensions.get('window');
 
 
@@ -43,14 +46,24 @@ const TNavigator = TabNavigator({
                 <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
             )
         })
+    },
+    HOrderScreen:{
+        screen: HOrderScreen,
+        navigationOptions:() =>({
+            title: 'Pedido',
+            headerTitle: 'Pedido',
+            tabBarIcon: ({ tintColor, focused }) =>( 
+                <MaterialIcons name={focused ? 'account-circle' : 'account-circle'} size={Platform.OS === 'ios' ? 24 : 24} style={{color: tintColor}}/>
+            )
+        })
     }
 },{
     lazy: true,
     tabBarPosition: 'bottom',
-    swipeEnabled: true,
+    swipeEnabled: false,
     animationEnabled: true,
     initialRouteName: 'Map',
-    backBehavior: 'none',
+    // backBehavior: 'none',
     tabBarOptions:{
         showIcon: true,
         showLabel: true,
@@ -76,36 +89,70 @@ const DNavigator = DrawerNavigator({
             title: 'Pedidos',
             drawerLabel: 'Pedidos',
             drawerIcon: ({ tintColor, focused }) => ( 
-                <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={Platform.OS === 'ios' ? 24 : 24} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
             )
         })
     }, 
-    Me:{
-        screen: MeScreen,
+    ServicesScreen:{
+        screen: ServicesScreen,
+        path: '/services',
+        navigationOptions:() =>({
+            title: 'Servicios',
+            drawerLabel: 'Servicios',
+            drawerIcon: ({ tintColor, focused }) => ( 
+                <Ionicons name={focused ? 'ios-basket' : 'ios-basket-outline'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
+            )
+        })
+    },
+    AuthenticationScreen:{
+        screen: AuthenticationScreen,
         path: '/me',
         navigationOptions:() =>({
             title: 'Mi cuenta',
             drawerLabel: 'Mi cuenta',
             drawerIcon: ({ tintColor, focused }) => ( 
-                <MaterialIcons name={focused ? 'account-circle' : 'account-circle'} size={Platform.OS === 'ios' ? 24 : 24} style={{color: tintColor}}/>
+                <EvilIcons name={focused ? 'user' : 'user'} size={Platform.OS === 'ios' ? 28 : 24} style={{color: tintColor}}/>
+            )
+        })
+    },
+    OrdersClientScreen:{
+        screen: OrdersClientScreen,
+        path: '/myorders',
+        navigationOptions:() =>({
+            title: 'Mis pedidos',
+            drawerLabel: 'Mis pedidos',
+            drawerIcon: ({ tintColor, focused }) => ( 
+                <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
             )
         })
     },
     How:{
         screen: HowScreen,
-        path: '/sent',
+        path: '/how',
         navigationOptions:() =>({
             title: 'Como funciona',
             drawerLabel: 'Como funciona',
             drawerIcon: ({ tintColor, focused }) => ( 
-                <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={Platform.OS === 'ios' ? 24 : 24} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
+            )
+        })
+    },
+    AboutUsScreen:{
+        screen: AboutUsScreen,
+        path: '/about',
+        navigationOptions:() =>({
+            title: 'Acerca de',
+            drawerLabel: 'Acerca de',
+            drawerIcon: ({ tintColor, focused }) => ( 
+                <MaterialCommunityIcons name={focused ? 'vector-union' : 'vector-union'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
             )
         })
     }
 },{
+    headerMode: 'none',
     initialRouteName: 'Orders',
     drawerPosition: 'left',
-    drawerWidth: 220,
+    drawerWidth: 215,
     useNativeAnimations: true,
     contentOptions:{
         activeTintColor: colors.WHITE,
@@ -116,13 +163,12 @@ const DNavigator = DrawerNavigator({
         fontWeight: '400',
         fontFamily: 'sspRegular'
     },
-    style: {
+    style:{
         marginVertical: 100,
         marginHorizontal: 0
       }},
     
 })
-
 
 const AuthenticationModal = StackNavigator({
     Authentication: {
@@ -147,6 +193,7 @@ const SNavigator = StackNavigator({
     Historical:{
         screen: DNavigator,
         navigationOptions: ({ navigation }) => ({
+            // header: null,
             headerRight: (
                 <ButtonHeader side="right" 
                 onPress={() => { navigation.navigate('Authentication')}}>
@@ -156,7 +203,7 @@ const SNavigator = StackNavigator({
             headerLeft: (
                 <ButtonHeader side="left" 
                 onPress={() => { navigation.navigate('DrawerOpen')}}>
-                    <Entypo name='dots-three-vertical' size={Platform.OS === 'ios' ? 22 : 25} color={colors.WHITE}/>
+                    <Entypo name={Platform.OS === 'ios' ? 'menu' : 'dots-three-vertical'} size={Platform.OS === 'ios' ? 22 : 25} color={colors.WHITE}/>
                 </ButtonHeader>
             )
         })
@@ -171,14 +218,10 @@ const SNavigator = StackNavigator({
 },{
     cardStyle: {        
         paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.PRIMARY,
         backgroundColor: colors.GRAY100
     },
     navigationOptions: () => ({
         headerStyle:{
-            borderBottomWidth: 1,
-            borderBottomColor: colors.PRIMARY,
             backgroundColor: colors.PRIMARY,
         },
         headerTitleStyle:{

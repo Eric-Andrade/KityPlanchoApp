@@ -122,7 +122,7 @@ class HowScreen extends Component {
                     <Separator />
                     <ItemContainer>
                         <ItemContainerIcon>
-                            <Entypo name="heart" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/> 
+                            <Ionicons name="md-heart" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/> 
                         </ItemContainerIcon>
                         <ItemContainerText>
                             <ItemText>Garantía KityPlancho</ItemText>
