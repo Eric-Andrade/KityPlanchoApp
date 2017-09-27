@@ -46,82 +46,82 @@ const Logo = styled.Image`
 
 class MapScreen extends Component {
     
-   constructor(props){
-       super(props)
-
-       this.state = { 
-        loading: false,
-        mapRegion: {
-            latitude: 0,
-            longitude: 0,
-            latitudeDelta: 0,
-            longitudeDelta: 0
-        },
-        markerPosition:{
-            latitude: 0,
-            longitude: 0
-        },
-        // region: {
-        //     latitude: 24.025112476834142,
-        //     longitude: -104.66076859577711,
-        //     latitudeDelta: 0.0698849341966401,
-        //     longitudeDelta: 0.047562460492812875
-        // },
-        kpsucursal: {
-            latitude: 24.025112476834142,
-            longitude: -104.66076859577711,
-        },
-        latlngr:[],
-        markers: [
-                {latlng: 
-                    {
-                    latitude: 24.02780775285771,
-                    longitude: -104.65332895517349
-                    }, 
-                title: 'Marcador 1', 
-                description: 'Descripción del marcador 1',
-                pincolor: colors.STATUSYELLOW},
-                {latlng: 
-                    {
-                    latitude: 24.02574090527505,
-                    longitude: -104.67300467638253
-                    }, 
-                title: 'Marcador 2', 
-                description: 'Descripción del marcador 2',
-                pincolor: colors.STATUSBLUELIGHT},
-                {latlng: 
-                    {
-                    latitude: 24.051403020219556,
-                    longitude: -104.64490753560555
-                    }, 
-                title: 'Marcador 4', 
-                description: 'Descripción del marcador 4',
-                pincolor: colors.STATUSYELLOW},
-                {latlng: 
-                    {
-                    latitude: 24.055258816581457,
-                    longitude: -104.66824845629891
-                    }, 
-                title: 'Marcador 3', 
-                description: 'Descripción del marcador 3',
-                pincolor: colors.STATUSBLUELIGHT},
-                {latlng: 
-                    {
-                    latitude: 23.995409497383967,
-                    longitude: -104.65303700092997
-                    }, 
-                title: 'Marcador 5', 
-                description: 'Descripción del marcador 5',
-                pincolor: colors.STATUSYELLOW}
-            ],
-     }
-   }
+    constructor(props){
+        super(props)
+        this.state = { 
+            loading: false,
+            mapRegion: {
+                latitude: 0,
+                longitude: 0,
+                latitudeDelta: 0,
+                longitudeDelta: 0
+            },
+            markerPosition:{
+                latitude: 0,
+                longitude: 0
+            },
+            // region: {
+            //     latitude: 24.025112476834142,
+            //     longitude: -104.66076859577711,
+            //     latitudeDelta: 0.0698849341966401,
+            //     longitudeDelta: 0.047562460492812875
+            // },
+            kpsucursal: {
+                latitude: 24.025112476834142,
+                longitude: -104.66076859577711,
+            },
+            latlngr:[],
+            markers: [
+                    {latlng: 
+                        {
+                        latitude: 24.02780775285771,
+                        longitude: -104.65332895517349
+                        }, 
+                    title: 'Marcador 1', 
+                    description: 'Descripción del marcador 1',
+                    pincolor: colors.STATUSYELLOW},
+                    {latlng: 
+                        {
+                        latitude: 24.02574090527505,
+                        longitude: -104.67300467638253
+                        }, 
+                    title: 'Marcador 2', 
+                    description: 'Descripción del marcador 2',
+                    pincolor: colors.STATUSBLUELIGHT},
+                    {latlng: 
+                        {
+                        latitude: 24.051403020219556,
+                        longitude: -104.64490753560555
+                        }, 
+                    title: 'Marcador 4', 
+                    description: 'Descripción del marcador 4',
+                    pincolor: colors.STATUSYELLOW},
+                    {latlng: 
+                        {
+                        latitude: 24.055258816581457,
+                        longitude: -104.66824845629891
+                        }, 
+                    title: 'Marcador 3', 
+                    description: 'Descripción del marcador 3',
+                    pincolor: colors.STATUSBLUELIGHT},
+                    {latlng: 
+                        {
+                        latitude: 23.995409497383967,
+                        longitude: -104.65303700092997
+                        }, 
+                    title: 'Marcador 5', 
+                    description: 'Descripción del marcador 5',
+                    pincolor: colors.STATUSYELLOW}
+                ],  
+        }
+    }
     watchID: ?number = null
     
-     componentDidMount (){
+    componentDidMount (){
          this.setState({loading: true});
          this.props.fetchALLPDPR();
 
+    // * set current position like view initial
          navigator.geolocation.getCurrentPosition((position) =>{
             const lat = parseFloat(position.coords.latitude) 
             const lng = parseFloat(position.coords.longitude)
@@ -134,10 +134,10 @@ class MapScreen extends Component {
             }
             this.setState({mapRegion: initialRegion})
             this.setState({markerPosition: initialRegion})
-            console.warn(this.state.mapRegion);
+            // console.warn(this.state.mapRegion);
           },
           (error) => alert(JSON.stringify(error)),
-          {enableHighAccuracy: true, timeout: 20000, maximumAge: 5000})
+          {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000})
 
           this.watchID = navigator.geolocation.watchPosition((position) => {
             const lat = parseFloat(position.coords.latitude) 
@@ -152,7 +152,35 @@ class MapScreen extends Component {
               this.setState({mapRegion: lastRegion})
               this.setState({markerPosition: lastRegion})
           })
-     }
+
+          const mymarkersapi = [
+            {latitude: 24.02780775285773,
+            longitude: -104.65332895517343},
+            {latitude: 24.02780775285772,
+            longitude: -104.65332895517342},
+            {latitude: 24.02780775285771,
+            longitude: -104.65332895517341}
+            ];
+        const data = this.props.allpdpr.data;    
+        let markersapi;
+        for (let i = 0; i < data.length; i++) {
+            const latlngR = data[i].COORDENADAS_R;
+            if (latlngR != null) {
+                const latlngsplit = latlngR.split(',',2);
+                markersapi = {
+                    latitude:  parseFloat(latlngsplit[0]),
+                    longitude: parseFloat(latlngsplit[1])
+                };
+            }
+            console.log(`ID Pedido ${data[i].IDPEDIDO} lat: ${markersapi.latitude}, lng: ${markersapi.longitude}`);
+      
+        }
+            
+        setTimeout(()=>{
+            this.setState({latlngr: markersapi})
+            console.warn(this.state.latlngr);
+            }, 10000);
+    }
      
     componentWillUnmount(){
         navigator.geolocation.clearWatch(this.watchID)
@@ -166,7 +194,6 @@ class MapScreen extends Component {
         // console.warn(`latitude: ${ region.latitude } longitude: ${ region.longitude }`);
     }
 
-    
     render() {
         const { 
             allpdpr: {
@@ -186,23 +213,10 @@ class MapScreen extends Component {
             )
         }
         
-        let latlng;
-        for (let i = 0; i < data.length; i++) {
-            const latlngR = data[i].COORDENADAS_R;
-            if (latlngR != null) {
-                const latlngsplit = latlngR.split(',',2);
-                latlng = {
-                    latitude:  parseFloat(latlngsplit[0]),
-                    longitude: parseFloat(latlngsplit[1])
-                };
-            }
-            // console.log(`ID Pedido ${data[i].IDPEDIDO} lat: ${latlng.latitude}, lng: ${latlng.longitude}`);
-        }
-        console.log(`state array markers: ${this.state.markers}`);
         // this.setState({latlngr:latlng})
         return (
                 <MapView style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH}}
-                    region={this.state.mapRegion}
+                    initialRegion={this.state.mapRegion}
                     onRegionChangeComplete={this._onRegionChangeComplete}
                     showsUserLocation
                     followUserLocation> 
@@ -218,6 +232,14 @@ class MapScreen extends Component {
                                 <Logo source={require('../../assets/rutero.png')}/>
                             {/* </LogoContainer> */}
                     </MapView.Marker>
+
+                    {/* {this.state.latlngr.map((marker, i) => (
+                        <MapView.Marker
+                            key={i}
+                            coordinate={marker}
+                            
+                        />
+                    ))} */}
 
                     {this.state.markers.map((marker, i) => (
                         <MapView.Marker

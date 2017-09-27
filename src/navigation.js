@@ -21,62 +21,34 @@ import HowScreen from './screens/HowScreen';
 const tabIcon = 27;
 
 const TNavigator = TabNavigator({
-    Historical:{
-        screen: HistoricalScreen,
-        navigationOptions:() =>({
-            title: 'Pedidos',
-            headerTitle: 'Pedidos',
-            tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
-            )
-        })
-    },
-    Services:{
-        screen: OrdersClientScreen,
-        navigationOptions:() =>({
-            title: 'Mis pedidos',
-            headerTitle: 'OrdersClientScreen',
-            tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
-            )
-        })
-    },
-    Perfil:{
-        screen: HOrderScreen,
-        navigationOptions:() =>({
-            title: 'Mi cuenta',
-            headerTitle: 'HOrderScreen',
-            tabBarIcon: ({ tintColor, focused }) =>( 
-                <MaterialCommunityIcons name={focused ? 'account' : 'account-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
-            )
-        })
-    },
     Map:{
         screen: MapScreen, 
         navigationOptions:() =>({
             title: 'Mapa',
-            header: null,
+            // header: null,
+            headerTitle: 'Mapa',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
         })
     },
-    How:{
-        screen: HowScreen,
+    Cards:{
+        screen: HistoricalScreen,
         navigationOptions:() =>({
-            title: 'Cómo funciona',
-            headerTitle: '¿Cómo funciona...?',
+            title: 'Tarjetas',
+            headerTitle: 'Tarjetas',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
             )
         })
     }
 },{
     lazy: true,
     tabBarPosition: 'bottom',
-    swipeEnabled: false,
-    animationEnabled: false,
-    initialRouteName: 'Historical',
+    swipeEnabled: true,
+    animationEnabled: true,
+    initialRouteName: 'Map',
+    backBehavior: 'none',
     tabBarOptions:{
         showIcon: true,
         showLabel: true,
