@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
-import { Ionicons, EvilIcons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Keyboard, Platform, StatusBar } from 'react-native';
+import { addNavigationHelpers, StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
+import { Ionicons, EvilIcons, MaterialIcons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
+import { Keyboard, Platform, StatusBar, Dimensions } from 'react-native';
 
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
@@ -19,6 +19,8 @@ import EmployeeOrderDetailScreen from './screens/EmployeeOrderDetailScreen';
 import HowScreen from './screens/HowScreen';
 
 const tabIcon = 27;
+const {width} = Dimensions.get('window');
+
 
 const TNavigator = TabNavigator({
     Map:{
@@ -27,7 +29,7 @@ const TNavigator = TabNavigator({
             title: 'Mapa',
             // header: null,
             headerTitle: 'Mapa',
-            tabBarIcon: ({ tintColor, focused }) =>( 
+            tabBarIcon: ({ tintColor, focused }) => ( 
                 <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
         })
@@ -35,8 +37,8 @@ const TNavigator = TabNavigator({
     Cards:{
         screen: HistoricalScreen,
         navigationOptions:() =>({
-            title: 'Tarjetas',
-            headerTitle: 'Tarjetas',
+            title: 'Listado',
+            headerTitle: 'Listado',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
             )
@@ -66,6 +68,62 @@ const TNavigator = TabNavigator({
     }
 });
 
+const DNavigator = DrawerNavigator({
+    Orders:{
+        screen: TNavigator,
+        path: '/',
+        navigationOptions:() =>({
+            title: 'Pedidos',
+            drawerLabel: 'Pedidos',
+            drawerIcon: ({ tintColor, focused }) => ( 
+                <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={Platform.OS === 'ios' ? 24 : 24} style={{color: tintColor}}/>
+            )
+        })
+    }, 
+    Me:{
+        screen: MeScreen,
+        path: '/me',
+        navigationOptions:() =>({
+            title: 'Mi cuenta',
+            drawerLabel: 'Mi cuenta',
+            drawerIcon: ({ tintColor, focused }) => ( 
+                <MaterialIcons name={focused ? 'account-circle' : 'account-circle'} size={Platform.OS === 'ios' ? 24 : 24} style={{color: tintColor}}/>
+            )
+        })
+    },
+    How:{
+        screen: HowScreen,
+        path: '/sent',
+        navigationOptions:() =>({
+            title: 'Como funciona',
+            drawerLabel: 'Como funciona',
+            drawerIcon: ({ tintColor, focused }) => ( 
+                <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={Platform.OS === 'ios' ? 24 : 24} style={{color: tintColor}}/>
+            )
+        })
+    }
+},{
+    initialRouteName: 'Orders',
+    drawerPosition: 'left',
+    drawerWidth: 220,
+    useNativeAnimations: true,
+    contentOptions:{
+        activeTintColor: colors.WHITE,
+        activeBackgroundColor: colors.PRIMARY,
+        inactiveTintColor: colors.GRAY600,
+    labelStyle:{
+        fontSize: 16,
+        fontWeight: '400',
+        fontFamily: 'sspRegular'
+    },
+    style: {
+        marginVertical: 100,
+        marginHorizontal: 0
+      }},
+    
+})
+
+
 const AuthenticationModal = StackNavigator({
     Authentication: {
         screen: AuthenticationScreen,
@@ -87,7 +145,7 @@ const AuthenticationModal = StackNavigator({
 
 const SNavigator = StackNavigator({
     Historical:{
-        screen: TNavigator,
+        screen: DNavigator,
         navigationOptions: ({ navigation }) => ({
             headerRight: (
                 <ButtonHeader side="right" 
@@ -95,7 +153,12 @@ const SNavigator = StackNavigator({
                     <MaterialCommunityIcons name='plus' size={Platform.OS === 'ios' ? tabIcon : 25} color={colors.WHITE}/>
                 </ButtonHeader>
             ),
-            headerLeft: (null)
+            headerLeft: (
+                <ButtonHeader side="left" 
+                onPress={() => { navigation.navigate('DrawerOpen')}}>
+                    <Entypo name='dots-three-vertical' size={Platform.OS === 'ios' ? 22 : 25} color={colors.WHITE}/>
+                </ButtonHeader>
+            )
         })
     },
     Authentication:{
