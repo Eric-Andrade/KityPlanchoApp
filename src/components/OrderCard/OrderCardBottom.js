@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../../util/constants'
+import HOrderScreen from '../../../../../../../../../wamp/www/Itecor/kityplancho/kityplancho-app/src/screens/HOrderScreen';
 
 const sizeStatus = 10;
 const radiusStatus = sizeStatus / 2;
@@ -50,7 +51,7 @@ const Status = styled.View`
 
 function OrderCardBottom({ CNOMBRE, CAPELLIDOS, PSTATUS }){
     let STATUSCOLOR;
-
+    
     switch (PSTATUS) {
         case 'cotizando':
             STATUSCOLOR = `${colors.GRAY600}`
@@ -77,10 +78,10 @@ function OrderCardBottom({ CNOMBRE, CAPELLIDOS, PSTATUS }){
             STATUSCOLOR = `${colors.GRAY600}`
             break;
     }
-
+    
     return(
         <Root>
-            <NameContainer>
+            <NameContainer >
                 <ClientText>
                     {CNOMBRE || null} {CAPELLIDOS || null}
                 </ClientText>

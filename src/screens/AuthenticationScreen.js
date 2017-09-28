@@ -197,6 +197,7 @@ class AuthenticationScreen extends Component {
     }
 
     render() {
+        const { goBack } = this.props.navigation;
         if (this.state.showSignup) {
             return(
                 <Root>
@@ -214,7 +215,7 @@ class AuthenticationScreen extends Component {
         return (
             <Root onPress={this._onOutSidePress}>
                 <RootContainer>
-                    <BackButton>
+                    <BackButton onPress={() => goBack(null)}>
                         <Entypo name="chevron-thin-down" size={27} color={colors.WHITE}/>
                     </BackButton>
                     <BackImage style={{width: null, height: null}}

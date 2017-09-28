@@ -17,12 +17,15 @@ const T = styled.Text`
     textAlign: left;
 `;
 const OrderContainer = styled.View`
-    flex: 0.35;
+    flex: 0.31;
 `;
 const MapContainer = styled.View`
     flex: 1;
 `;
-const Title = styled.View`
+const Title = styled(Touchable).attrs({
+    feedback: 'opacity',
+    hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
+})`
     alignItems: center;
     padding: 10px;
     width: 100%;
@@ -39,12 +42,6 @@ const TitleText = styled.Text`
     fontSize: 18;
     fontFamily: sspRegular
 `;
-const Touch = styled(Touchable).attrs({
-    feedback: 'opacity',
-    hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
-})`
-    alignItems: center
-`;
 
 @connect(state => ({
     onepdpr: state.oneOrder.onepdpr
@@ -52,6 +49,9 @@ const Touch = styled(Touchable).attrs({
     { fetchONEPDPR })
 
 class HOrderScreen extends Component {
+    static navigationOptions = ({navigation}) => ({
+        title: navigation.state.params.name,
+      });
     state = { 
         loading: false,
         region: {

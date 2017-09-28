@@ -7,6 +7,7 @@ import { colors } from '../util/constants';
 import OrderCard from '../components/OrderCard/OrderCard'
 import { LoadingScreen } from '../commons/LoadingScreen'
 import { fetchALLPDPR } from './redux/actions'
+import HOrderScreen from '../../../../../../../../wamp/www/Itecor/kityplancho/kityplancho-app/src/screens/HOrderScreen';
 
 const Root = styled.View`
     flex: 1;
@@ -36,6 +37,7 @@ class HistoricalScreen extends Component {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
         const { 
             allpdpr: {
                 isFetched,
@@ -63,8 +65,10 @@ class HistoricalScreen extends Component {
                     data={data}
                     renderItem={
                         ({item: allpdpr}) => (
-                            <Touch>
-                                <OrderCard allpdpr={allpdpr} />
+                            <Touch onPress={() =>
+                            navigate('HOrderScreen', { name: `Detalles de pedido ${allpdpr.IDPEDIDO}`})}
+                            >
+                                <OrderCard allpdpr={allpdpr}/>
                             </Touch>
                         )
                     }

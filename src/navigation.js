@@ -47,21 +47,21 @@ const TNavigator = TabNavigator({
             )
         })
     },
-    HOrderScreen:{
-        screen: HOrderScreen,
-        navigationOptions:() =>({
-            title: 'Pedido',
-            headerTitle: 'Pedido',
-            tabBarIcon: ({ tintColor, focused }) =>( 
-                <MaterialIcons name={focused ? 'account-circle' : 'account-circle'} size={Platform.OS === 'ios' ? 24 : 24} style={{color: tintColor}}/>
-            )
-        })
-    }
+    // HOrderScreen:{
+    //     screen: HOrderScreen,
+    //     navigationOptions:() =>({
+    //         title: 'Pedido',
+    //         headerTitle: 'Pedido',
+    //         tabBarIcon: ({ tintColor, focused }) =>( 
+    //             <MaterialIcons name={focused ? 'account-circle' : 'account-circle'} size={Platform.OS === 'ios' ? 24 : 24} style={{color: tintColor}}/>
+    //         )
+    //     })
+    // }
 },{
     lazy: true,
     tabBarPosition: 'bottom',
     swipeEnabled: false,
-    animationEnabled: true,
+    // animationEnabled: true,
     initialRouteName: 'Map',
     // backBehavior: 'none',
     tabBarOptions:{
@@ -173,20 +173,17 @@ const DNavigator = DrawerNavigator({
 const AuthenticationModal = StackNavigator({
     Authentication: {
         screen: AuthenticationScreen,
-        navigationOptions: ({ navigation }) => ({
-            headerRight: (
-                <ButtonHeader side="right" onPress={() => {
-                    Keyboard.dismiss();
-                    navigation.goBack(null)
-                    }}>
-                    <EvilIcons name="close" size={30} color={colors.WHITE}/>
-                </ButtonHeader>
-            ),
+        navigationOptions: () => ({
+            headerRight: null,
             headerLeft: null
         })
     }
 },
-    { headerMode: 'none'}
+    { 
+        headerMode: 'none',
+        gesturesEnabled: true,
+        mode: 'modal'
+    }
 );
 
 const SNavigator = StackNavigator({
@@ -211,10 +208,45 @@ const SNavigator = StackNavigator({
     Authentication:{
         screen: AuthenticationModal,
         navigationOptions:() => ({
-            title: 'Ingresar',
             header: null
         })
-    }
+    },
+    HOrderScreen:{
+        screen: HOrderScreen,
+        navigationOptions: ({ navigation }) => ({
+            headerRight: null,
+            headerLeft: (
+            <ButtonHeader side="left" onPress={() => {
+                Keyboard.dismiss();
+                navigation.goBack(null)
+                }}>
+                <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 25 : null} color={colors.WHITE}/>
+            </ButtonHeader>
+            )
+        })
+    },
+    OrdersClientScreen:{
+        screen: OrdersClientScreen,
+        navigationOptions: ({ navigation }) => ({
+            headerRight: null,
+            headerLeft: (
+            <ButtonHeader side="right" onPress={() => {
+                Keyboard.dismiss();
+                navigation.goBack(null)
+                }}>
+                <EvilIcons name="close" size={30} color={colors.WHITE}/>
+            </ButtonHeader>
+            )
+        })
+    },
+    InfoScreen:{
+        screen: InfoScreen,
+        navigationOptions: () => ({
+            headerRight: null,
+            headerLeft: null
+        })
+    },
+
 },{
     cardStyle: {        
         paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
@@ -232,7 +264,6 @@ const SNavigator = StackNavigator({
         }
     }),
     gesturesEnabled: true,
-    mode: 'modal',
 })
 
 class AppNavigator extends Component {

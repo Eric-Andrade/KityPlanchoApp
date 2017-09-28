@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
-import { Platform } from 'react-native';
+import { ScrollView, Platform} from 'react-native';
 import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
@@ -74,6 +73,7 @@ const ArrowContainer = styled(Touchable).attrs({
 class HowScreen extends Component {
     state = {  }
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <Root>
                 {/* <LogoContainer>
@@ -84,7 +84,9 @@ class HowScreen extends Component {
                 </Title>
                 <ScrollView>
                 <ListContainer>
-                    <ItemContainer>
+                    <ItemContainer onPress={() =>
+                            navigate('InfoScreen', { name: ``})}
+                            >
                         <ItemContainerIcon>
                             <Entypo name="emoji-happy" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/>
                         </ItemContainerIcon>
@@ -96,7 +98,9 @@ class HowScreen extends Component {
                         </ArrowContainer>
                     </ItemContainer>
                     <Separator />
-                    <ItemContainer>
+                    <ItemContainer onPress={() =>
+                            navigate('InfoScreen', { name: ``})}
+                            >
                         <ItemContainerIcon>
                             <Ionicons name="md-time" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/>
                         </ItemContainerIcon>
@@ -108,7 +112,9 @@ class HowScreen extends Component {
                         </ArrowContainer>
                     </ItemContainer>
                     <Separator />
-                    <ItemContainer>
+                    <ItemContainer onPress={() =>
+                            navigate('InfoScreen', { name: ``})}
+                            >
                         <ItemContainerIcon>
                             <MaterialCommunityIcons name="map-marker-radius" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/> 
                         </ItemContainerIcon>
@@ -120,7 +126,9 @@ class HowScreen extends Component {
                         </ArrowContainer>
                     </ItemContainer>
                     <Separator />
-                    <ItemContainer>
+                    <ItemContainer onPress={() =>
+                            navigate('InfoScreen', { name: ``})}
+                            >
                         <ItemContainerIcon>
                             <Ionicons name="md-heart" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/> 
                         </ItemContainerIcon>
@@ -132,7 +140,9 @@ class HowScreen extends Component {
                         </ArrowContainer>
                     </ItemContainer>
                     <Separator />
-                    <ItemContainer>
+                    <ItemContainer onPress={() =>
+                            navigate('InfoScreen', { name: ``})}
+                            >
                         <ItemContainerIcon>
                             <Ionicons name="md-contacts" size={Platform.OS === 'ios' ? tabIcon : 23} color={colors.PRIMARY}/> 
                         </ItemContainerIcon>
