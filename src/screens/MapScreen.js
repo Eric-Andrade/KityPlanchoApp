@@ -4,6 +4,7 @@ import { StatusBar, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import { MapView, Location, Permissions } from 'expo';
+import Polyline from '@mapbox/polyline'
 import { LoadingScreen } from '../commons/LoadingScreen';
 import { colors } from '../util/constants';
 import { fetchALLPDPR } from './redux/actions'
@@ -93,16 +94,16 @@ class MapScreen extends Component {
                         latitude: 24.051403020219556,
                         longitude: -104.64490753560555
                         }, 
-                    title: 'Marcador 4', 
-                    description: 'Descripción del marcador 4',
+                    title: 'Marcador 3', 
+                    description: 'Descripción del marcador 3',
                     pincolor: colors.STATUSYELLOW},
                     {latlng: 
                         {
                         latitude: 24.055258816581457,
                         longitude: -104.66824845629891
                         }, 
-                    title: 'Marcador 3', 
-                    description: 'Descripción del marcador 3',
+                    title: 'Marcador 4', 
+                    description: 'Descripción del marcador 4',
                     pincolor: colors.STATUSBLUELIGHT},
                     {latlng: 
                         {
@@ -120,7 +121,14 @@ class MapScreen extends Component {
     componentDidMount (){
          this.setState({loading: true});
          this.props.fetchALLPDPR();
+         const mymarkersapi = [
+            {latitude: 24.02574090527505,
+            longitude: -104.67300467638253},
+            {latitude: 24.02780775285771,
+            longitude: -104.65332895517349}
+            ];
 
+        
     // * set current position like view initial
          navigator.geolocation.getCurrentPosition((position) =>{
             const lat = parseFloat(position.coords.latitude) 
@@ -133,8 +141,10 @@ class MapScreen extends Component {
               longitudeDelta: LNGDELTA
             }
             this.setState({mapRegion: initialRegion})
-            this.setState({markerPosition: initialRegion})
-            // console.warn(this.state.mapRegion);
+            this.setState({markerPosition: initialRegion})     
+            
+            //* set values route (current location with a marker)
+            this.getDirections(`${lat},${lng}`,`${this.state.markers[2].latlng.latitude},${this.state.markers[2].latlng.longitude}`)
           },
           (error) => alert(JSON.stringify(error)),
           {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000})
@@ -153,14 +163,8 @@ class MapScreen extends Component {
               this.setState({markerPosition: lastRegion})
           })
 
-          const mymarkersapi = [
-            {latitude: 24.02780775285773,
-            longitude: -104.65332895517343},
-            {latitude: 24.02780775285772,
-            longitude: -104.65332895517342},
-            {latitude: 24.02780775285771,
-            longitude: -104.65332895517341}
-            ];
+          
+
         const data = this.props.allpdpr.data;    
         let markersapi;
         for (let i = 0; i < data.length; i++) {
@@ -184,6 +188,22 @@ class MapScreen extends Component {
      
     componentWillUnmount(){
         navigator.geolocation.clearWatch(this.watchID)
+    }
+
+    async getDirections(startLoc, destinationLoc) {
+        try {
+            const resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
+            const respJson = await resp.json();
+            const points = Polyline.decode(respJson.routes[0].overview_polyline.points);
+            const coords = points.map((point, index) => ({
+                    latitude : point[0],
+                    longitude : point[1]
+                }))
+            this.setState({coords})
+            return coords
+        } catch(error) {
+            return error
+        }
     }
 
     _onRegionChangeComplete = (region) =>{ 
@@ -216,7 +236,7 @@ class MapScreen extends Component {
         // this.setState({latlngr:latlng})
         return (
                 <MapView style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH}}
-                    region={this.state.mapRegion}
+                    initialRegion={this.state.mapRegion}
                     onRegionChangeComplete={this._onRegionChangeComplete}
                     followUserLocation> 
                 <StatusBar
@@ -250,6 +270,11 @@ class MapScreen extends Component {
                             draggable
                         />
                     ))}
+
+                    <MapView.Polyline 
+                                coordinates={this.state.coords}
+                                strokeWidth={3}
+                                strokeColor={colors.SECUNDARY}/>
                         
                         {/* {this.state.latlngr.map(markerR => (
                             <MapView.Marker

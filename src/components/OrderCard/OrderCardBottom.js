@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
-import { colors } from '../../util/constants'
-import HOrderScreen from '../../../../../../../../../wamp/www/Itecor/kityplancho/kityplancho-app/src/screens/HOrderScreen';
+import { colors } from '../../util/constants';
 
 const sizeStatus = 10;
 const radiusStatus = sizeStatus / 2;

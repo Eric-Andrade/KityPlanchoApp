@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
+import Polyline from '@mapbox/polyline'
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
 import OrderCard from '../components/OrderCard/OrderCard'
@@ -49,22 +50,74 @@ const TitleText = styled.Text`
     { fetchONEPDPR })
 
 class HOrderScreen extends Component {
+
     static navigationOptions = ({navigation}) => ({
         title: navigation.state.params.name,
       });
-    state = { 
-        loading: false,
-        region: {
-            latitude: 24.02725253393618,
-            longitude:  -104.67266356446854,
-            latitudeDelta: 0.006446834062519002,
-            longitudeDelta: 0.006199840871872198,
+
+      constructor(props) {
+        super(props)
+        this.state = {
+            loading: false,
+            region: {
+                latitude: 24.02725253393618,
+                longitude:  -104.67266356446854,
+                latitudeDelta: 0.006446834062519002,
+                longitudeDelta: 0.006199840871872198,
+            },
+            coords: []
         }
-     }
+      }
         
         componentDidMount(){
             this.props.fetchONEPDPR();
             this.setState({loading: true})
+            
+            navigator.geolocation.getCurrentPosition((position) =>{
+                const lat = parseFloat(position.coords.latitude) 
+                const lng = parseFloat(position.coords.longitude)    
+                const { 
+                onepdpr: {
+                        data
+                        }
+                } = this.props; 
+                //* set values route (current location with the marker)
+                // this.getDirections(`${lat},${lng}`,`"24.027675,-104.6708929"`)
+                //TODO: Obtener ruta de ubicación hacia coordenada r/e del pedido
+                this.getDirections(`${lat},${lng}`,`${data.COORDENADAS_R}`)
+              },
+              (error) => alert(JSON.stringify(error)),
+              {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000})
+    
+              this.watchID = navigator.geolocation.watchPosition((position) => {
+                const lat = parseFloat(position.coords.latitude) 
+                const lng = parseFloat(position.coords.longitude)
+    
+                const lastRegion = {
+                    latitude: lat,
+                    longitude: lng,
+                    latitudeDelta: 0.006446834062519002,
+                    longitudeDelta: 0.006199840871872198
+                  }
+                  this.setState({mapRegion: lastRegion})
+                  this.setState({markerPosition: lastRegion})
+              })
+        }
+
+        async getDirections(startLoc, destinationLoc) {
+            try {
+                const resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
+                const respJson = await resp.json();
+                const points = Polyline.decode(respJson.routes[0].overview_polyline.points);
+                const coords = points.map((point, index) => ({
+                        latitude : point[0],
+                        longitude : point[1]
+                    }))
+                this.setState({coords})
+                return coords
+            } catch(error) {
+                return error
+            }
         }
 
         _onRegionChangeComplete = (region) =>{
@@ -104,13 +157,6 @@ class HOrderScreen extends Component {
                 latitude: parseFloat(latlngEsplit[0]),
                 longitude: parseFloat(latlngEsplit[1])
             };
-            const regionInitial ={
-                latitude: latlng2.latitude,
-                longitude:  latlng2.longitude,
-                latitudeDelta: 0.006446834062519002,
-                longitudeDelta: 0.006199840871872198
-            }
-            // this.setState({region: regionInitial})
 
             return (
                 <Root>
@@ -122,7 +168,12 @@ class HOrderScreen extends Component {
                     </Title>
                     <MapContainer>
                         <MapView style={{ flex: 1 }} 
-                        initialRegion={this.state.region}
+                        initialRegion={{
+                            latitude: data.PSTATUS === 'en_camino' ? latlng1.latitude : latlng2.latitude ,
+                            longitude:  data.PSTATUS === 'en_camino' ? latlng1.longitude : latlng2.longitude,
+                            latitudeDelta: 0.006446834062519002,
+                            longitudeDelta: 0.006199840871872198
+                        }}
                         onRegionChangeComplete={this._onRegionChangeComplete}
                         showsUserLocation
                         followUserLocation>
@@ -140,6 +191,11 @@ class HOrderScreen extends Component {
                                 description={`${data.PDIRECCION_E}`}
                                 pinColor={colors.STATUSBLUELIGHT}
                             />
+
+                            <MapView.Polyline 
+                                coordinates={this.state.coords}
+                                strokeWidth={3}
+                                strokeColor={colors.SECUNDARY}/>
                         </MapView>
                     </MapContainer>
                 </Root>

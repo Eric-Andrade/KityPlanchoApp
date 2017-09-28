@@ -3,6 +3,7 @@ export const URL = 'http://itecordurango.com/subdominios/api_kityplancho/api/';
 export const colors = {
   PRIMARY: '#E72B73',
   PRIMARYRGBA: 'rgba(231, 43, 115, 0.5)',
+  SECUNDARY: '#6FCCF1',
   PINK200: '#fec0da',
   PINK800: '#e91e63',
   WHITE: '#FFFFFF',

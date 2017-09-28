@@ -63,7 +63,7 @@ const DisccountText = styled.Text`
 `;
 
 
-function OrderCard({allpdpr}){
+function OrderCard({allpdpr} ){
 
 return(
         <Root>
@@ -88,7 +88,7 @@ return(
                     </Display>
                 </CardContentContainer>
             </CardContainer>
-            <OrderCardBottom {...allpdpr}/>
+            <OrderCardBottom {...allpdpr} />
         </Root>
     )
 }

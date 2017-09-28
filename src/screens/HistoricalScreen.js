@@ -4,10 +4,9 @@ import { FlatList, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
-import OrderCard from '../components/OrderCard/OrderCard'
-import { LoadingScreen } from '../commons/LoadingScreen'
-import { fetchALLPDPR } from './redux/actions'
-import HOrderScreen from '../../../../../../../../wamp/www/Itecor/kityplancho/kityplancho-app/src/screens/HOrderScreen';
+import OrderCard from '../components/OrderCard/OrderCard';
+import { LoadingScreen } from '../commons/LoadingScreen';
+import { fetchALLPDPR } from './redux/actions';
 
 const Root = styled.View`
     flex: 1;
@@ -36,8 +35,15 @@ class HistoricalScreen extends Component {
         this.props.fetchALLPDPR();
     }
 
+    _onOrdersClient = () => {
+        const { navigate } = this.props.navigation;        
+        navigate('OrdersClientScreen', { name: 'Myname'})
+    };
+
     render() {
+        
         const { navigate } = this.props.navigation;
+        
         const { 
             allpdpr: {
                 isFetched,
@@ -66,9 +72,9 @@ class HistoricalScreen extends Component {
                     renderItem={
                         ({item: allpdpr}) => (
                             <Touch onPress={() =>
-                            navigate('HOrderScreen', { name: `Detalles de pedido ${allpdpr.IDPEDIDO}`})}
+                            navigate('HOrderScreen', { name: `Detalles de pedido`})}
                             >
-                                <OrderCard allpdpr={allpdpr}/>
+                                <OrderCard allpdpr={(allpdpr)}/>
                             </Touch>
                         )
                     }
