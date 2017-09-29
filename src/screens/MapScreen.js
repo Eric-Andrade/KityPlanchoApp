@@ -4,7 +4,7 @@ import { StatusBar, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import { MapView, Location, Permissions } from 'expo';
-import Polyline from '@mapbox/polyline'
+import Polyline from '@mapbox/polyline';
 import { LoadingScreen } from '../commons/LoadingScreen';
 import { colors } from '../util/constants';
 import { fetchALLPDPR } from './redux/actions'
@@ -116,19 +116,12 @@ class MapScreen extends Component {
                 ],  
         }
     }
-    watchID: ?number = null
+    watchID: ?number = null;
     
     componentDidMount (){
          this.setState({loading: true});
          this.props.fetchALLPDPR();
-         const mymarkersapi = [
-            {latitude: 24.02574090527505,
-            longitude: -104.67300467638253},
-            {latitude: 24.02780775285771,
-            longitude: -104.65332895517349}
-            ];
 
-        
     // * set current position like view initial
          navigator.geolocation.getCurrentPosition((position) =>{
             const lat = parseFloat(position.coords.latitude) 
@@ -144,7 +137,7 @@ class MapScreen extends Component {
             this.setState({markerPosition: initialRegion})     
             
             //* set values route (current location with a marker)
-            this.getDirections(`${lat},${lng}`,`${this.state.markers[2].latlng.latitude},${this.state.markers[2].latlng.longitude}`)
+            this.getDirections(`${lat},${lng}`,`${this.state.markers[4].latlng.latitude},${this.state.markers[4].latlng.longitude}`)
           },
           (error) => alert(JSON.stringify(error)),
           {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000})
