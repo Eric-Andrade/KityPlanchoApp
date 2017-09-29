@@ -3,7 +3,7 @@ import { StatusBar, Dimensions } from 'react-native';
 // import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-import { MapView, Location, Permissions } from 'expo';
+import { MapView } from 'expo';
 import Polyline from '@mapbox/polyline';
 import { LoadingScreen } from '../commons/LoadingScreen';
 import { colors } from '../util/constants';

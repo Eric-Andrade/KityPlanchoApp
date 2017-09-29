@@ -130,8 +130,8 @@ const DNavigator = DrawerNavigator({
         screen: HowScreen,
         path: '/how',
         navigationOptions:() =>({
-            title: 'Como funciona',
-            drawerLabel: 'Como funciona',
+            title: 'Cómo funciona',
+            drawerLabel: 'Cómo funciona',
             drawerIcon: ({ tintColor, focused }) => ( 
                 <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
             )
@@ -241,9 +241,16 @@ const SNavigator = StackNavigator({
     },
     InfoScreen:{
         screen: InfoScreen,
-        navigationOptions: () => ({
+        navigationOptions: ({ navigation }) => ({
             headerRight: null,
-            headerLeft: null
+            headerLeft: (
+                <ButtonHeader side="left" onPress={() => {
+                    Keyboard.dismiss();
+                    navigation.goBack(null)
+                    }}>
+                    <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 25 : null} color={colors.WHITE}/>
+                </ButtonHeader>
+            )
         })
     },
 

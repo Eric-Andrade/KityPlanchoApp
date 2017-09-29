@@ -9,47 +9,43 @@ const Root = styled(Touchable).attrs({
     feedback: 'none'
 })`
     flex: 1;
+    marginVertical: 30;
+    marginHorizontal: 25;
+   
 `
-const Title = styled.View`
-    alignItems: center;
-    padding: 10px;
+const InfoContainer = styled.View`
+    flex: 1;
     width: 100%;
-    backgroundColor: ${props => props.theme.WHITE};
-    shadowColor: ${props => props.theme.GRAY777};
-    shadowOffset: 0px 2px;
-    shadowRadius: 2;
-    shadowOpacity: 0.1;
-    elevation: 2;
-`;
-const TitleText = styled.Text`
-    color: ${colors.PINK800};
-    fontSize: 18;
-    fontFamily: sspRegular
+    alignItems: center;
+    justifyContent: center;
+     backgroundColor: ${props => props.theme.PRIMARY};
 `;
 const ItemText = styled.Text`
     color: ${colors.GRAY600};
-    fontSize: ${Platform.OS === 'ios' ? 15 : 13};
+    fontSize: ${Platform.OS === 'ios' ? 16 : 13};
     fontWeight: ${Platform.OS === 'ios' ? 400 : 300 };
+    textAlign: justify
 `;
 
-class HowScreen extends Component {state = {  }
+class InfoScreen extends Component {
+    static navigationOptions = ({navigation}) => ({
+        title: navigation.state.params.name
+      });
+
     render() {
+        const { params } = this.props.navigation.state;
         return (
-            <Root>
-                {/* <LogoContainer>
-                    <Logo source={require('../../assets/logokity.png')}/>
-                </LogoContainer> */}
-                <Title>
-                    <TitleText>KityPlancho Ayuda</TitleText>
-                </Title>
-                <ScrollView>
-                    <ItemText>
-                        Holo
-                    </ItemText>
-                </ScrollView>
-            </Root>
+            <ScrollView>
+                <Root>
+                    <InfoContainer>
+                        <ItemText>
+                            {params.text}
+                        </ItemText>
+                    </InfoContainer>
+                </Root>
+            </ScrollView>
         );
     }
 }
 
-export default HowScreen;
+export default InfoScreen;
