@@ -43,20 +43,21 @@ const TNavigator = TabNavigator({
             title: 'Listado',
             headerTitle: 'Listado',
             tabBarIcon: ({ tintColor, focused }) =>( 
+                // TODO: Obtener la suma de los pedidos pendientes de la API
                 <IconBadge style={{right: 30}}
                     MainElement={
                         <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
                     }
-                    BadgeElement={<Text style={{ color: focused ? colors.PRIMARY : colors.WHITE, fontSize: 12 }}>{Badgecontador}</Text>}
+                    BadgeElement={<Text style={{ color: focused ? colors.WHITE : colors.WHITE , fontSize: 12 }}>{Badgecontador}</Text>}
                     IconBadgeStyle={
                         {
                         width: 20,
                         height: 20,
                         left: 12,
                         bottom: 10,
-                        backgroundColor: focused ? colors.WHITE : colors.PRIMARY,
+                        backgroundColor: focused ? colors.PRIMARY : colors.PRIMARY,
                         borderWidth: 1,
-                        borderColor: focused ? colors.PRIMARY : colors.WHITE,
+                        borderColor: focused ?  colors.WHITE : colors.PRIMARY,
                         }
                         }
                     Hidden={Badgecontador === 0}
@@ -84,8 +85,8 @@ const TNavigator = TabNavigator({
     tabBarOptions:{
         showIcon: true,
         showLabel: true,
-        activeTintColor: colors.PRIMARY,
-        inactiveTintColor: colors.GRAY600,
+        activeTintColor: colors.GRAY777,
+        inactiveTintColor: colors.GRAY777,
         pressColor: colors.PRIMARY,
         indicatorStyle: { backgroundColor: colors.PRIMARY },
         style:{

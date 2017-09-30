@@ -61,7 +61,7 @@ class HOrderScreen extends Component {
       
     constructor(props){
         super(props)
-        const { onepdpr: { data } } = this.props;
+        const { onepdpr: { data, isFetched } } = this.props;
         this.state = { 
             loading: false,
             // region: {
@@ -73,7 +73,8 @@ class HOrderScreen extends Component {
             coordenadas_r: data.COORDENADAS_R,
             coordenadas_e: data.COORDENADAS_E,
             status: data.PSTATUS,
-            coords: []
+            fetched: isFetched,
+            coords: [],
          }
     }
 
@@ -86,8 +87,11 @@ class HOrderScreen extends Component {
             navigator.geolocation.getCurrentPosition((position) =>{
                 const lat = parseFloat(position.coords.latitude) 
                 const lng = parseFloat(position.coords.longitude)
-            // this.getDirections(`${lat},${lng}`, "24.027675,-104.6708929")
-            this.getDirections(`${lat},${lng}`,`${this.state.status === 'en_camino' ? this.state.coordenadas_r : this.state.coordenadas_e}`)
+            
+                if (this.state.fetched) {
+                     this.getDirections(`${lat},${lng}`,`${this.state.status === 'en_camino' ? this.state.coordenadas_r : this.state.coordenadas_e}`)
+                    // this.getDirections(`${lat},${lng}`, "24.027675,-104.6708929")
+                }
             },
             (error) => alert(JSON.stringify(error)),
             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000})
@@ -107,22 +111,24 @@ class HOrderScreen extends Component {
             //       this.setState({markerPosition: lastRegion})
             //   })
         }
-
-        async getDirections(startLoc, destinationLoc) {
-            try {
-                const resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
-                const respJson = await resp.json();
-                const points = Polyline.decode(respJson.routes[0].overview_polyline.points);
-                const coords = points.map((point, index) => ({
-                        latitude : point[0],
-                        longitude : point[1]
-                    }))
-                this.setState({coords})
-                return coords
-            } catch(error) {
-                alert(error)
-                return error
-            }
+        // TODO: Crear ruta al terminar de cargar el componente, (funciona solo al segundo intento)
+        async getDirections(startLoc, destinationLoc) {           
+           if (this.state.fetched) {
+                try {
+                    const resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
+                    const respJson = await resp.json();
+                    const points = Polyline.decode(respJson.routes[0].overview_polyline.points);
+                    const coords = points.map((point, index) => ({
+                            latitude : point[0],
+                            longitude : point[1]
+                        }))
+                    this.setState({coords})
+                    return coords
+                } catch(error) {
+                    alert(error)
+                    return error
+                }
+           }
         }
 
         _onRegionChangeComplete = (region) =>{
