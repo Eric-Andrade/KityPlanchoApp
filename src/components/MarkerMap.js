@@ -8,19 +8,20 @@ const Root = styled(Touchable).attrs({
     hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
 })`
     flex: 1;
-    shadowOpacity: 0.35;
-    shadowRadius: 2;
-    shadowOffset: 3px 2px;
+    shadowOpacity: 0.25;
+    shadowRadius: 1;
+    shadowOffset: 2px 2px;
     shadowColor: #000;
     elevation: 2
 `;
 const MarkerContainer = styled.View`
     backgroundColor: ${props => props.background};
-    width: 28;
-    height: 20;
+    minWidth: 22;
+    paddingHorizontal: 4;
+    height: 17;
     alignItems: center;
     justifyContent: center;
-    borderRadius: 2;
+    borderRadius: 3;
     borderColor: ${colors.WHITE};
     borderWidth: 0;
     position: relative
@@ -28,25 +29,22 @@ const MarkerContainer = styled.View`
 const MarkerText = styled.Text`
     color: ${colors.WHITE};
     fontSize: 12;
-    fontWeight: 400;
+    fontWeight: 500;
     textAlign: center;
-    textShadowColor: #000;
-    textShadowOffset: 2px 1px;
-    textShadowRadius: 1
 `;
 const ShapeMarker = styled.View`
+    alignSelf: center; 
     width: 0;
     height: 0;
     bottom: 3;
-    left: 7;
                   
-    borderRightWidth: 7;
+    borderRightWidth: 5;
     borderRightColor: transparent;
                   
-    borderTopWidth: 10;
+    borderTopWidth: 8;
     borderTopColor: ${props => props.background};
 
-    borderLeftWidth: 7;
+    borderLeftWidth: 5;
     borderLeftColor: transparent;
     
 `;

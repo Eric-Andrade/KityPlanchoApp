@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, Dimensions } from 'react-native';
+import { StatusBar, Dimensions, Alert } from 'react-native';
 // import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
@@ -79,6 +79,7 @@ class MapScreen extends Component {
                         latitude: 24.02780775285771,
                         longitude: -104.65332895517349
                         }, 
+                    id: 1,
                     title: 'Marcador 1', 
                     description: 'Descripción del marcador 1',
                     pincolor: colors.STATUSYELLOW},
@@ -87,6 +88,7 @@ class MapScreen extends Component {
                         latitude: 24.02574090527505,
                         longitude: -104.67300467638253
                         }, 
+                    id: 2,
                     title: 'Marcador 2', 
                     description: 'Descripción del marcador 2',
                     pincolor: colors.STATUSBLUELIGHT},
@@ -95,6 +97,7 @@ class MapScreen extends Component {
                         latitude: 24.051403020219556,
                         longitude: -104.64490753560555
                         }, 
+                   id: 36745,
                     title: 'Marcador 3', 
                     description: 'Descripción del marcador 3',
                     pincolor: colors.STATUSYELLOW},
@@ -103,6 +106,7 @@ class MapScreen extends Component {
                         latitude: 24.055258816581457,
                         longitude: -104.66824845629891
                         }, 
+                    id: 9312342,
                     title: 'Marcador 4', 
                     description: 'Descripción del marcador 4',
                     pincolor: colors.STATUSBLUELIGHT},
@@ -111,6 +115,7 @@ class MapScreen extends Component {
                         latitude: 23.995409497383967,
                         longitude: -104.65303700092997
                         }, 
+                    id: 'E-R',
                     title: 'Marcador 5', 
                     description: 'Descripción del marcador 5',
                     pincolor: colors.STATUSYELLOW}
@@ -208,6 +213,10 @@ class MapScreen extends Component {
         // console.warn(`latitude: ${ region.latitude } longitude: ${ region.longitude }`);
     }
 
+    _markerclick(IDPEDIDO){
+        Alert.alert(`Hiciste click en pedido ${IDPEDIDO}`)
+    }
+
     render() {
         const { 
             allpdpr: {
@@ -260,9 +269,11 @@ class MapScreen extends Component {
                             coordinate={marker.latlng}
                             title={marker.title}
                             description={marker.description}
-                            pinColor={marker.pincolor}
-                            draggable
-                        />
+                            draggable>
+                                <MarkerMap background={marker.pincolor} onPress={() => {this._markerclick(marker.id)}}>
+                                        {marker.id}
+                                </MarkerMap>
+                            </MapView.Marker>
                     ))}
 
                     <MapView.Polyline 

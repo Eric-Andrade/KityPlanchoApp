@@ -15,8 +15,8 @@ const {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATDELTA = 0.006446834062519002;
 const LNGDELTA = LATDELTA * ASPECT_RATIO;
-const RECOGER = 'R-E';
-const ENTREGAR = 'E-R';
+const RECOGER = 'R';
+const ENTREGAR = 'E';
 
 const Root = styled.View`
     flex: 1;
@@ -207,7 +207,7 @@ class HOrderScreen extends Component {
                                 description={`${data.PDIRECCION_R}`}
                             >
                             <MarkerMap background={colors.STATUSYELLOW} onPress={() => {this._markerclick(data.IDPEDIDO)}}>
-                                    {data.IDPEDIDO}
+                                    {RECOGER}
                             </MarkerMap>
                             </MapView.Marker>
 
