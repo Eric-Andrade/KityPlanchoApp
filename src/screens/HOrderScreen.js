@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StatusBar, Dimensions } from 'react-native';
+import { StatusBar, Dimensions, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
@@ -9,11 +9,14 @@ import { colors } from '../util/constants';
 import OrderCard from '../components/OrderCard/OrderCard';
 import { LoadingScreen } from '../commons/LoadingScreen';
 import { fetchONEPDPR } from './redux/actions';
+import MarkerMap from '../components/MarkerMap';
 
 const {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATDELTA = 0.006446834062519002;
 const LNGDELTA = LATDELTA * ASPECT_RATIO;
+const RECOGER = 'R-E';
+const ENTREGAR = 'E-R';
 
 const Root = styled.View`
     flex: 1;
@@ -48,6 +51,7 @@ const TitleText = styled.Text`
     fontSize: 18;
     fontFamily: sspRegular
 `;
+
 
 @connect(state => ({
     onepdpr: state.oneOrder.onepdpr
@@ -135,6 +139,10 @@ class HOrderScreen extends Component {
             console.log(region)
             // this.setState({region})
         }
+        _markerclick(IDPEDIDO){
+            Alert.alert(`Hiciste click en pedido ${IDPEDIDO}`)
+        }
+
         render() {
             if(!this.state.loading){
                 return <LoadingScreen size="large"/>
@@ -197,15 +205,21 @@ class HOrderScreen extends Component {
                                 coordinate={latlng1}
                                 title={`Dirección a recoger`}
                                 description={`${data.PDIRECCION_R}`}
-                                pinColor={colors.STATUSYELLOW}
-                            />
+                            >
+                            <MarkerMap background={colors.STATUSYELLOW} onPress={() => {this._markerclick(data.IDPEDIDO)}}>
+                                    {data.IDPEDIDO}
+                            </MarkerMap>
+                            </MapView.Marker>
 
                             <MapView.Marker
                                 coordinate={latlng2}
                                 title={`Dirección a entregar`}
                                 description={`${data.PDIRECCION_E}`}
-                                pinColor={colors.STATUSBLUELIGHT}
-                            />
+                            >
+                            <MarkerMap background={colors.STATUSBLUELIGHT} onPress={() => {this._markerclick(data.IDPEDIDO)}}>
+                                    {ENTREGAR}
+                            </MarkerMap>
+                            </MapView.Marker>
 
                             <MapView.Polyline 
                                 coordinates={this.state.coords}

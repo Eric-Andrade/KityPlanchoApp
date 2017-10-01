@@ -8,6 +8,7 @@ import Polyline from '@mapbox/polyline';
 import { LoadingScreen } from '../commons/LoadingScreen';
 import { colors } from '../util/constants';
 import { fetchALLPDPR } from './redux/actions'
+import MarkerMap from '../components/MarkerMap'
 
 const kpContainerSize = 42;
 const avatarRadius = kpContainerSize / 2;

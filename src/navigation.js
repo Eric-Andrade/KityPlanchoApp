@@ -57,7 +57,7 @@ const TNavigator = TabNavigator({
                         bottom: 10,
                         backgroundColor: focused ? colors.PRIMARY : colors.PRIMARY,
                         borderWidth: 1,
-                        borderColor: focused ?  colors.WHITE : colors.PRIMARY,
+                        borderColor: focused ?  colors.WHITE : colors.WHITE,
                         }
                         }
                     Hidden={Badgecontador === 0}
