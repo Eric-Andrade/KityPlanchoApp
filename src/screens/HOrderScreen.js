@@ -68,6 +68,8 @@ class HOrderScreen extends Component {
         const { onepdpr: { data, isFetched } } = this.props;
         this.state = { 
             loading: false,
+            lat: null,
+            lng: null,
             // region: {
                 //     latitude: 24.02725253393618,
                 //     longitude:  -104.67266356446854,
@@ -91,9 +93,11 @@ class HOrderScreen extends Component {
             navigator.geolocation.getCurrentPosition((position) =>{
                 const lat = parseFloat(position.coords.latitude) 
                 const lng = parseFloat(position.coords.longitude)
-            
+                
+                this.setState({lat, lng})
+
                 if (this.state.fetched) {
-                     this.getDirections(`${lat},${lng}`,`${this.state.status === 'en_camino' ? this.state.coordenadas_r : this.state.coordenadas_e}`)
+                     this.getDirections(`${this.state.lat},${this.state.lng}`,`${this.state.status === 'en_camino' ? this.state.coordenadas_r : this.state.coordenadas_e}`)
                     // this.getDirections(`${lat},${lng}`, "24.027675,-104.6708929")
                 }
             },
@@ -114,7 +118,20 @@ class HOrderScreen extends Component {
             //       this.setState({mapRegion: lastRegion})
             //       this.setState({markerPosition: lastRegion})
             //   })
+        } 
+        
+        _onRegionChangeComplete = (region) =>{
+            console.log(region)
+            // this.setState({region})
         }
+        _markerlongclick(nuevaruta){
+            this.getDirections(`${this.state.lat},${this.state.lng}`,`${nuevaruta}`)
+        }
+
+        _markerclick(IDPEDIDO){
+            Alert.alert(`Hiciste click en pedido ${IDPEDIDO}`)
+        }
+
         // TODO: Crear ruta al terminar de cargar el componente, (funciona solo al segundo intento)
         async getDirections(startLoc, destinationLoc) {           
            if (this.state.fetched) {
@@ -135,14 +152,7 @@ class HOrderScreen extends Component {
            }
         }
 
-        _onRegionChangeComplete = (region) =>{
-            console.log(region)
-            // this.setState({region})
-        }
-        _markerclick(IDPEDIDO){
-            Alert.alert(`Hiciste click en pedido ${IDPEDIDO}`)
-        }
-
+       
         render() {
             if(!this.state.loading){
                 return <LoadingScreen size="large"/>
@@ -187,7 +197,7 @@ class HOrderScreen extends Component {
                         <OrderCard allpdpr={data}/>
                     </OrderContainer>
                     <Title>
-                        <TitleText>Detalles de pedido</TitleText>
+                        <TitleText>Ver servicios del pedido</TitleText>
                     </Title>
                     <MapContainer>
                         <MapView style={{ flex: 1 }} 
@@ -206,7 +216,7 @@ class HOrderScreen extends Component {
                                 title={`Dirección a recoger`}
                                 description={`${data.PDIRECCION_R}`}
                             >
-                            <MarkerMap background={colors.STATUSYELLOW} onPress={() => {this._markerclick(data.IDPEDIDO)}}>
+                            <MarkerMap background={colors.STATUSYELLOW} onLongPress={() => {this._markerlongclick(data.PDIRECCION_R)}} onPress={() => {this._markerclick(data.IDPEDIDO)}}>
                                     {RECOGER}
                             </MarkerMap>
                             </MapView.Marker>
@@ -216,7 +226,7 @@ class HOrderScreen extends Component {
                                 title={`Dirección a entregar`}
                                 description={`${data.PDIRECCION_E}`}
                             >
-                            <MarkerMap background={colors.STATUSBLUELIGHT} onPress={() => {this._markerclick(data.IDPEDIDO)}}>
+                            <MarkerMap background={colors.STATUSBLUELIGHT} onLongPress={() => {this._markerlongclick(data.PDIRECCION_E)}} onPress={() => {this._markerclick(data.IDPEDIDO)}}>
                                     {ENTREGAR}
                             </MarkerMap>
                             </MapView.Marker>

@@ -264,6 +264,13 @@ const SNavigator = StackNavigator({
             headerLeft: null
         })
     },
+    MapScreen:{
+        screen: MapScreen,
+        navigationOptions: () => ({
+            headerRight: null,
+            headerLeft: null
+        })
+    }
 
 },{
     cardStyle: {        

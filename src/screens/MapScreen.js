@@ -51,6 +51,8 @@ class MapScreen extends Component {
     constructor(props){
         super(props)
         this.state = { 
+            lat: null,
+            lng: null,
             loading: false,
             mapRegion: {
                 latitude: 0,
@@ -97,7 +99,7 @@ class MapScreen extends Component {
                         latitude: 24.051403020219556,
                         longitude: -104.64490753560555
                         }, 
-                   id: 36745,
+                   id: 3,
                     title: 'Marcador 3', 
                     description: 'Descripción del marcador 3',
                     pincolor: colors.STATUSYELLOW},
@@ -106,7 +108,7 @@ class MapScreen extends Component {
                         latitude: 24.055258816581457,
                         longitude: -104.66824845629891
                         }, 
-                    id: 9312342,
+                    id: 4,
                     title: 'Marcador 4', 
                     description: 'Descripción del marcador 4',
                     pincolor: colors.STATUSBLUELIGHT},
@@ -115,7 +117,7 @@ class MapScreen extends Component {
                         latitude: 23.995409497383967,
                         longitude: -104.65303700092997
                         }, 
-                    id: 'E-R',
+                    id: 5,
                     title: 'Marcador 5', 
                     description: 'Descripción del marcador 5',
                     pincolor: colors.STATUSYELLOW}
@@ -139,11 +141,12 @@ class MapScreen extends Component {
               latitudeDelta: LATDELTA,
               longitudeDelta: LNGDELTA
             }
+            this.setState({lat, lng})
             this.setState({mapRegion: initialRegion})
             this.setState({markerPosition: initialRegion})     
-            
+            const waypoints = [this.state.markers.latlng];
             //* set values route (current location with a marker)
-            this.getDirections(`${lat},${lng}`,`${this.state.markers[4].latlng.latitude},${this.state.markers[4].latlng.longitude}`)
+            this.getDirections(`${this.state.lat},${this.state.lng}`, `${this.state.markers[2].latlng.latitude},${this.state.markers[2].latlng.longitude}`, `${this.state.markers[4].latlng.latitude},${this.state.markers[4].latlng.longitude}|${this.state.markers[0].latlng.latitude},${this.state.markers[0].latlng.longitude}|${this.state.markers[1].latlng.latitude},${this.state.markers[1].latlng.longitude}`)
           },
           (error) => alert(JSON.stringify(error)),
           {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000})
@@ -189,9 +192,20 @@ class MapScreen extends Component {
         navigator.geolocation.clearWatch(this.watchID)
     }
 
-    async getDirections(startLoc, destinationLoc) {
+    _markerlongclick(nuevalat, nuevalong){
+        this.getDirections(`${this.state.lat},${this.state.lng}`,`${nuevalat},${nuevalong}`, '')
+    }
+
+    _markerclick(){
+        const { navigate } = this.props.navigation;
+            navigate('HOrderScreen', { name: `Detalles de pedido`})
+            
+    }
+
+    async getDirections(startLoc, destinationLoc, waypoints) {
+        // https://maps.googleapis.com/maps/api/directions/json?origin=Adelaide,SA&destination=Adelaide,SA&waypoints=optimize:true|Barossa+Valley,SA|Clare,SA|Connawarra,SA|McLaren+Vale,SA&key=YOUR_API_KEY
         try {
-            const resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
+            const resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }&waypoints=optimize:|${waypoints}`)
             const respJson = await resp.json();
             const points = Polyline.decode(respJson.routes[0].overview_polyline.points);
             const coords = points.map((point, index) => ({
@@ -213,11 +227,10 @@ class MapScreen extends Component {
         // console.warn(`latitude: ${ region.latitude } longitude: ${ region.longitude }`);
     }
 
-    _markerclick(IDPEDIDO){
-        Alert.alert(`Hiciste click en pedido ${IDPEDIDO}`)
-    }
 
     render() {
+        
+
         const { 
             allpdpr: {
                 isFetched,
@@ -268,9 +281,10 @@ class MapScreen extends Component {
                             key={i}
                             coordinate={marker.latlng}
                             title={marker.title}
-                            description={marker.description}
-                            draggable>
-                                <MarkerMap background={marker.pincolor} onPress={() => {this._markerclick(marker.id)}}>
+                            description={marker.description}>
+                                <MarkerMap background={marker.pincolor} 
+                                onPress={() => {this._markerclick()}}
+                                onLongPress={() => {this._markerlongclick(marker.latlng.latitude,marker.latlng.longitude)}}>
                                         {marker.id}
                                 </MarkerMap>
                             </MapView.Marker>

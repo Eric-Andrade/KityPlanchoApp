@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import Touchable from '@appandflow/touchable';
+import { TouchableHighlight } from 'react-native';
 import { colors } from '../util/constants';
 
-const Root = styled(Touchable).attrs({
-    feedback: 'opacity',
-    hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
-})`
+const Root = styled.View`
     flex: 1;
     shadowOpacity: 0.25;
     shadowRadius: 1;
@@ -49,15 +46,17 @@ const ShapeMarker = styled.View`
     
 `;
 
-export default function MarkerMap({ children, onPress, background }){
+export default function MarkerMap({ children, onPress, onLongPress, background }){
         return (
-            <Root onPress={onPress}>
-                <MarkerContainer background={background} >
-                    <MarkerText>
-                        {children}
-                    </MarkerText>
-                </MarkerContainer>
-                    <ShapeMarker background={background}/>
-            </Root>          
+            <TouchableHighlight onLongPress={onLongPress} onPress={onPress}>
+                <Root>
+                    <MarkerContainer background={background} >
+                        <MarkerText>
+                            {children}
+                        </MarkerText>
+                    </MarkerContainer>
+                        <ShapeMarker background={background}/>
+                </Root>
+            </TouchableHighlight>
         );
 }
