@@ -10,7 +10,7 @@ const Root = styled(Touchable).attrs({
 })`
     flex: 1;
     marginVertical: 30;
-    marginHorizontal: 25;
+    marginHorizontal: 40;
    
 `
 const InfoContainer = styled.View`

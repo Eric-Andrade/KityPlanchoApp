@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { addNavigationHelpers, StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
 import { Ionicons, EvilIcons, MaterialIcons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
-import { Keyboard, Platform, StatusBar, Dimensions } from 'react-native';
-
+import { Keyboard, Platform, StatusBar, Dimensions, Text } from 'react-native';
+import IconBadge from 'react-native-icon-badge'
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
 import AboutUsScreen from './screens/AboutUsScreen';
@@ -23,7 +23,7 @@ import HowScreen from './screens/HowScreen';
 const tabIcon = 27;
 const slideIcon = 25;
 const {width} = Dimensions.get('window');
-
+const Badgecontador = 4;
 
 const TNavigator = TabNavigator({
     Map:{
@@ -43,8 +43,26 @@ const TNavigator = TabNavigator({
             title: 'Listado',
             headerTitle: 'Listado',
             tabBarIcon: ({ tintColor, focused }) =>( 
-                <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
-            )
+                // TODO: Obtener la suma de los pedidos pendientes de la API
+                <IconBadge style={{right: 30}}
+                    MainElement={
+                        <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
+                    }
+                    BadgeElement={<Text style={{ color: focused ? colors.WHITE : colors.WHITE , fontSize: 12 }}>{Badgecontador}</Text>}
+                    IconBadgeStyle={
+                        {
+                        width: 20,
+                        height: 20,
+                        left: 12,
+                        bottom: 10,
+                        backgroundColor: focused ? colors.PRIMARY : colors.PRIMARY,
+                        borderWidth: 1,
+                        borderColor: focused ?  colors.WHITE : colors.WHITE,
+                        }
+                        }
+                    Hidden={Badgecontador === 0}
+                />
+            ),
         })
     },
     // HOrderScreen:{
@@ -67,8 +85,8 @@ const TNavigator = TabNavigator({
     tabBarOptions:{
         showIcon: true,
         showLabel: true,
-        activeTintColor: colors.PRIMARY,
-        inactiveTintColor: colors.GRAY600,
+        activeTintColor: colors.GRAY777,
+        inactiveTintColor: colors.GRAY777,
         pressColor: colors.PRIMARY,
         indicatorStyle: { backgroundColor: colors.PRIMARY },
         style:{
@@ -241,18 +259,24 @@ const SNavigator = StackNavigator({
     },
     InfoScreen:{
         screen: InfoScreen,
-        navigationOptions: ({ navigation }) => ({
+        navigationOptions: ({navigation}) => ({
             headerRight: null,
             headerLeft: (
-                <ButtonHeader side="left" onPress={() => {
-                    Keyboard.dismiss();
-                    navigation.goBack(null)
+                <ButtonHeader side="left" onPress={() =>{
+                    navigation.goBack(null) 
                     }}>
-                    <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 25 : null} color={colors.WHITE}/>
+                    <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 25 : null} color={colors.WHITE} />
                 </ButtonHeader>
             )
         })
     },
+    MapScreen:{
+        screen: MapScreen,
+        navigationOptions: () => ({
+            headerRight: null,
+            headerLeft: null
+        })
+    }
 
 },{
     cardStyle: {        

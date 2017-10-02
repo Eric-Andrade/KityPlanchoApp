@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StatusBar, Dimensions } from 'react-native';
+import { StatusBar, Dimensions, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
@@ -9,11 +9,14 @@ import { colors } from '../util/constants';
 import OrderCard from '../components/OrderCard/OrderCard';
 import { LoadingScreen } from '../commons/LoadingScreen';
 import { fetchONEPDPR } from './redux/actions';
+import MarkerMap from '../components/MarkerMap';
 
 const {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATDELTA = 0.006446834062519002;
 const LNGDELTA = LATDELTA * ASPECT_RATIO;
+const RECOGER = 'R';
+const ENTREGAR = 'E';
 
 const Root = styled.View`
     flex: 1;
@@ -49,6 +52,7 @@ const TitleText = styled.Text`
     fontFamily: sspRegular
 `;
 
+
 @connect(state => ({
     onepdpr: state.oneOrder.onepdpr
     }),
@@ -61,9 +65,11 @@ class HOrderScreen extends Component {
       
     constructor(props){
         super(props)
-        const { onepdpr: { data } } = this.props;
+        const { onepdpr: { data, isFetched } } = this.props;
         this.state = { 
             loading: false,
+            lat: null,
+            lng: null,
             // region: {
                 //     latitude: 24.02725253393618,
                 //     longitude:  -104.67266356446854,
@@ -73,7 +79,8 @@ class HOrderScreen extends Component {
             coordenadas_r: data.COORDENADAS_R,
             coordenadas_e: data.COORDENADAS_E,
             status: data.PSTATUS,
-            coords: []
+            fetched: isFetched,
+            coords: [],
          }
     }
 
@@ -86,8 +93,13 @@ class HOrderScreen extends Component {
             navigator.geolocation.getCurrentPosition((position) =>{
                 const lat = parseFloat(position.coords.latitude) 
                 const lng = parseFloat(position.coords.longitude)
-            // this.getDirections(`${lat},${lng}`, "24.027675,-104.6708929")
-            this.getDirections(`${lat},${lng}`,`${this.state.status === 'en_camino' ? this.state.coordenadas_r : this.state.coordenadas_e}`)
+                
+                this.setState({lat, lng})
+
+                if (this.state.fetched) {
+                     this.getDirections(`${this.state.lat},${this.state.lng}`,`${this.state.status === 'en_camino' ? this.state.coordenadas_r : this.state.coordenadas_e}`)
+                    // this.getDirections(`${lat},${lng}`, "24.027675,-104.6708929")
+                }
             },
             (error) => alert(JSON.stringify(error)),
             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000})
@@ -106,29 +118,41 @@ class HOrderScreen extends Component {
             //       this.setState({mapRegion: lastRegion})
             //       this.setState({markerPosition: lastRegion})
             //   })
-        }
-
-        async getDirections(startLoc, destinationLoc) {
-            try {
-                const resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
-                const respJson = await resp.json();
-                const points = Polyline.decode(respJson.routes[0].overview_polyline.points);
-                const coords = points.map((point, index) => ({
-                        latitude : point[0],
-                        longitude : point[1]
-                    }))
-                this.setState({coords})
-                return coords
-            } catch(error) {
-                alert(error)
-                return error
-            }
-        }
-
+        } 
+        
         _onRegionChangeComplete = (region) =>{
             console.log(region)
             // this.setState({region})
         }
+        _markerlongclick(nuevaruta){
+            this.getDirections(`${this.state.lat},${this.state.lng}`,`${nuevaruta}`)
+        }
+
+        _markerclick(IDPEDIDO){
+            Alert.alert(`Hiciste click en pedido ${IDPEDIDO}`)
+        }
+
+        // TODO: Crear ruta al terminar de cargar el componente, (funciona solo al segundo intento)
+        async getDirections(startLoc, destinationLoc) {           
+           if (this.state.fetched) {
+                try {
+                    const resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
+                    const respJson = await resp.json();
+                    const points = Polyline.decode(respJson.routes[0].overview_polyline.points);
+                    const coords = points.map((point, index) => ({
+                            latitude : point[0],
+                            longitude : point[1]
+                        }))
+                    this.setState({coords})
+                    return coords
+                } catch(error) {
+                    alert(error)
+                    return error
+                }
+           }
+        }
+
+       
         render() {
             if(!this.state.loading){
                 return <LoadingScreen size="large"/>
@@ -173,7 +197,7 @@ class HOrderScreen extends Component {
                         <OrderCard allpdpr={data}/>
                     </OrderContainer>
                     <Title>
-                        <TitleText>Detalles de pedido</TitleText>
+                        <TitleText>Ver servicios del pedido</TitleText>
                     </Title>
                     <MapContainer>
                         <MapView style={{ flex: 1 }} 
@@ -191,15 +215,21 @@ class HOrderScreen extends Component {
                                 coordinate={latlng1}
                                 title={`Dirección a recoger`}
                                 description={`${data.PDIRECCION_R}`}
-                                pinColor={colors.STATUSYELLOW}
-                            />
+                            >
+                            <MarkerMap background={colors.STATUSYELLOW} onLongPress={() => {this._markerlongclick(data.PDIRECCION_R)}} onPress={() => {this._markerclick(data.IDPEDIDO)}}>
+                                    {RECOGER}
+                            </MarkerMap>
+                            </MapView.Marker>
 
                             <MapView.Marker
                                 coordinate={latlng2}
                                 title={`Dirección a entregar`}
                                 description={`${data.PDIRECCION_E}`}
-                                pinColor={colors.STATUSBLUELIGHT}
-                            />
+                            >
+                            <MarkerMap background={colors.STATUSBLUELIGHT} onLongPress={() => {this._markerlongclick(data.PDIRECCION_E)}} onPress={() => {this._markerclick(data.IDPEDIDO)}}>
+                                    {ENTREGAR}
+                            </MarkerMap>
+                            </MapView.Marker>
 
                             <MapView.Polyline 
                                 coordinates={this.state.coords}
