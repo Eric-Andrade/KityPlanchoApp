@@ -259,9 +259,15 @@ const SNavigator = StackNavigator({
     },
     InfoScreen:{
         screen: InfoScreen,
-        navigationOptions: () => ({
+        navigationOptions: ({navigation}) => ({
             headerRight: null,
-            headerLeft: null
+            headerLeft: (
+                <ButtonHeader side="left" onPress={() =>{
+                    navigation.goBack(null) 
+                    }}>
+                    <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 25 : null} color={colors.WHITE} />
+                </ButtonHeader>
+            )
         })
     },
     MapScreen:{
