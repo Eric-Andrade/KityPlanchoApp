@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import { FlatList, Alert, Platform } from 'react-native';
+import { FlatList, Alert, Platform, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
 import { LoadingScreen } from '../commons/LoadingScreen'
 import { getAllServiciosActivos } from './redux/actions';
 import ServiceCard from '../components/ServiceCard/ServiceCard';
+import CarouselBanner from '../components/CarouselBanner';
+import items from '../components/Banners';
 
-const Root = styled(Touchable).attrs({
-    feedback: 'none'
-})`
+const Root = styled.View`
     flex: 1;
 `;
 const TopContainer = styled.View`
     flex: 1;
-    justifyContent: center;
-    alignItems: center;
 `;
 const BottomContainer = styled.View`
     flex: 0.8;
@@ -57,6 +55,12 @@ const Touch = styled(Touchable).attrs({
     { getAllServiciosActivos })
 
 class ServicesScreen extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            items: items
+        }
+    }
 
      componentDidMount(){
         this.props.getAllServiciosActivos();
@@ -87,7 +91,11 @@ class ServicesScreen extends Component {
         return (
             <Root>
                 <TopContainer>
-                    <T>Carousel</T>
+                    <CarouselBanner items={this.state.items} />
+                    {/* <Text style={{fontSize: 80, color: '#ff0000'}}>Hola mundo</Text>
+                    <Text style={{fontSize: 80, color: '#ff0000'}}>Hola mundo</Text>
+                    <Text style={{fontSize: 80, color: '#ff0000'}}>Hola mundo</Text>
+                    <Text style={{fontSize: 80, color: '#ff0000'}}>Hola mundo</Text> */}
                 </TopContainer>
                 <Title>
                     <TitleText>Servicios de KityPlancho</TitleText>
@@ -103,7 +111,7 @@ class ServicesScreen extends Component {
                             )
                         }
                         keyExtractor={(item, index) => index}
-                        horizontal={true}
+                        horizontal
                         showsHorizontalScrollIndicator={false}
                         automaticallyAdjustContentInsets={false}
                         />
