@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
-import { Dimensions, PanResponder, View, Animated, Image } from 'react-native';
+import { Dimensions, PanResponder, View, Animated, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
 
-const heighslide = 390;
-const Root = styled.View`
-    flex: 1;
-    backgroundColor: red
+const heighslide = 150;
+const Root = styled(Touchable).attrs({
+    feedback: 'none'
+})`
+
 `;
 const ImageBanner = styled.Image`
 `;
-const ImageIcon = styled.Image`
+const BackImage = styled.Image`
+    flex: 1;
+    resizeMode: cover;
+    zIndex: 1;
 `;
-const TitleContainer = styled.View`
-    backgroundColor: transparent;
-    position: absolute;
-    top: 330;
-    left: 200;
-    right: 0;
-    overflow: hidden
-`;
+// const TitleContainer = styled.View`
+//     backgroundColor: transparent;
+//     position: absolute;
+//     top: 330;
+//     left: 200;
+//     right: 0;
+//     overflow: hidden
+// `;
 
 export default class CarouselBanner extends Component{
     static propTypes = {
@@ -57,8 +61,7 @@ export default class CarouselBanner extends Component{
             return {
                 slider: {
                     flexDirection: 'row',
-                    height: heighslide,
-                    backgroundColor: '#fff4f9',
+                    height: 150,
                     width: (this.props.items.length + 2) * this.state.width,
                     left: (this.state.page + 1) * -1 * this.state.width,
                     transform: [{
@@ -67,32 +70,32 @@ export default class CarouselBanner extends Component{
                 },
                 slide: {
                     width: this.state.width,
-                    height: heighslide,
+                    height: 250,
                     position: 'relative'
                 },
                 screen: {
                     width: this.state.width,
-                    height: 300
+                    height: 150
                 },
                 poster: {
                     position: 'absolute',
-                    top: 150,
+                    top: 100,
                     left: 25,
-                    height: 220,
-                    width: 150
+                    height: '32%',
+                    width: '17%'
                 },
                 titleContainer: {
                     backgroundColor: 'transparent',
                     position: 'absolute',
-                    top: 330,
+                    top: 90,
                     left: 200,
                     right: 0,
                     overflow: 'hidden'
                 },
                 title: {
                     fontSize: 18,
-                    top: 13,
-                    left: 180
+                    left: 100,
+                    justifyContent: 'center'
                 }
             }    
     }
@@ -169,17 +172,21 @@ export default class CarouselBanner extends Component{
             }]
         }
     }
+
+    touchBanner(name){
+        Alert.alert(`Hiciste click en ${name}`)
+    }
     
     renderBanner(item, i){
         const style = this.getStyle()
         return(
-            <View key={i} style={style.slide}>
-                <ImageBanner source={ item.screen } style={style.screen}/>
-                <Animated.Image source={ item.poster } style={[style.poster, this.posterTranslate(i)]}/>
-                
-                     <Animated.Text style={[style.title, this.posterTranslate(i)]}>{item.name}</Animated.Text>
-                
-            </View>
+                <View key={i} style={style.slide}>
+                    <Root onPress={() => this.touchBanner(item.name)}>
+                        <ImageBanner source={ item.screen || null } style={style.screen}/>
+                    </Root>
+                    <Animated.Image source={ item.poster } style={[style.poster, this.posterTranslate(i)]}/>
+                    <Animated.Text style={[style.title, this.posterTranslate(i)]}>{item.name}</Animated.Text>
+                </View>
         )
     }
     
@@ -187,11 +194,14 @@ export default class CarouselBanner extends Component{
     render () {
         const style = this.getStyle()
         return (
-          <Animated.View {...this.panResponder.panHandlers} style={style.slider}>
-            {this.renderBanner(this.props.items[this.props.items.length - 1], -1)}
-            {this.props.items.map(this.renderBanner.bind(this))}
-            {this.renderBanner(this.props.items[0], this.props.items.length)}
-          </Animated.View>
+            <BackImage style={{width: this.state.width, height: null}}
+                source={require('../../assets/backgroundgray.png')}>
+                <Animated.View {...this.panResponder.panHandlers} style={style.slider}>
+                    {this.renderBanner(this.props.items[this.props.items.length - 1], -1)}
+                    {this.props.items.map(this.renderBanner.bind(this))}
+                    {this.renderBanner(this.props.items[0], this.props.items.length)}
+                </Animated.View>
+          </BackImage>
         )
       }
 }

@@ -5,8 +5,6 @@ import ServiceCardBottom from './ServiceCardBottom';
 
 const Root = styled.View`
     flex: 1;
-    flexDirection: row;
-    margin: 1px
 `;
 const CardContainer = styled.View`
     flexDirection: column;
@@ -21,12 +19,13 @@ const CardContainer = styled.View`
     elevation: 2;
     marginVertical: 2;
     height: ${Platform.OS === 'ios' ? 100 : 90};
-    maxWidth: ${Platform.OS === 'ios' ? 110 : 90};
-    minWidth: ${Platform.OS === 'ios' ? 110 : 90};
-    width: ${Platform.OS === 'ios' ? 110 : 90};
     borderRadius: 5;
     backgroundColor: ${props => props.theme.WHITE};
 `;
+// maxWidth: ${Platform.OS === 'ios' ? 110 : 90};
+// minWidth: ${Platform.OS === 'ios' ? 110 : 90};
+// width: ${Platform.OS === 'ios' ? 110 : 90};
+
 const ImageService = styled.Image`
     marginVertical: 3;
     padding: 10px;
@@ -34,11 +33,12 @@ const ImageService = styled.Image`
     width: ${Platform.OS === 'ios' ? 70 : 50};
 `;
 
-function ServiceCard({allserviciosactivos}){
-
+function ServiceCard({allserviciosactivos, itemWidth}){
+    
     return(
+
         <Root>
-            <CardContainer>
+            <CardContainer style={{width: itemWidth}}>
                 <ImageService source={require('../../../assets/kitypink.png')}/>
                 <ServiceCardBottom {...allserviciosactivos}/>
             </CardContainer>

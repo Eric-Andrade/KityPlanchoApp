@@ -3927,6 +3927,16 @@ react-native-side-menu@^1.0.2:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-smart-timer-enhance@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-smart-timer-enhance/-/react-native-smart-timer-enhance-1.0.3.tgz#47ddc19be5a6c19184449039495f25546bcd94fe"
+
+react-native-smart-toast@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-smart-toast/-/react-native-smart-toast-1.1.1.tgz#19fde8b8cc862bcd72e1143f79c42615f1fd1796"
+  dependencies:
+    react-native-smart-timer-enhance "^1.0.2"
+
 react-native-svg@5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-5.3.0.tgz#0d2ca98bee6726d627c2ca31617ac9c5f7d42daf"

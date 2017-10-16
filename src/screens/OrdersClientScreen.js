@@ -96,6 +96,7 @@ class ClientOrdersScreen extends Component {
                         )
                     }
                     keyExtractor={(item, index) => index}
+                    showsVerticalScrollIndicator={false}
                 />
                 
                 <Display enable={data.length === 0 ? true : false}>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ScrollView, Platform} from 'react-native';
-import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
@@ -18,7 +17,6 @@ const InfoContainer = styled.View`
     width: 100%;
     alignItems: center;
     justifyContent: center;
-     backgroundColor: ${props => props.theme.PRIMARY};
 `;
 const ItemText = styled.Text`
     color: ${colors.GRAY600};

@@ -57,6 +57,7 @@ git reset --soft  // No borra código.
                 git reset --soft HEAD~1 // Borrar el último commit.
  		  --mixed // Avanzado. 
  		  --hard   // Borra todo.
+        git reset --hard head // Regresa el código hacia el último commit
 git branch // Muestra las ramas. 
 git branch nombre // Crea una rama. 
 git checkout [NombreRama]// Moverse en las ramas. 

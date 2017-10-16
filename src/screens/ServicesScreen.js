@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import { FlatList, Alert, Platform, Text } from 'react-native';
+import { FlatList, Alert, Platform, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
@@ -10,15 +10,18 @@ import ServiceCard from '../components/ServiceCard/ServiceCard';
 import CarouselBanner from '../components/CarouselBanner';
 import items from '../components/Banners';
 
+const itemWidth = Dimensions.get('window').width;
+
 const Root = styled.View`
     flex: 1;
 `;
 const TopContainer = styled.View`
-    flex: 1;
+    flex: 0.4;
 `;
 const BottomContainer = styled.View`
-    flex: 0.8;
+    flex: 1;
     flexDirection: row;
+    justifyContent: center;
 `;
 const T = styled.Text`
     color: ${colors.GRAY600};
@@ -30,7 +33,7 @@ const Title = styled.View`
     alignItems: center;
     padding: 10px;
     width: 100%;
-    backgroundColor: ${props =>props.theme.WHITE};
+    backgroundColor: ${props => props.theme.WHITE};
     shadowColor: ${props => props.theme.GRAY777};
     shadowOffset: 0px 2px;
     shadowRadius: 2;
@@ -44,43 +47,43 @@ const TitleText = styled.Text`
 `;
 const Touch = styled(Touchable).attrs({
     feedback: 'opacity',
-    hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
-})`
-    flexDirection: row;
+    hitSlot: { top: 15, bottom: 15, right: 15, left: 15 }
+}) `
 `;
 
 @connect(state => ({
     allserviciosactivos: state.services.allserviciosactivos
-    }),
+}),
     { getAllServiciosActivos })
 
 class ServicesScreen extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            items: items
+            items,
+            columns: 2
         }
     }
 
-     componentDidMount(){
+    componentDidMount() {
         this.props.getAllServiciosActivos();
     }
-    
-    _onPress(SERVNOMBRE){
+
+    _onPress(SERVNOMBRE) {
         Alert.alert(`Has clickado a ${SERVNOMBRE}`)
     }
 
     render() {
-        const { 
+        const {
             allserviciosactivos: {
                 isFetched,
-                data, 
-                error
+            data,
+            error
             }
-    } = this.props; 
-        if(!isFetched){
-            return <LoadingScreen size="large" color={colors.PRIMARY}/>
-        } else if (error.on){
+    } = this.props;
+        if (!isFetched) {
+            return <LoadingScreen size="large" color={colors.PRIMARY} />
+        } else if (error.on) {
             return (
                 <Root>
                     <T>{error.on}</T>
@@ -92,29 +95,25 @@ class ServicesScreen extends Component {
             <Root>
                 <TopContainer>
                     <CarouselBanner items={this.state.items} />
-                    {/* <Text style={{fontSize: 80, color: '#ff0000'}}>Hola mundo</Text>
-                    <Text style={{fontSize: 80, color: '#ff0000'}}>Hola mundo</Text>
-                    <Text style={{fontSize: 80, color: '#ff0000'}}>Hola mundo</Text>
-                    <Text style={{fontSize: 80, color: '#ff0000'}}>Hola mundo</Text> */}
                 </TopContainer>
                 <Title>
                     <TitleText>Servicios de KityPlancho</TitleText>
                 </Title>
                 <BottomContainer>
                     <FlatList
+                        numColumns={this.state.columns}
                         data={data}
                         renderItem={
-                            ({item: allserviciosactivos}) => (
+                            ({ item: allserviciosactivos }) => (
                                 <Touch onPress={() => this._onPress(allserviciosactivos.SERVNOMBRE)}>
-                                    <ServiceCard allserviciosactivos={allserviciosactivos}/>
+                                    <ServiceCard itemWidth={itemWidth/this.state.columns} allserviciosactivos={allserviciosactivos} />
                                 </Touch>
                             )
                         }
                         keyExtractor={(item, index) => index}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
                         automaticallyAdjustContentInsets={false}
-                        />
+                    />
                 </BottomContainer>
             </Root>
         );
