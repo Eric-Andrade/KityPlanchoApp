@@ -66,22 +66,29 @@ export default class CarouselBanner extends Component{
                     left: (this.state.page + 1) * -1 * this.state.width,
                     transform: [{
                         translateX: this.state.translate
-                    }]
+                    }],
+                    borderRadius: 10,
                 },
                 slide: {
-                    width: this.state.width,
-                    height: 250,
-                    position: 'relative'
+                    width: this.state.width * (this.props.items.length * - 1),
+                    height: 175,
+                    position: 'relative',
+                    // backgroundColor: 'pink',
+                    borderRadius: 10,
+                    marginTop: 2,
+                    marginLeft: 4 
+                    
                 },
                 screen: {
                     width: this.state.width,
-                    height: 150
+                    height: 150,
+                    borderRadius: 10,
                 },
                 poster: {
                     position: 'absolute',
-                    top: 100,
+                    top: 97,
                     left: 25,
-                    height: '32%',
+                    height: '45%',
                     width: '17%'
                 },
                 titleContainer: {

@@ -11,13 +11,12 @@ const CardContainer = styled.View`
     alignItems: center;
     justifyContent: center;
     padding: 1px;
-    margin: 1px;
+    margin: 2px;
     shadowColor: ${props => props.theme.GRAY777};
     shadowOffset: 0px 2px;
     shadowRadius: 2;
     shadowOpacity: 0.1;
     elevation: 2;
-    marginVertical: 2;
     height: ${Platform.OS === 'ios' ? 100 : 90};
     borderRadius: 5;
     backgroundColor: ${props => props.theme.WHITE};
