@@ -37,7 +37,7 @@ const ItemContainer = styled(Touchable).attrs({
     feedback: 'opacity',
     hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
 })`
-    height: 60;
+    height: 50;
     flexDirection: row;
     alignItems: center;
     backgroundColor: ${props => props.theme.WHITE};
@@ -51,7 +51,7 @@ const ItemContainerIcon = styled.View`
 const Separator = styled.View`
     alignSelf: flex-end;
     width: 85%;
-    borderBottomWidth: 0.6;
+    borderBottomWidth: 0.5;
     borderBottomColor: ${props => props.theme.GRAY600RGBA};
 `;
 const ItemContainerText = styled.View`

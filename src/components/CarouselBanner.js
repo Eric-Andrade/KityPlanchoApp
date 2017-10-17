@@ -68,16 +68,15 @@ export default class CarouselBanner extends Component{
                         translateX: this.state.translate
                     }],
                     borderRadius: 10,
+                    justifyContent: 'center',
                 },
                 slide: {
-                    width: this.state.width * (this.props.items.length * - 1),
+                    width: this.state.width,
                     height: 175,
                     position: 'relative',
                     // backgroundColor: 'pink',
                     borderRadius: 10,
                     marginTop: 2,
-                    marginLeft: 4 
-                    
                 },
                 screen: {
                     width: this.state.width,

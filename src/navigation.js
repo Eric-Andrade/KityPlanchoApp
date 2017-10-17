@@ -33,7 +33,7 @@ const TNavigator = TabNavigator({
             // header: null,
             headerTitle: 'Mapa',
             tabBarIcon: ({ tintColor, focused }) => ( 
-                <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
+                <Ionicons name={focused ? 'ios-map' : 'ios-map'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
         })
     },
@@ -46,7 +46,7 @@ const TNavigator = TabNavigator({
                 // TODO: Obtener la suma de los pedidos pendientes de la API
                 <IconBadge style={{right: 30}}
                     MainElement={
-                        <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
+                        <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
                     }
                     BadgeElement={<Text style={{ color: focused ? colors.WHITE : colors.WHITE , fontSize: 12 }}>{Badgecontador}</Text>}
                     IconBadgeStyle={
@@ -55,7 +55,7 @@ const TNavigator = TabNavigator({
                         height: 20,
                         left: 12,
                         bottom: 10,
-                        backgroundColor: focused ? colors.PRIMARY : colors.PRIMARY,
+                        backgroundColor: focused ? colors.SECUNDARY : colors.SECUNDARY,
                         borderWidth: 1,
                         borderColor: focused ?  colors.WHITE : colors.WHITE,
                         }
@@ -85,8 +85,8 @@ const TNavigator = TabNavigator({
     tabBarOptions:{
         showIcon: true,
         showLabel: true,
-        activeTintColor: colors.GRAY777,
-        inactiveTintColor: colors.GRAY777,
+        activeTintColor: colors.PRIMARY,
+        inactiveTintColor: colors.GRAY200,
         pressColor: colors.PRIMARY,
         indicatorStyle: { backgroundColor: colors.PRIMARY },
         style:{
@@ -276,7 +276,22 @@ const SNavigator = StackNavigator({
             headerRight: null,
             headerLeft: null
         })
-    }
+    },
+    ServicesPScreen:{
+        screen: ServicesPScreen,
+        navigationOptions: ({ navigation }) => ({
+            headerRight: null,
+            headerLeft: (
+            <ButtonHeader side="left" onPress={() => {
+                Keyboard.dismiss();
+                navigation.goBack(null)
+                }}>
+                <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 25 : null} color={colors.WHITE}/>
+               
+            </ButtonHeader>
+            )
+        })
+    },
 
 },{
     cardStyle: {        

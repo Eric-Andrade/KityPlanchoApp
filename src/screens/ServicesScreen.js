@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
-import { FlatList, Alert, Platform, Text, Dimensions } from 'react-native';
+import { FlatList, Alert, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
@@ -22,6 +22,7 @@ const BottomContainer = styled.View`
     flex: 1;
     flexDirection: row;
     justifyContent: center;
+    marginHorizontal: 5
 `;
 const T = styled.Text`
     color: ${colors.GRAY600};
@@ -74,6 +75,8 @@ class ServicesScreen extends Component {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
+
         const {
             allserviciosactivos: {
                 isFetched,
@@ -105,8 +108,8 @@ class ServicesScreen extends Component {
                         data={data}
                         renderItem={
                             ({ item: allserviciosactivos }) => (
-                                <Touch onPress={() => this._onPress(allserviciosactivos.SERVNOMBRE)}>
-                                    <ServiceCard itemWidth={itemWidth/this.state.columns} allserviciosactivos={allserviciosactivos} />
+                                <Touch onPress={() => navigate('ServicesPScreen', { name: allserviciosactivos.SERVNOMBRE})}>
+                                    <ServiceCard itemWidth={(itemWidth - 10 * this.state.columns)/this.state.columns} allserviciosactivos={allserviciosactivos} />
                                 </Touch>
                             )
                         }

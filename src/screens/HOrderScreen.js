@@ -60,7 +60,8 @@ const TitleText = styled.Text`
 
 class HOrderScreen extends Component {
     static navigationOptions = ({navigation}) => ({
-        title: navigation.state.params.name,
+        title: `Detalles de pedido ${navigation.state.params.idpedido}`
+       // title: navigation.state.params.idpedido,
       });
       
     constructor(props){

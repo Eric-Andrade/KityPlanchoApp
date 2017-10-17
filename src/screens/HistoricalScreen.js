@@ -98,7 +98,7 @@ class HistoricalScreen extends Component {
                     renderItem={
                         ({item: allpdpr}) => (
                             <Touch onPress={() =>
-                            navigate('HOrderScreen', { name: `Detalles de pedido`})}
+                            navigate('HOrderScreen', { idpedido: allpdpr.IDPEDIDO})}
                             >
                                 <OrderCard allpdpr={(allpdpr)}/>
                             </Touch>
