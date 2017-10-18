@@ -9,4 +9,7 @@ export const fontAssets = cachedFonts([
     // * Source Sans Pro
     { sspRegular: require('../../assets/fonts/SourceSansPro-Regular.ttf') },
 
+    // * Roboto 
+    { robotoRegular: require('../../assets/fonts/Roboto/Roboto-Regular.ttf') },
+
 ]);

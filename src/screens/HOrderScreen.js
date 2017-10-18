@@ -17,6 +17,7 @@ const LATDELTA = 0.006446834062519002;
 const LNGDELTA = LATDELTA * ASPECT_RATIO;
 const RECOGER = 'R';
 const ENTREGAR = 'E';
+const ER = 'E-R';
 
 const Root = styled.View`
     flex: 1;
@@ -60,13 +61,14 @@ const TitleText = styled.Text`
 
 class HOrderScreen extends Component {
     static navigationOptions = ({navigation}) => ({
-        title: `Detalles de pedido ${navigation.state.params.idpedido}`
+        title: `Detalles del pedido ${navigation.state.params.idpedido}`
        // title: navigation.state.params.idpedido,
       });
       
     constructor(props){
         super(props)
         const { onepdpr: { data, isFetched } } = this.props;
+        const { params } = this.props.navigation.state;
         this.state = { 
             loading: false,
             lat: null,
@@ -82,6 +84,8 @@ class HOrderScreen extends Component {
             status: data.PSTATUS,
             fetched: isFetched,
             coords: [],
+            coordsrparam: params.coordsrparam,
+            coordseparam: params.coordseparam
          }
     }
 
@@ -98,7 +102,7 @@ class HOrderScreen extends Component {
                 this.setState({lat, lng})
 
                 if (this.state.fetched) {
-                     this.getDirections(`${this.state.lat},${this.state.lng}`,`${this.state.status === 'en_camino' ? this.state.coordenadas_r : this.state.coordenadas_e}`)
+                     this.getDirections(`${this.state.lat},${this.state.lng}`,`${this.state.status === 'en_camino' ? this.state.coordsrparam : this.state.coordseparam}`)
                     // this.getDirections(`${lat},${lng}`, "24.027675,-104.6708929")
                 }
             },
@@ -176,14 +180,14 @@ class HOrderScreen extends Component {
                     </Root>
                 )
             }
-            const latlngR = data.COORDENADAS_R;
+            const latlngR = this.state.coordsrparam;
             const latlngRsplit = latlngR.split(',',2);
             const latlng1 = {
                 latitude: parseFloat(latlngRsplit[0]),
                 longitude: parseFloat(latlngRsplit[1])
             };
 
-            const latlngE = data.COORDENADAS_E;
+            const latlngE = this.state.coordseparam;
             const latlngEsplit = latlngE.split(',',2);
             const latlng2 = {
                 latitude: parseFloat(latlngEsplit[0]),

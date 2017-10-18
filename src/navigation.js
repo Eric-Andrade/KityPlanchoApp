@@ -23,7 +23,7 @@ import HowScreen from './screens/HowScreen';
 const tabIcon = 27;
 const slideIcon = 25;
 const {width} = Dimensions.get('window');
-const Badgecontador = 4;
+const Badgecontador = 1;
 
 const TNavigator = TabNavigator({
     Map:{
@@ -48,14 +48,16 @@ const TNavigator = TabNavigator({
                     MainElement={
                         <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
                     }
-                    BadgeElement={<Text style={{ color: focused ? colors.WHITE : colors.WHITE , fontSize: 12 }}>{Badgecontador}</Text>}
+                    BadgeElement={<Text style={{ color: focused ? colors.WHITE : colors.WHITE , fontSize: 9, fontFamily: 'robotoRegular' }}>{Badgecontador}</Text>}
                     IconBadgeStyle={
                         {
-                        width: 20,
-                        height: 20,
+                        width: 18,
+                        height: 19,
+                        justifyContent: 'center',
+                        alignItems: 'center',
                         left: 12,
                         bottom: 10,
-                        backgroundColor: focused ? colors.SECUNDARY : colors.SECUNDARY,
+                        backgroundColor: focused ? 'red' : 'red',
                         borderWidth: 1,
                         borderColor: focused ?  colors.WHITE : colors.WHITE,
                         }
@@ -86,7 +88,7 @@ const TNavigator = TabNavigator({
         showIcon: true,
         showLabel: true,
         activeTintColor: colors.PRIMARY,
-        inactiveTintColor: colors.GRAY200,
+        inactiveTintColor: colors.GRAY777,
         pressColor: colors.PRIMARY,
         indicatorStyle: { backgroundColor: colors.PRIMARY },
         style:{
