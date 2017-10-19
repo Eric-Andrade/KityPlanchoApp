@@ -54,7 +54,7 @@ git log // Muestra todos los commit que hicimos.
     --oneline Muestra todos los commit que hicimos en una sola linea.
 git checkout [IdCommit] || master // Viajar al pasado de los commits || regresar al último commit.
 git reset --soft  // No borra código.
-                git reset --soft HEAD~1 // Borrar el último commit.
+                git reset --soft HEAD~1 // Borrar el último commit y mantener el código.
  		  --mixed // Avanzado. 
  		  --hard   // Borra todo.
         git reset --hard head // Regresa el código hacia el último commit

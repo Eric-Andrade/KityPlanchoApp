@@ -5,6 +5,9 @@ import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
 import { LoadingScreen } from '../commons/LoadingScreen';
+import { KityPlanchoAPI } from '../util/api';
+
+const kityplanchoApi = new KityPlanchoAPI();
 
 const Root = styled(Touchable).attrs({
     feedback: 'none'
@@ -84,7 +87,7 @@ const InputWrapper = styled.View`
 `;
 const Input = styled.TextInput.attrs({
     placeholderTextColor: colors.GRAY600,
-    selectionColor: Platform.OS === 'ios' ? colors.PINK200 : undefined,
+    selectionColor: Platform.OS === 'ios' ? colors.PRIMARY : undefined,
     autoCorrect: false,
 })`
     alignSelf: center;
@@ -95,45 +98,48 @@ const Input = styled.TextInput.attrs({
 
 class SignForm extends Component {
     state = { 
-        nombre: '',
-        apellidos: '',
-        telefono: '',
-        email: '',
-        contrasena: '',
+        CNOMBRE: 'nuevo cliente en la app',
+        CAPELLIDOS: 'apellidos',
+        CTELEFONO: '1234567890',
+        CEMAIL: 'eric@itecor.com',
+        CPASSWORD: '1234567890',
         loading: false
      }
 
     _onOutSidePress = () => Keyboard.dismiss();
     _onChangeText = (text, type) => this.setState({[type]:text});
     _checkIfDisabled(){
-        const { nombre, apellidos, telefono, email, contrasena } = this.state;
-        if( !nombre || !apellidos || !telefono || !email || !contrasena ){
+        const { CNOMBRE, CAPELLIDOS, CTELEFONO, CEMAIL, CPASSWORD } = this.state;
+        if( !CNOMBRE || !CAPELLIDOS || !CTELEFONO || !CEMAIL || !CPASSWORD ){
             return true
         }
         return false
     }
     _onSignupPress = async () => {
-        this.setState({ loading: true})
-        const { nombre, apellidos, telefono, email, contrasena} = this.state;
-        const avatar = fakeavatar;
-
+        // this.setState({ loading: true})
+        const { CNOMBRE, CAPELLIDOS, CTELEFONO, CEMAIL, CPASSWORD } = this.state;
+        
+        const res = await kityplanchoApi.postCliente({
+            CNOMBRE, CAPELLIDOS, CTELEFONO, CEMAIL, CPASSWORD
+        })
         // try {
-        //     const { data } = await this.props.mutate({
-        //         variables: {
-        //             nombre, 
-        //             email, 
-        //             contrasena,
-        //             apellidos,
-        //             avatar
-        //         }
-        //     });
-        //     await AsyncStorage.setItem('@icecream', data.signupClient.token);
-        //         this.setState({ loading: false });
-        //         return this.props.login();
-        // } catch (error) {
-        //     throw error;
-        // }
+            //     const { data } = await this.props.mutate({
+            //         variables: {
+            //             CNOMBRE, 
+            //             CEMAIL, 
+            //             CPASSWORD,
+            //             CAPELLIDOS,
+            //             avatar
+            //         }
+            //     });
+            //     await AsyncStorage.setItem('@icecream', data.signupClient.token);
+            //         this.setState({ loading: false });
+            //         return this.props.login();
+            // } catch (error) {
+            //     throw error;
+            // }
     }
+
     render() {
         if(this.state.loading){
             return <LoadingScreen size="small" color={colors.PRIMARY}/>
@@ -147,57 +153,62 @@ class SignForm extends Component {
                     <BackImage style={{width: null, height: null}}
                                 source={require('../../assets/backgroundgray.png')}>
                             <TContainer>
-                                <T>Nuevo registro</T>
+                                <T>Ingresa tus datos, por favor</T>
                             </TContainer>    
                             <Wrapper>
                                 <InputWrapper>
                                     <Input 
+                                    value={this.state.CNOMBRE}
                                     placeholder="Nombre"
                                     returnKeyType={"next"}
                                     autoCapitalize="words"
                                     keyboardType="default"
-                                    onChangeText={text => this._onChangeText(text, 'nombre')}
+                                    onChangeText={text => this._onChangeText(text, 'CNOMBRE')}
                                     underlineColorAndroid="transparent"
                                     onSubmitEditing={() => this.emailInput.focus()}
                                     />
                                 </InputWrapper>
                                 <InputWrapper>
                                     <Input 
+                                    value={this.state.CAPELLIDOS}
                                     placeholder="Apellidos"
                                     autoCapitalize="none"
                                     keyboardType="default"
-                                    onChangeText={text => this._onChangeText(text, 'apellidos')}
+                                    onChangeText={text => this._onChangeText(text, 'CAPELLIDOS')}
                                     underlineColorAndroid="transparent"
                                     />
                                 </InputWrapper>
                                 <InputWrapper>
                                     <Input 
+                                    value={this.state.CTELEFONO}
                                     placeholder="Teléfono"
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     keyboardType="phone-pad"
-                                    onChangeText={text => this._onChangeText(text, 'telefono')}
+                                    onChangeText={text => this._onChangeText(text, 'CTELEFONO')}
                                     underlineColorAndroid="transparent"
                                     />
                                 </InputWrapper>
                                 <InputWrapper>
                                     <Input 
+                                    value={this.state.CEMAIL}
                                     placeholder="Correo electrónico"
                                     keyboardType="email-address"
                                     autoCapitalize="none"
                                     autoCorrect={false}
-                                    onChangeText={text => this._onChangeText(text, 'email')}
+                                    onChangeText={text => this._onChangeText(text, 'CEMAIL')}
                                     underlineColorAndroid="transparent"
                                     ref={(input) => {this.emailInput = input }}
                                     />
                                 </InputWrapper>
                                 <InputWrapper>
                                     <Input
+                                    value={this.state.CPASSWORD}
                                     placeholder="Contraseña"
                                     secureTextEntry
                                     autoCorrect={false}
                                     autoCapitalize="none"                            
-                                    onChangeText={text => this._onChangeText(text, 'contrasena')}
+                                    onChangeText={text => this._onChangeText(text, 'CPASSWORD')}
                                     underlineColorAndroid="transparent"
                                     />
                                 </InputWrapper>

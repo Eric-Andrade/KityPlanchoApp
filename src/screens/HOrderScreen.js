@@ -63,7 +63,7 @@ class HOrderScreen extends Component {
     static navigationOptions = ({navigation}) => ({
         title: `Detalles del pedido ${navigation.state.params.idpedido}`
        // title: navigation.state.params.idpedido,
-      });
+    });
       
     constructor(props){
         super(props)
