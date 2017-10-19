@@ -6,6 +6,7 @@ import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
 import { LoadingScreen } from '../commons/LoadingScreen';
 import { KityPlanchoAPI } from '../util/api';
+import  FormSignup  from './FormSignup'
 
 const kityplanchoApi = new KityPlanchoAPI();
 
@@ -122,22 +123,6 @@ class SignForm extends Component {
         const res = await kityplanchoApi.postCliente({
             CNOMBRE, CAPELLIDOS, CTELEFONO, CEMAIL, CPASSWORD
         })
-        // try {
-            //     const { data } = await this.props.mutate({
-            //         variables: {
-            //             CNOMBRE, 
-            //             CEMAIL, 
-            //             CPASSWORD,
-            //             CAPELLIDOS,
-            //             avatar
-            //         }
-            //     });
-            //     await AsyncStorage.setItem('@icecream', data.signupClient.token);
-            //         this.setState({ loading: false });
-            //         return this.props.login();
-            // } catch (error) {
-            //     throw error;
-            // }
     }
 
     render() {
@@ -146,6 +131,7 @@ class SignForm extends Component {
         }
         return (
             <Root onPress={this._onOutSidePress}>
+               
                 <RootContainer>
                     <BackButton onPress={this.props.onBackPress}> 
                         <Entypo color={colors.GRAY900} size={27} name="chevron-thin-left" />
@@ -154,7 +140,8 @@ class SignForm extends Component {
                                 source={require('../../assets/backgroundgray.png')}>
                             <TContainer>
                                 <T>Ingresa tus datos, por favor</T>
-                            </TContainer>    
+                            </TContainer> 
+                            <FormSignup />
                             <Wrapper>
                                 <InputWrapper>
                                     <Input 

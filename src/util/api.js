@@ -19,6 +19,8 @@ class KityPlanchoAPI {
         this.getserviciosactivos = 'servicios/getallactivos'
         //* clientes
         this.clientes = 'clientes'
+        //* empleados
+        this.empleados = 'empleados'
     }
 
 //* pedidos
@@ -64,10 +66,21 @@ class KityPlanchoAPI {
                 // console.log(res);
                 return res;
          } catch (error) {
-                console.log('catch post');
+                console.log('Error postCliente');
                 console.log(error);
          }
      }
+// * empleados
+     async getMe(id) {
+         try {
+             const { data } = await axios.get(`${this.empleados}?id=${id}`)
+             return data;
+         } catch (error) {
+            console.log('Error getMe');
+            console.log(error);
+         }
+     }
+
 }
 
 // export const getClients = () => {
