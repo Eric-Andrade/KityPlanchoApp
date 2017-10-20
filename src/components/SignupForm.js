@@ -6,7 +6,7 @@ import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
 import { LoadingScreen } from '../commons/LoadingScreen';
 import { KityPlanchoAPI } from '../util/api';
-import  FormSignup  from './FormSignup'
+import FormSignup from './FormSignup/FormSignup'
 
 const kityplanchoApi = new KityPlanchoAPI();
 
@@ -138,10 +138,10 @@ class SignForm extends Component {
                     </BackButton>
                     <BackImage style={{width: null, height: null}}
                                 source={require('../../assets/backgroundgray.png')}>
+                            <FormSignup />
                             <TContainer>
                                 <T>Ingresa tus datos, por favor</T>
                             </TContainer> 
-                            <FormSignup />
                             <Wrapper>
                                 <InputWrapper>
                                     <Input 

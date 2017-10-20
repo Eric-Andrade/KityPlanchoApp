@@ -2,6 +2,9 @@ r.fuentes@itecor.onmicrosoft.com
 api/actions/HistoricalReducer/reducers/store/HistoricalScreen/...etc
 
 /*eslint no-console: "error"*/
+yarn-upgrade-all
+Download 
+http://expo.io/--/api/v2/versions/download-template/tabs or http://expo.io/--/api/v2/versions/download-template/blank
 
 Run services
   run APIGraphQL: backend -> javascript: yarn start

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Dimensions, PanResponder, View, Animated, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
+import PropTypes from 'prop-types';
 
 const heighslide = 150;
 const Root = styled(Touchable).attrs({
@@ -26,15 +27,16 @@ const BackImage = styled.Image`
 // `;
 
 export default class CarouselBanner extends Component{
+    
     static propTypes = {
-        items: React.PropTypes.array
+        items: PropTypes.array
     }
 
     constructor(props){
         super(props)
         const {width} = Dimensions.get('window')
         this.state = {
-            width: width,
+            width,
             page: 0,
             translate: new Animated.Value(0)
 

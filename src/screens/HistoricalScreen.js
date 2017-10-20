@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components/native';
 import { FlatList, StatusBar, View, Text } from 'react-native';
-import Toast from 'react-native-smart-toast';
+// import Toast from 'react-native-smart-toast';
 import { connect } from 'react-redux';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
@@ -44,27 +44,27 @@ class HistoricalScreen extends Component {
         navigate('OrdersClientScreen', { name: 'Myname'})
     };
 
-    _showCenterToast = () => {
-        this._toast.show({
-            position: Toast.constants.gravity.bottom,
-            duration: 255,
-            children: (
-                        <View>
-                            <Text style={{ color: 'white', fontFamily: 'sspRegular', fontSize: 13, fontWeight: '400' }}>ID pedido</Text>
-                        </View>
-                        ),
-            // animationEnd : () => {
-                //     this._toast._toastAnimationToggle = this.setTimeout( () => {
-                //         this._toast.hide({
-                //             duration: 0,
-                //             animationEnd: () => {
-                //                 //do sth...
-                //             }
-                //         })
-                //     }, 3000)
-                // }
-        })
-    }
+    // _showCenterToast = () => {
+    //     this._toast.show({
+    //         position: Toast.constants.gravity.bottom,
+    //         duration: 255,
+    //         children: (
+    //                     <View>
+    //                         <Text style={{ color: 'white', fontFamily: 'sspRegular', fontSize: 13, fontWeight: '400' }}>ID pedido</Text>
+    //                     </View>
+    //                     ),
+    //         // animationEnd : () => {
+    //             //     this._toast._toastAnimationToggle = this.setTimeout( () => {
+    //             //         this._toast.hide({
+    //             //             duration: 0,
+    //             //             animationEnd: () => {
+    //             //                 //do sth...
+    //             //             }
+    //             //         })
+    //             //     }, 3000)
+    //             // }
+    //     })
+    // }
 
     render() {
         
@@ -107,9 +107,7 @@ class HistoricalScreen extends Component {
                     keyExtractor={(item, index) => index}
                     showsVerticalScrollIndicator={false}
                     />
-                <Toast ref={component => (this._toast = component)} marginTop={64}>
-                    Unable to connect to apple store
-                </Toast>
+             
             </Root>
         );
     }

@@ -12,7 +12,7 @@ const TextInputWithValidations = ({
   ...custom
 }) => (
   <View style={containerStyle}>
-    <FormLabel fontFamily="montserrat" labelStyle={{ color:colors.GRAY600 }}>
+    <FormLabel fontFamily="sspRegular" labelStyle={{ color:colors.GRAY600 }}>
       {label}
     </FormLabel>
     <FormInput
@@ -20,7 +20,7 @@ const TextInputWithValidations = ({
       {...custom}
     />
     {error && touched &&
-      <FormValidationMessage fontFamily="montserrat" labelStyle={{ color: colors.PRIMARY }}>
+      <FormValidationMessage fontFamily="sspRegular" labelStyle={{ color: colors.PRIMARY }}>
         {error}
       </FormValidationMessage>
     }
