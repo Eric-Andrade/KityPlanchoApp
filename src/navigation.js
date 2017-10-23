@@ -22,8 +22,8 @@ import HowScreen from './screens/HowScreen';
 
 const tabIcon = 27;
 const slideIcon = 25;
-const {width} = Dimensions.get('window');
-const Badgecontador = 1;
+// const {width} = Dimensions.get('window');
+const Badgecontador = 18;
 
 const TNavigator = TabNavigator({
     Map:{
@@ -44,19 +44,18 @@ const TNavigator = TabNavigator({
             headerTitle: 'Listado',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 // TODO: Obtener la suma de los pedidos pendientes de la API
-                <IconBadge style={{right: 30}}
+                <IconBadge style={{marginBottom: 10}}
                     MainElement={
-                        <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}} badgeCount={6}/>
+                        <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor, bottom: 15}} badgeCount={6}/>
                     }
-                    BadgeElement={<Text style={{ color: focused ? colors.WHITE : colors.WHITE , fontSize: 9, fontFamily: 'robotoRegular' }}>{Badgecontador}</Text>}
+                    BadgeElement={<Text style={{ color: focused ? colors.WHITE : colors.WHITE , fontSize: 10, fontFamily: 'robotoRegular'}}>{Badgecontador}</Text>}
                     IconBadgeStyle={
                         {
                         width: 18,
                         height: 19,
-                        justifyContent: 'center',
-                        alignItems: 'center',
                         left: 12,
-                        bottom: 10,
+                        top: -15,
+                        marginBottom: 10,
                         backgroundColor: focused ? 'red' : 'red',
                         borderWidth: 1,
                         borderColor: focused ?  colors.WHITE : colors.WHITE,

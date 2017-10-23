@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Entypo }  from '@expo/vector-icons'
-import { Platform, Keyboard, AsyncStorage } from 'react-native';
+import { Keyboard } from 'react-native';
+import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
 import { LoadingScreen } from '../commons/LoadingScreen';
-import { KityPlanchoAPI } from '../util/api';
-import FormSignup from './FormSignup/FormSignup'
-
-const kityplanchoApi = new KityPlanchoAPI();
+import FormSignup from './FormSignup/FormSignup';
+import { postCliente } from './FormSignup/actions';
 
 const Root = styled(Touchable).attrs({
     feedback: 'none'
@@ -30,7 +29,7 @@ const RootContainer = styled.KeyboardAvoidingView.attrs({
     backgroundColor: ${props => props.theme.GRAY600RGBA};
 `;
 const TContainer = styled.View`
-    flex: 1;
+    flex: 0.3;
     alignItems: center;
     justifyContent: center;
 `;
@@ -43,8 +42,6 @@ const Wrapper = styled.View`
     flex: 1;
     alignSelf: stretch;
     alignItems: center;
-    justifyContent: center;
-    marginBottom: 40
 `;
 const BackButton = styled(Touchable).attrs({
     feedback: 'opacity',
@@ -57,78 +54,85 @@ const BackButton = styled(Touchable).attrs({
     left: 5%;
     zIndex: 2;
 `;
-const ButtonConfirm = styled(Touchable).attrs({
-    feedback: 'opacity',
-    hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
-})`
-    marginTop: 15;
-    width: 70%;
-    height: 50;
-    backgroundColor: ${props => props.theme.PRIMARY};
-    borderRadius: 30;
-    justifyContent: center;
-    alignItems: center;
-    shadowOpacity: 0.2;
-    shadowRadius: 5;
-    shadowOffset: 0px 2px;
-    shadowColor: #000;
-    elevation: 2
-`;
-const ButtonConfirmText = styled.Text`
-    color: ${props => props.theme.WHITE};
-    fontWeight: 500;
-    fontSize: 16;
-`;
-const InputWrapper = styled.View`
-    height: 45;
-    width: 70%;
-    borderBottomWidth: 1;
-    borderBottomColor: ${props => props.theme.PINK200};
-    justifyContent: flex-end;
-`;
-const Input = styled.TextInput.attrs({
-    placeholderTextColor: colors.GRAY600,
-    selectionColor: Platform.OS === 'ios' ? colors.PRIMARY : undefined,
-    autoCorrect: false,
-})`
-    alignSelf: center;
-    width: 100%;
-    height: 30;
-    color: ${props => props.theme.GRAY600};
-`
+// const ButtonConfirm = styled(Touchable).attrs({
+//     feedback: 'opacity',
+//     hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
+// })`
+//     width: 70%;
+//     height: 50;
+//     backgroundColor: ${props => props.theme.PRIMARY};
+//     borderRadius: 30;
+//     justifyContent: center;
+//     alignItems: center;
+//     shadowOpacity: 0.2;
+//     shadowRadius: 5;
+//     shadowOffset: 0px 2px;
+//     shadowColor: #000;
+//     elevation: 2
+// `;
+// const ButtonConfirmText = styled.Text`
+//     color: ${props => props.theme.WHITE};
+//     fontWeight: 500;
+//     fontSize: 16;
+// `;
+// const InputWrapper = styled.View`
+//     height: 45;
+//     width: 70%;
+//     borderBottomWidth: 1;
+//     borderBottomColor: ${props => props.theme.PINK200};
+//     justifyContent: flex-end;
+// `;
+// const Input = styled.TextInput.attrs({
+//     placeholderTextColor: colors.GRAY600,
+//     selectionColor: Platform.OS === 'ios' ? colors.PRIMARY : undefined,
+//     autoCorrect: false,
+// })`
+//     alignSelf: center;
+//     width: 100%;
+//     height: 30;
+//     color: ${props => props.theme.GRAY600};
+// `;
 
-class SignForm extends Component {
+@connect(state => ({
+        cliente: state.postclient
+    }),
+    { postCliente }
+)
+
+export default class SignForm extends Component {
     state = { 
-        CNOMBRE: 'nuevo cliente en la app',
-        CAPELLIDOS: 'apellidos',
-        CTELEFONO: '1234567890',
-        CEMAIL: 'eric@itecor.com',
-        CPASSWORD: '1234567890',
         loading: false
      }
 
     _onOutSidePress = () => Keyboard.dismiss();
-    _onChangeText = (text, type) => this.setState({[type]:text});
-    _checkIfDisabled(){
-        const { CNOMBRE, CAPELLIDOS, CTELEFONO, CEMAIL, CPASSWORD } = this.state;
-        if( !CNOMBRE || !CAPELLIDOS || !CTELEFONO || !CEMAIL || !CPASSWORD ){
-            return true
-        }
-        return false
-    }
-    _onSignupPress = async () => {
-        // this.setState({ loading: true})
-        const { CNOMBRE, CAPELLIDOS, CTELEFONO, CEMAIL, CPASSWORD } = this.state;
-        
-        const res = await kityplanchoApi.postCliente({
-            CNOMBRE, CAPELLIDOS, CTELEFONO, CEMAIL, CPASSWORD
-        })
+    // _onChangeText = (text, type) => this.setState({[type]:text});
+    // _checkIfDisabled(){
+    //     const { CNOMBRE, CAPELLIDOS, CTELEFONO, CEMAIL, CPASSWORD } = this.state;
+    //     if( !CNOMBRE || !CAPELLIDOS || !CTELEFONO || !CEMAIL || !CPASSWORD ){
+    //         return true
+    //     }
+    //     return false
+    // }
+    _onSignupPress = async values => {
+        await this.props.postCliente(values)
+        this.props.onBackPress();
     }
 
     render() {
-        if(this.state.loading){
-            return <LoadingScreen size="small" color={colors.PRIMARY}/>
+        const {
+            cliente
+        } = this.props;
+
+        if(cliente.isLoading){
+            return <LoadingScreen/>
+        }else if(cliente.error.on){
+            return (
+                <RootContainer>
+                    <T>{cliente.error.message}</T>
+                </RootContainer>
+            )
         }
+
         return (
             <Root onPress={this._onOutSidePress}>
                
@@ -138,12 +142,14 @@ class SignForm extends Component {
                     </BackButton>
                     <BackImage style={{width: null, height: null}}
                                 source={require('../../assets/backgroundgray.png')}>
-                            <FormSignup />
                             <TContainer>
                                 <T>Ingresa tus datos, por favor</T>
                             </TContainer> 
                             <Wrapper>
-                                <InputWrapper>
+                                <FormSignup 
+                                onSignupPress={this._onSignupPress}
+                                />
+                               {/* <InputWrapper>
                                     <Input 
                                     value={this.state.CNOMBRE}
                                     placeholder="Nombre"
@@ -199,17 +205,16 @@ class SignForm extends Component {
                                     underlineColorAndroid="transparent"
                                     />
                                 </InputWrapper>
-                                <ButtonConfirm onPress={this._onSignupPress} disabled={this._checkIfDisabled()}>
+                                */}
+                                {/* <ButtonConfirm onPress={this._onSignupPress} disabled={this._checkIfDisabled()}>
                                     <ButtonConfirmText>
                                         Crear cuenta nueva
                                     </ButtonConfirmText>
-                                </ButtonConfirm>
+                                </ButtonConfirm>  */}
                             </Wrapper>
                     </BackImage>  
                 </RootContainer>      
             </Root>
         );
     }
-}
-
-export default SignForm;
+};
