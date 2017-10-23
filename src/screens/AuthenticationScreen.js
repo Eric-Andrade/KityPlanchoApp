@@ -6,6 +6,9 @@ import { Entypo } from '@expo/vector-icons';
 import SignupForm from '../components/SignupForm';
 import LoginDeliver from '../components/LoginDeliver'
 import { colors } from '../util/constants'
+import { KityPlanchoAPI } from '../util/api';
+
+const kityplanchoApi = new KityPlanchoAPI();
 
 const slogan = 'Consentimos a tu ropa para que ella te consienta a ti';
 const kpLogoSize = 110;
@@ -178,8 +181,8 @@ const initialState = {
 class AuthenticationScreen extends Component {
     state = { 
         initialState,
-        email: '',
-        contrasena: ''
+        CEMAIL: '',
+        CPASSWORD: ''
      
     }
 
@@ -189,11 +192,18 @@ class AuthenticationScreen extends Component {
     _onShowLoginDeliverPress = () => this.setState({ showLoginDeliver: true });
     _onBackPress = () => this.setState({ ...initialState });
     _checkIfDisabled(){
-        const { email, contrasena } = this.state;
-        if(!email || !contrasena ){
+        const { CEMAIL, CPASSWORD } = this.state;
+        if(!CEMAIL || !CPASSWORD ){
             return true
         }
         return false
+    }
+    
+    _loginCliente = async () =>{
+        const { CEMAIL, CPASSWORD } = this.state;
+        const res = await kityplanchoApi.loginCliente({
+            CEMAIL, CPASSWORD
+        })
     }
 
     render() {
@@ -242,7 +252,7 @@ class AuthenticationScreen extends Component {
                                     keyboardType="email-address"
                                     autoCorrect={false}
                                     autoCapitalize="none"
-                                    onChangeText={text => this._onChangeText(text, 'email')}
+                                    onChangeText={text => this._onChangeText(text, ' CEMAIL')}
                                     underlineColorAndroid="transparent"      
                                     returnKeyType={"next"}
                                     />
@@ -253,11 +263,13 @@ class AuthenticationScreen extends Component {
                                     secureTextEntry
                                     autoCorrect={false}
                                     autoCapitalize="none"
-                                    onChangeText={text => this._onChangeText(text, 'contrasena')}
+                                    onChangeText={text => this._onChangeText(text, 'CPASSWORD')}
                                     underlineColorAndroid="transparent"
                                     />
                                 </InputWrapper>
-                                <ButtonLogin disabled={this._checkIfDisabled()}>
+                                <ButtonLogin
+                                onPress={() => this._loginCliente()} 
+                                disabled={this._checkIfDisabled()}>
                                     <ButtonLoginText>Ingresar</ButtonLoginText>
                                 </ButtonLogin>
                                 <ButtonSignup onPress={this._onShowSignupPress}>

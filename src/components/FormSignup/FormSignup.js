@@ -35,7 +35,7 @@ const ButtonConfirm = styled(Touchable).attrs({
     feedback: 'opacity',
     hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
 })`
-    marginTop: 10;
+    marginTop: 25;
     width: 83%;
     height: 50;
     backgroundColor: ${ props => props.theme.PRIMARY };
@@ -71,7 +71,7 @@ const FormSignup = ({
             keyboardType="default"
             underlineColorAndroid="transparent"
             selectionColor={colors.PRIMARY}
-            containerStyle={{marginVertical: '2%'}}
+            containerStyle={{marginVertical: '1%'}}
             minimumText="45"
             maxLength={45}
             validate={[alfabetico, puntosespacios]}
@@ -85,7 +85,7 @@ const FormSignup = ({
             keyboardType="default"
             underlineColorAndroid="transparent"
             selectionColor={colors.PRIMARY}
-            containerStyle={{marginVertical: '2%'}}
+            containerStyle={{marginVertical: '1%'}}
             minimumText="65"
             maxLength={65}
             validate={[alfabetico, puntosespacios]}
@@ -98,7 +98,7 @@ const FormSignup = ({
             keyboardType="phone-pad"
             underlineColorAndroid="transparent"
             selectionColor={colors.PRIMARY}
-            containerStyle={{marginVertical: '2%'}}
+            containerStyle={{marginVertical: '1%'}}
             minimumText="10"
             maxLength={10}
             validate={phoneNumber}
@@ -112,7 +112,7 @@ const FormSignup = ({
             autoCorrect={false}
             underlineColorAndroid="transparent"
             selectionColor={colors.PRIMARY}
-            containerStyle={{marginVertical: '2%'}}
+            containerStyle={{marginVertical: '1%'}}
             minimumText="45"
             maxLength={45}
             validate={email}
@@ -125,7 +125,7 @@ const FormSignup = ({
             autoCapitalize="none" 
             underlineColorAndroid="transparent"
             selectionColor={colors.PRIMARY}
-            containerStyle={{marginVertical: '2%'}}
+            containerStyle={{marginVertical: '1%'}}
             minimumText="45"
             maxLength={45}
         />

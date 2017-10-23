@@ -3,6 +3,7 @@ import { addNavigationHelpers, StackNavigator, TabNavigator, DrawerNavigator } f
 import { Ionicons, EvilIcons, MaterialIcons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import { Keyboard, Platform, StatusBar, Dimensions, Text } from 'react-native';
 import IconBadge from 'react-native-icon-badge'
+import { connect } from 'react-redux';
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
 import AboutUsScreen from './screens/AboutUsScreen';
@@ -15,6 +16,7 @@ import MapScreen from './screens/MapScreen';
 import OrdersClientScreen from './screens/OrdersClientScreen';
 import ServicesPScreen from './screens/ServicesPScreen';
 import ServicesScreen from './screens/ServicesScreen';
+import { fetchsumaPDPR } from './screens/redux/actions';
 // import EmployeeHomeScreen from './screens/Employee.HomeScreen'
 // import EmployeeOrderListScreen from './screens/Employee.OrdersListScreen';
 // import EmployeeOrderDetailScreen from './screens/EmployeeOrderDetailScreen';
@@ -24,6 +26,11 @@ const tabIcon = 27;
 const slideIcon = 25;
 // const {width} = Dimensions.get('window');
 const Badgecontador = 18;
+
+// @connect(state => ({
+//     sumapdpr: state.employeeorderscount.sumapdpr
+//     }),
+//     { fetchsumaPDPR })
 
 const TNavigator = TabNavigator({
     Map:{

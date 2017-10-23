@@ -21,6 +21,8 @@ class KityPlanchoAPI {
         this.clientes = 'clientes'
         //* empleados
         this.empleados = 'empleados'
+        //* dedicados
+        this.getsumapdpr = 'dedicados/getsumapdpr'
     }
 
 //* pedidos
@@ -70,6 +72,21 @@ class KityPlanchoAPI {
                 console.log(error);
          }
      }
+     async loginCliente({CORREO,PASSWORD}){
+        try {
+            const res = await axios.get(`${this.clientes}?CORREO=${CORREO}&PASSWORD=${PASSWORD}`);
+
+            if(res.status >= 200 && res.status < 300){
+                const cemail = res.CEMAIL;
+                console.log(`status 200 email: ${  cemail}`)
+            }else{
+                console.log(`No se encontró cliente`)
+            }
+        } catch (error) {
+                console.log('Error loginCliente');
+                console.log(error);
+        }
+     }
 // * empleados
      async getMe(id) {
          try {
@@ -80,6 +97,15 @@ class KityPlanchoAPI {
             console.log(error);
          }
      }
+// * dedicados 
+    async getsumaPDPR (){
+        try {
+            const { data } = await axios.get(this.getsumapdpr);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+ } 
 
 }
 

@@ -29,3 +29,10 @@ export const fetchALLPDPC = () => ({
     type: FETCHALLPDPC,
     payload: kityplanchoapi.getALLPDPC()
 })
+// //////
+export const GETSUMAPDPR = 'GETSUMAPDPR';
+
+export const fetchsumaPDPR = () => ({
+    type: GETSUMAPDPR,
+    payload: kityplanchoapi.getsumaPDPR()
+})
