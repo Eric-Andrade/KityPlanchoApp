@@ -6,7 +6,9 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'"
+    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'",
+    "lint": "eslint src App.js",
+    "lint:fix": "eslint --fix src App.js"
   },
   "dependencies": {
     "@appandflow/touchable": "^1.2.2",

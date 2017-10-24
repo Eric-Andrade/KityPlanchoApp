@@ -121,7 +121,7 @@ export default class CarouselBanner extends Component{
             this.state.translate,
             {
                 duration: 300,
-                toValue: toValue,
+                toValue,
                 useNativeDriver: true
             }
         ).start(() => {
