@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { Provider } from 'react-redux';
 import { UIManager} from 'react-native';
-import AppNavigator from './src/navigation';
+import AppNavigator from './src/screens/Auth/AppNavigator';
 import store from './src/redux/store';
 import { colors } from './src/util/constants';
 import {fontAssets} from './src/util/fontAssets';
@@ -40,4 +40,4 @@ export default class App extends React.Component {
         </ActionSheetProvider>
       </Provider>
     );
-  }}
+  }} 

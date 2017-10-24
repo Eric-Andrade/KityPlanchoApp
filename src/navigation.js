@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { addNavigationHelpers, StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
-import { Ionicons, EvilIcons, MaterialIcons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
-import { Keyboard, Platform, StatusBar, Dimensions, Text } from 'react-native';
+import { StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
+import { Ionicons, EvilIcons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
+import { Keyboard, Platform, StatusBar, Text } from 'react-native';
 import IconBadge from 'react-native-icon-badge'
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
 import AboutUsScreen from './screens/AboutUsScreen';
-import AuthenticationScreen from './screens/AuthenticationScreen';
+import AuthenticationScreen from './screens/Auth/AuthenticationScreen';
 import HistoricalScreen from './screens/HistoricalScreen';
 import HOrderScreen from './screens/HOrderScreen';
 import InfoScreen from './screens/InfoScreen';
@@ -16,7 +16,9 @@ import MapScreen from './screens/MapScreen';
 import OrdersClientScreen from './screens/OrdersClientScreen';
 import ServicesPScreen from './screens/ServicesPScreen';
 import ServicesScreen from './screens/ServicesScreen';
-import { fetchsumaPDPR } from './screens/redux/actions';
+
+// import { fetchsumaPDPR } from './screens/redux/actions';
+
 // import EmployeeHomeScreen from './screens/Employee.HomeScreen'
 // import EmployeeOrderListScreen from './screens/Employee.OrdersListScreen';
 // import EmployeeOrderDetailScreen from './screens/EmployeeOrderDetailScreen';
@@ -173,6 +175,17 @@ const DNavigator = DrawerNavigator({
                 <MaterialCommunityIcons name={focused ? 'vector-union' : 'vector-union'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
             )
         })
+    },
+    MeScreen:{
+        screen: MeScreen,
+        path: '/me',
+        navigationOptions:() =>({
+            title: 'Mi cuenta',
+            drawerLabel: 'Mi cuenta',
+            drawerIcon: ({ tintColor, focused }) => ( 
+                <EvilIcons name={focused ? 'user' : 'user'} size={Platform.OS === 'ios' ? 28 : 24} style={{color: tintColor}}/>
+            )
+        })
     }
 },{
     headerMode: 'none',
@@ -212,7 +225,7 @@ const AuthenticationModal = StackNavigator({
     }
 );
 
-const SNavigator = StackNavigator({
+export const SNavigator = StackNavigator({
     Historical:{
         screen: DNavigator,
         navigationOptions: ({ navigation }) => ({
@@ -320,7 +333,7 @@ const SNavigator = StackNavigator({
     gesturesEnabled: true,
 })
 
-class AppNavigator extends Component {
+class Navigator extends Component {
     render() {
         return (
             <SNavigator/>
@@ -328,4 +341,4 @@ class AppNavigator extends Component {
     }
 }
 
-export default AppNavigator;
+export default Navigator;

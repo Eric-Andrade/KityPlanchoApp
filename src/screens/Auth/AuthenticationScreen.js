@@ -3,10 +3,10 @@ import { Platform, Keyboard } from 'react-native';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
 import { Entypo } from '@expo/vector-icons';
-import SignupForm from '../components/SignupForm';
-import LoginDeliver from '../components/LoginDeliver'
-import { colors } from '../util/constants'
-import { KityPlanchoAPI } from '../util/api';
+import SignupForm from '../../components/SignupForm';
+import LoginDeliver from '../../components/LoginDeliver'
+import { colors } from '../../util/constants'
+import { KityPlanchoAPI } from '../../util/api';
 
 const kityplanchoApi = new KityPlanchoAPI();
 
@@ -203,11 +203,13 @@ class AuthenticationScreen extends Component {
         const { CEMAIL, CPASSWORD } = this.state;
         const res = await kityplanchoApi.loginCliente({
             CEMAIL, CPASSWORD
-        })
+        });
+        
+        console.log(`_loginCliente ${res}`)
     }
 
     render() {
-        const { goBack } = this.props.navigation;
+        // const { goBack } = this.props.navigation;
         if (this.state.showSignup) {
             return(
                 <Root>
@@ -225,17 +227,17 @@ class AuthenticationScreen extends Component {
         return (
             <Root onPress={this._onOutSidePress}>
                 <RootContainer>
-                    <BackButton onPress={() => goBack(null)}>
+                    {/* <BackButton onPress={() => goBack(null)}>
                         <Entypo name="chevron-thin-down" size={27} color={colors.WHITE}/>
-                    </BackButton>
+                    </BackButton> */}
                     <BackImage style={{width: null, height: null}}
-                            source={require('../../assets/backgroundpink.png')}>
+                            source={require('../../../assets/backgroundpink.png')}>
                         <TopContainer>
                             <CompanyName>
                                 KityPlancho
                             </CompanyName>
                             <LogoContainer>
-                                <Logo source={require('../../assets/logokity.png')}/>
+                                <Logo source={require('../../../assets/logokity.png')}/>
                             </LogoContainer>
                             <Slogan>
                                 {slogan}
@@ -244,7 +246,7 @@ class AuthenticationScreen extends Component {
                     </BackImage>
                     <BottomContainer>
                     <BackImage style={{width: null, height: null}}
-                            source={require('../../assets/backgroundgray.png')}>
+                            source={require('../../../assets/backgroundgray.png')}>
                         <BottomContainerForm>
                                  <InputWrapper>
                                     <Input
