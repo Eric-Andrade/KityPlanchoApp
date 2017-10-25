@@ -66,8 +66,9 @@ const FormSignup = ({
             component={ TextInputWithValidations }
             name="CNOMBRE"
             label="Nombre"
-            autoCapitalize="words"
+            autoFocus
             autoCorrect
+            autoCapitalize="words"
             keyboardType="default"
             underlineColorAndroid="transparent"
             selectionColor={colors.PRIMARY}
@@ -75,13 +76,14 @@ const FormSignup = ({
             minimumText="45"
             maxLength={45}
             validate={[alfabetico, puntosespacios]}
+            returnKeyType="next"
         />
         <Field 
             component={ TextInputWithValidations }
             name="CAPELLIDOS"
             label="Apellidos"
-            autoCapitalize="words"
             autoCorrect
+            autoCapitalize="words"
             keyboardType="default"
             underlineColorAndroid="transparent"
             selectionColor={colors.PRIMARY}
@@ -89,9 +91,11 @@ const FormSignup = ({
             minimumText="65"
             maxLength={65}
             validate={[alfabetico, puntosespacios]}
+            returnKeyType="next"
         />
         <Field 
             component={ TextInputWithValidations }
+            returnKeyType="next"
             name="CTELEFONO"
             label="Teléfono"
             autoCorrect={false}
@@ -116,11 +120,14 @@ const FormSignup = ({
             minimumText="45"
             maxLength={45}
             validate={email}
+            returnKeyType="next"
         />
         <Field 
             component={ TextInputWithValidations }
             name="CPASSWORD"
-            label="Contraseña"
+            label="Contraseña" 
+            secureTextEntry={true}
+            selectTextOnFocus
             autoCorrect={false}
             autoCapitalize="none" 
             underlineColorAndroid="transparent"
@@ -128,6 +135,7 @@ const FormSignup = ({
             containerStyle={{marginVertical: '1%'}}
             minimumText="45"
             maxLength={45}
+            returnKeyType="go"
         />
         <ButtonConfirm 
         onPress={handleSubmit(onSignupPress)}
