@@ -4,6 +4,7 @@ import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
 import { colors } from '../util/constants';
+import About from './AboutUsScreen';
 
 const tabIcon = 27;
 

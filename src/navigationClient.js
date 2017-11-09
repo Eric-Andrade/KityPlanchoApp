@@ -6,48 +6,48 @@ import IconBadge from 'react-native-icon-badge'
 // import { connect } from 'react-redux';
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
-import HistoricalScreen from './screens/EmployeeScreens/HistoricalScreen';
+import OrdersClientScreen from './screens/ClientScreens/OrdersClientScreen';
+import ServicesScreen from './screens/ClientScreens/ServicesScreen';
+import ServicesPScreen from './screens/ClientScreens/ServicesPScreen';
 import HOrderScreen from './screens/HOrderScreen';
+import MapScreen from './screens/MapScreen';
 import InfoScreen from './screens/ClientScreens/InfoScreen';
 import MeScreen from './screens/MeScreen';
-import MapScreen from './screens/MapScreen';
-import OrdersClientScreen from './screens/ClientScreens/OrdersClientScreen';
-import ServicesPScreen from './screens/ClientScreens/ServicesPScreen';
 import HowScreen from './screens/HowScreen';
-// import { fetchsumaPDPR } from './screens/redux/actions';
 
-// import EmployeeHomeScreen from './screens/Employee.HomeScreen'
-// import EmployeeOrderListScreen from './screens/Employee.OrdersListScreen';
-// import EmployeeOrderDetailScreen from './screens/EmployeeOrderDetailScreen';
-
-const majorVersionIOS = parseInt(Platform.Version, 10);
 const tabIcon = 27;
 const slideIcon = 25;
 // const {width} = Dimensions.get('window');
 const Badgecontador = 18;
 
-// @connect(state => ({
-//     sumapdpr: state.employeeorderscount.sumapdpr
-//     }),
-//     { fetchsumaPDPR })
-
 const TNavigator = TabNavigator({
+    Services:{
+        screen: ServicesScreen, 
+        navigationOptions:() =>({
+            title: 'Servicios',
+            // header: null,
+            headerTitle: 'Servicios',
+            tabBarIcon: ({ tintColor, focused }) => ( 
+                <Ionicons name={focused ? 'ios-basket' : 'ios-basket-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
+            )
+        })
+    },
     Map:{
         screen: MapScreen, 
         navigationOptions:() =>({
             title: 'Mapa',
             // header: null,
-            headerTitle: 'Mapa',
+            headerTitle: 'Mis pedidos mapa',
             tabBarIcon: ({ tintColor, focused }) => ( 
                 <Ionicons name={focused ? 'ios-map' : 'ios-map'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
         })
     },
     Cards:{
-        screen: HistoricalScreen,
+        screen: OrdersClientScreen,
         navigationOptions:() =>({
-            title: 'Listado',
-            headerTitle: 'Listado',
+            title: 'Mis pedidos',
+            headerTitle: 'Mis pedidos',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 // TODO: Obtener la suma de los pedidos pendientes de la API
                 <IconBadge style={{marginBottom: 10}}
@@ -83,12 +83,13 @@ const TNavigator = TabNavigator({
             )
         })
     },
+    
 },{
     lazy: true,
     tabBarPosition: 'bottom',
     swipeEnabled: false,
     // animationEnabled: true,
-    initialRouteName: 'Map',
+    initialRouteName: 'Services',
     // backBehavior: 'none',
     tabBarOptions:{
         showIcon: true,
@@ -107,107 +108,7 @@ const TNavigator = TabNavigator({
     }
 });
 
-// const DNavigator = DrawerNavigator({
-//     Orders:{
-//         screen: TNavigator,
-//         path: '/',
-//         navigationOptions:() =>({
-//             title: 'Pedidos',
-//             drawerLabel: 'Pedidos',
-//             drawerIcon: ({ tintColor, focused }) => ( 
-//                 <Ionicons name={focused ? 'ios-map' : 'ios-map-outline'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
-//             )
-//         })
-//     }, 
-//     ServicesScreen:{
-//         screen: ServicesScreen,
-//         path: '/services',
-//         navigationOptions:() =>({
-//             title: 'Servicios',
-//             drawerLabel: 'Servicios',
-//             drawerIcon: ({ tintColor, focused }) => ( 
-//                 <Ionicons name={focused ? 'ios-basket' : 'ios-basket-outline'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
-//             )
-//         })
-//     },
-//     AuthenticationScreen:{
-//         screen: AuthenticationScreen,
-//         path: '/me',
-//         navigationOptions:() =>({
-//             title: 'Mi cuenta',
-//             drawerLabel: 'Mi cuenta',
-//             drawerIcon: ({ tintColor, focused }) => ( 
-//                 <EvilIcons name={focused ? 'user' : 'user'} size={Platform.OS === 'ios' ? 28 : 24} style={{color: tintColor}}/>
-//             )
-//         })
-//     },
-//     OrdersClientScreen:{
-//         screen: OrdersClientScreen,
-//         path: '/myorders',
-//         navigationOptions:() =>({
-//             title: 'Mis pedidos',
-//             drawerLabel: 'Mis pedidos',
-//             drawerIcon: ({ tintColor, focused }) => ( 
-//                 <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
-//             )
-//         })
-//     },
-//     How:{
-//         screen: HowScreen,
-//         path: '/how',
-//         navigationOptions:() =>({
-//             title: 'Cómo funciona',
-//             drawerLabel: 'Cómo funciona',
-//             drawerIcon: ({ tintColor, focused }) => ( 
-//                 <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
-//             )
-//         })
-//     },
-//     AboutUsScreen:{
-//         screen: AboutUsScreen,
-//         path: '/about',
-//         navigationOptions:() =>({
-//             title: 'Acerca de',
-//             drawerLabel: 'Acerca de',
-//             drawerIcon: ({ tintColor, focused }) => ( 
-//                 <MaterialCommunityIcons name={focused ? 'vector-union' : 'vector-union'} size={Platform.OS === 'ios' ? slideIcon : 24} style={{color: tintColor}}/>
-//             )
-//         })
-//     },
-//     MeScreen:{
-//         screen: MeScreen,
-//         path: '/me',
-//         navigationOptions:() =>({
-//             title: 'Mi cuenta',
-//             drawerLabel: 'Mi cuenta',
-//             drawerIcon: ({ tintColor, focused }) => ( 
-//                 <EvilIcons name={focused ? 'user' : 'user'} size={Platform.OS === 'ios' ? 28 : 24} style={{color: tintColor}}/>
-//             )
-//         })
-//     }
-// },{
-//     headerMode: 'none',
-//     initialRouteName: 'Orders',
-//     drawerPosition: 'left',
-//     drawerWidth: 215,
-//     useNativeAnimations: true,
-//     contentOptions:{
-//         activeTintColor: colors.WHITE,
-//         activeBackgroundColor: colors.PRIMARY,
-//         inactiveTintColor: colors.GRAY600,
-//     labelStyle:{
-//         fontSize: 16,
-//         fontWeight: '400',
-//         fontFamily: 'sspRegular'
-//     },
-//     style:{
-//         marginVertical: 100,
-//         marginHorizontal: 0
-//       }},
-    
-// })
-
-const AuthenticationModal = StackNavigator({
+const MeModal = StackNavigator({
     Authentication: {
         screen: MeScreen,
         navigationOptions: () => ({
@@ -230,8 +131,8 @@ export const SNavigator = StackNavigator({
             // header: null,
             headerRight: (
                 <ButtonHeader side="right" 
-                onPress={() => { navigation.navigate('Authentication')}}>
-                <Text style={{fontSize: 16, color: colors.WHITE, fontWeight: '500'}}>Empleado</Text>
+                onPress={() => { navigation.navigate('Me')}}>
+                    <Text style={{fontSize: 16, color: colors.WHITE, fontWeight: '500'}}>Eric Torres</Text>
                 </ButtonHeader>
             ),
             // headerLeft: (
@@ -242,8 +143,8 @@ export const SNavigator = StackNavigator({
             // )
         })
     },
-    Authentication:{
-        screen: AuthenticationModal,
+    Me:{
+        screen: MeModal,
         navigationOptions:() => ({
             header: null
         })
@@ -289,13 +190,13 @@ export const SNavigator = StackNavigator({
             )
         })
     },
-    MapScreen:{
-        screen: MapScreen,
-        navigationOptions: () => ({
-            headerRight: null,
-            headerLeft: null
-        })
-    },
+    // MapScreen:{
+    //     screen: MapScreen,
+    //     navigationOptions: () => ({
+    //         headerRight: null,
+    //         headerLeft: null
+    //     })
+    // },
     ServicesPScreen:{
         screen: ServicesPScreen,
         navigationOptions: ({ navigation }) => ({
@@ -329,9 +230,10 @@ export const SNavigator = StackNavigator({
         }
     }),
     gesturesEnabled: true,
+    mode: 'modal'
 })
 
-class Navigator extends Component {
+class ClientNavigator extends Component {
     render() {
         return (
             <SNavigator/>
@@ -339,4 +241,4 @@ class Navigator extends Component {
     }
 }
 
-export default Navigator;
+export default ClientNavigator;

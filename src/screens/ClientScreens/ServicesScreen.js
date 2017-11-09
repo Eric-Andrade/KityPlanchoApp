@@ -3,12 +3,12 @@ import styled from 'styled-components/native';
 import { FlatList, Alert, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import Touchable from '@appandflow/touchable';
-import { colors } from '../util/constants';
-import { LoadingScreen } from '../commons/LoadingScreen'
-import { getAllServiciosActivos } from './redux/actions';
-import ServiceCard from '../components/ServiceCard/ServiceCard';
-import CarouselBanner from '../components/CarouselBanner';
-import items from '../components/Banners';
+import { colors } from '../../util/constants';
+import { LoadingScreen } from '../../commons/LoadingScreen'
+import { getAllServiciosActivos } from '../redux/actions';
+import ServiceCard from '../../components/ServiceCard/ServiceCard';
+import CarouselBanner from '../../components/CarouselBanner';
+import items from '../../components/Banners';
 
 const itemWidth = Dimensions.get('window').width;
 
@@ -16,7 +16,7 @@ const Root = styled.View`
     flex: 1;
 `;
 const TopContainer = styled.View`
-    flex: 0.4;
+    flex: 0.5;
 `;
 const BottomContainer = styled.View`
     flex: 1;

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import styled from 'styled-components/native';
-import { FlatList, StatusBar, View, Text } from 'react-native';
+import { FlatList, StatusBar } from 'react-native';
 // import Toast from 'react-native-smart-toast';
 import { connect } from 'react-redux';
 import Touchable from '@appandflow/touchable';
-import { colors } from '../util/constants';
-import OrderCard from '../components/OrderCard/OrderCard';
-import { LoadingScreen } from '../commons/LoadingScreen';
-import { fetchALLPDPR } from './redux/actions';
+import { colors } from '../../util/constants';
+import OrderCard from '../../components/OrderCard/OrderCard';
+import { LoadingScreen } from '../../commons/LoadingScreen';
+import { fetchALLPDPR } from '../redux/actions';
 
 const Root = styled.View`
     flex: 1;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, Platform} from 'react-native';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
-import { colors } from '../util/constants';
+import { colors } from '../../util/constants';
 
 const Root = styled(Touchable).attrs({
     feedback: 'none'
@@ -25,7 +25,7 @@ const ItemText = styled.Text`
     textAlign: justify
 `;
 
-class InfoScreen extends Component {
+class ServicesPScreen extends Component {
     static navigationOptions = ({navigation}) => ({
         title: navigation.state.params.name
       });
@@ -37,7 +37,7 @@ class InfoScreen extends Component {
                 <Root>
                     <InfoContainer>
                         <ItemText>
-                            {params.text}
+                            {params.name}
                         </ItemText>
                     </InfoContainer>
                 </Root>
@@ -46,4 +46,4 @@ class InfoScreen extends Component {
     }
 }
 
-export default InfoScreen;
+export default ServicesPScreen;

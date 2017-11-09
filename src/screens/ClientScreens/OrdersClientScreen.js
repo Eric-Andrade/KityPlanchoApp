@@ -4,10 +4,10 @@ import { FlatList, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import Display from 'react-native-display';
 import Touchable from '@appandflow/touchable';
-import { colors } from '../util/constants';
-import OrderCard from '../components/OrderCard/OrderCard'
-import { LoadingScreen } from '../commons/LoadingScreen'
-import { fetchALLPDPC } from './redux/actions'
+import { colors } from '../../util/constants';
+import OrderCard from '../../components/OrderCard/OrderCard'
+import { LoadingScreen } from '../../commons/LoadingScreen'
+import { fetchALLPDPC } from '../redux/actions'
 
 const Root = styled.View`
     flex: 1;

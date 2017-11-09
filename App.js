@@ -8,6 +8,8 @@ import store from './src/redux/store';
 import { colors } from './src/util/constants';
 import {fontAssets} from './src/util/fontAssets';
 import { LoadingScreen } from './src/commons/LoadingScreen'
+import Navigator from './src/navigationClient'
+// import Navigator from './src/navigation'
 
 if (UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -35,7 +37,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <ActionSheetProvider>        
           <ThemeProvider theme={ colors }>
-            <AppNavigator />
+            <Navigator />
           </ThemeProvider>
         </ActionSheetProvider>
       </Provider>

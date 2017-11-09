@@ -103,7 +103,8 @@ export default class CarouselBanner extends Component{
                 title: {
                     fontSize: 18,
                     left: 100,
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    backgroundColor: 'transparent'
                 }
             }    
     }
@@ -198,7 +199,6 @@ export default class CarouselBanner extends Component{
         )
     }
     
-
     render () {
         const style = this.getStyle()
         return (

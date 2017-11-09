@@ -1,4 +1,4 @@
-export default (state = {isLogged: false}, action) => {
+export default (state = {isLogged: true}, action) => {
     switch (action.type) {
         default:
             return state;
