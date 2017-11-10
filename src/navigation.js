@@ -257,7 +257,7 @@ export const SNavigator = StackNavigator({
                 Keyboard.dismiss();
                 navigation.goBack(null)
                 }}>
-                <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 25 : null} color={colors.WHITE}/>
+                <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 15 : null} color={colors.WHITE}/>
             </ButtonHeader>
             )
         })
@@ -284,7 +284,7 @@ export const SNavigator = StackNavigator({
                 <ButtonHeader side="left" onPress={() =>{
                     navigation.goBack(null) 
                     }}>
-                    <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 25 : null} color={colors.WHITE} />
+                    <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 15 : null} color={colors.WHITE} />
                 </ButtonHeader>
             )
         })
@@ -305,7 +305,7 @@ export const SNavigator = StackNavigator({
                 Keyboard.dismiss();
                 navigation.goBack(null)
                 }}>
-                <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 25 : null} color={colors.WHITE}/>
+                <Entypo name="chevron-thin-left" size={Platform.OS === 'ios' ? 15 : null} color={colors.WHITE}/>
                
             </ButtonHeader>
             )

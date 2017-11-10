@@ -48,7 +48,7 @@ const BackButton = styled(Touchable).attrs({
     justifyContent: center;
     alignItems: center;
     position: absolute;
-    top: 5%;
+    top: 9%;
     left: 5%;
     zIndex: 2;
 `;
@@ -122,7 +122,7 @@ class LoginDeliver extends Component {
             <Root onPress={this._onOutSidePress}>
                 <RootContainer>
                     <BackButton onPress={this.props.onBackPress}> 
-                        <Entypo color={colors.GRAY900} size={27} name="chevron-thin-left" />
+                        <Entypo color={colors.GRAY900} size={23} name="chevron-thin-left" />
                     </BackButton>
                     <BackImage style={{width: null, height: null}}
                                 source={require('../../assets/backgroundgray.png')}>

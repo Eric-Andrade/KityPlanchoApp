@@ -1,8 +1,8 @@
 export default [
-    {
-        name: 'banner0',
-        poster: require('../../../assets/logokity.png')
-    },
+    // {
+    //     name: 'banner0',
+    //     poster: require('../../../assets/logokity.png')
+    // },
     {
         name: 'banner1',
         screen: require('./banner1/screen.jpg'),

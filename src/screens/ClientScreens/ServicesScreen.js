@@ -8,6 +8,7 @@ import { LoadingScreen } from '../../commons/LoadingScreen'
 import { getAllServiciosActivos } from '../redux/actions';
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
 import CarouselBanner from '../../components/CarouselBanner';
+import Slider from '../../components/Slider';
 import items from '../../components/Banners';
 
 const itemWidth = Dimensions.get('window').width;
@@ -16,7 +17,7 @@ const Root = styled.View`
     flex: 1;
 `;
 const TopContainer = styled.View`
-    flex: 0.5;
+    flex: 0.75;
 `;
 const BottomContainer = styled.View`
     flex: 1;
@@ -97,7 +98,8 @@ class ServicesScreen extends Component {
         return (
             <Root>
                 <TopContainer>
-                    <CarouselBanner items={this.state.items} />
+                    <Slider />
+                    {/* <CarouselBanner items={this.state.items} /> */}
                 </TopContainer>
                 <Title>
                     <TitleText>Servicios de KityPlancho</TitleText>

@@ -11,6 +11,7 @@ const Root = styled(Touchable).attrs({
     feedback: 'none'
 })`
     flex: 1;
+    backgroundColor: ${props => props.theme.GRAY100};
 `;
 const LogoContainer = styled.View`
     height: 95;
@@ -38,7 +39,7 @@ const ButtonConfirm = styled(Touchable).attrs({
 })`
     marginTop: 15;
     width: 70%;
-    height: 50;
+    height: 45;
     backgroundColor: ${props => props.theme.PRIMARY};
     borderRadius: 30;
     justifyContent: center;
@@ -77,7 +78,7 @@ const LogoutAccount =  styled(Touchable).attrs({
 })`
     marginTop: 10;
     width: 70%;
-    height: 50;
+    height: 45;
     backgroundColor: ${props => props.theme.WHITE};
     borderRadius: 30;
     justifyContent: center;
@@ -98,8 +99,8 @@ const ButtonRemoveAccount = styled(Touchable).attrs({
     hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
 })`
     marginTop: 40;
-    width: 55%;
-    height: 40;
+    width: 50%;
+    height: 35;
     backgroundColor: transparent;
     borderRadius: 10;
     borderWidth: 2;
