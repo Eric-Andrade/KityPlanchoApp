@@ -85,7 +85,7 @@ class ClientOrdersScreen extends Component {
             <Root>
                 <StatusBar
                     backgroundColor="#E72B73"
-                    barStyle="light-content"/>
+                    barStyle="dark-content"/>
                 <FlatList
                     data={data}
                     renderItem={
@@ -95,7 +95,7 @@ class ClientOrdersScreen extends Component {
                             </Touch>
                         )
                     }
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
                 />
                 

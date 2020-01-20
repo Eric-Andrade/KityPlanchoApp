@@ -1,6 +1,7 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import styled from 'styled-components/native';
+import { colors } from '../util/constants';
 
 const kpLogoSize = 60;
 
@@ -16,8 +17,18 @@ const KPLogo = styled.Image`
 
 const LoadingScreen = ({size, color}) => (
     <Root>
-        {/* <ActivityIndicator size={size} color={color}/> */}
-        <KPLogo source={require('../../assets/icons/loading-icon.gif')}/>
+        <ActivityIndicator 
+            animating 
+            hidesWhenStopped 
+            size="large" 
+            color={colors.PRIMARY}
+            style= {{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 80
+            }}/>
+        {/* <KPLogo source={require('../../assets/icons/loading-icon.gif')}/> */}
     </Root>
 )
 

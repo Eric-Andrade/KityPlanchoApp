@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
-import { colors } from '../util/constants';
+import { colors, variables } from '../util/constants';
 
 const kpLogoSize = 80;
 const avatarRadius = kpLogoSize / 2;
@@ -78,7 +78,7 @@ class AboutUsScreen extends Component {
                 <BackImage style={{width: null, height: null}}
                                     source={require('../../assets/backgroundgray.png')}>
                 <RootContainer>
-                        <T style={{color: '#E34D8F'}}>©KityPlancho web y ©KityPlancho app son servicios de software desarrollados por ©Itecor Durango</T>
+                        <T style={{color: '#E34D8F'}}>©{ variables.COMPANYNAME } web y ©{ variables.COMPANYNAME } app son servicios de software desarrollados por ©Itecor Durango</T>
                         <IconsContainer>
                             <LogoContainer>
                                 <Logo source={require('../../assets/logokity.png')}/>

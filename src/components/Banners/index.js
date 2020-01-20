@@ -5,17 +5,17 @@ export default [
     // },
     {
         name: 'banner1',
-        screen: require('./banner1/screen.jpg'),
+        screen: require('./banner1/screenklino.jpg'),
         poster: require('../../../assets/logokity.png')
     },
     {
         name: 'banner2',
-        screen: require('./banner2/screen.jpg'),
+        screen: require('./banner2/screenklino.jpg'),
         poster: require('../../../assets/logokity.png')
     },
     {
         name: 'banner3',
-        screen: require('./banner3/screen.jpg'),
+        screen: require('./banner3/screenklino.jpg'),
         poster: require('../../../assets/logokity.png')
     }
 ]

@@ -10,9 +10,9 @@ const Root = styled.View`
     justifyContent: center;
 `;
 const ServiceText = styled.Text`
-    fontSize: ${Platform.OS === 'ios' ? 13 : 11};
-    fontWeight: ${Platform.OS === 'ios' ? 400 : 400 };
-    color: ${props => props.theme.PRIMARY}
+    fontSize: ${ Platform.OS === 'ios' ? 13 : 11};
+    fontWeight: ${ Platform.OS === 'ios' ? 400 : 400 };
+    color: ${props => props.theme.GRAY600}
     textAlign: center
 `;
 

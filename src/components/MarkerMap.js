@@ -13,19 +13,17 @@ const Root = styled.View`
 `;
 const MarkerContainer = styled.View`
     backgroundColor: ${props => props.background};
-    minWidth: 22;
+    minWidth: 23;
     paddingHorizontal: 4;
-    height: 17;
+    height: 18;
     alignItems: center;
     justifyContent: center;
     borderRadius: 3;
-    borderColor: ${colors.WHITE};
-    borderWidth: 0;
     position: relative
 `;
 const MarkerText = styled.Text`
     color: ${colors.WHITE};
-    fontSize: 12;
+    fontSize: 11;
     fontWeight: 500;
     textAlign: center;
 `;
@@ -33,14 +31,11 @@ const ShapeMarker = styled.View`
     alignSelf: center; 
     width: 0;
     height: 0;
-    bottom: 3;
-                  
+    bottom: 4;
     borderRightWidth: 5;
-    borderRightColor: transparent;
-                  
+    borderRightColor: transparent;    
     borderTopWidth: 8;
     borderTopColor: ${props => props.background};
-
     borderLeftWidth: 5;
     borderLeftColor: transparent;
     
@@ -55,7 +50,7 @@ export default function MarkerMap({ children, onPress, onLongPress, background }
                             {children}
                         </MarkerText>
                     </MarkerContainer>
-                        <ShapeMarker background={background}/>
+                    <ShapeMarker background={background}/>
                 </Root>
             </TouchableHighlight>
         );

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { Ionicons, EvilIcons, Entypo } from '@expo/vector-icons';
 import { Keyboard, Platform, StatusBar, Text } from 'react-native';
 import IconBadge from 'react-native-icon-badge'
+import I18n from './i18n';
 // import { connect } from 'react-redux';
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
@@ -18,15 +19,20 @@ import HowScreen from './screens/HowScreen';
 const tabIcon = 27;
 const slideIcon = 25;
 // const {width} = Dimensions.get('window');
-const Badgecontador = 18;
+const badgeCounter = 21;
+const language = [
+    { lang: "English", code: "en" },
+    { lang: "French", code: "fr" },
+    { lang: "Spanish", code: "es" },
+  ]
 
-const TNavigator = TabNavigator({
+const TNavigator = createBottomTabNavigator({
     Services:{
         screen: ServicesScreen, 
         navigationOptions:() =>({
-            title: 'Servicios',
+            title: `${I18n.t('services')}`,
             // header: null,
-            headerTitle: 'Servicios',
+            // headerTitle: 'Servicios',
             tabBarIcon: ({ tintColor, focused }) => ( 
                 <Ionicons name={focused ? 'ios-basket' : 'ios-basket-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
@@ -35,9 +41,9 @@ const TNavigator = TabNavigator({
     Map:{
         screen: MapScreen, 
         navigationOptions:() =>({
-            title: 'Mapa',
+            title: `${I18n.t('map')}`,
             // header: null,
-            headerTitle: 'Mis pedidos mapa',
+            // headerTitle: 'Mis pedidos mapa',
             tabBarIcon: ({ tintColor, focused }) => ( 
                 <Ionicons name={focused ? 'ios-map' : 'ios-map'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
@@ -46,28 +52,28 @@ const TNavigator = TabNavigator({
     Cards:{
         screen: OrdersClientScreen,
         navigationOptions:() =>({
-            title: 'Mis pedidos',
-            headerTitle: 'Mis pedidos',
+            title: `${I18n.t('orders')}`,
+            // headerTitle: 'Mis pedidos',
             tabBarIcon: ({ tintColor, focused }) =>( 
                 // TODO: Obtener la suma de los pedidos pendientes de la API
-                <IconBadge style={{marginBottom: 10}}
+                <IconBadge style={{marginBottom: 0}}
                     MainElement={
-                        <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor, bottom: 15}} badgeCount={6}/>
+                        <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor, bottom: 0}} badgeCount={6}/>
                     }
-                    BadgeElement={<Text style={{ color: focused ? colors.WHITE : colors.WHITE , fontSize: 10, fontFamily: 'robotoRegular'}}>{Badgecontador}</Text>}
+                    BadgeElement={<Text style={{ color: focused ? colors.WHITE : colors.WHITE , fontSize: 10, fontFamily: 'robotoRegular'}}>{badgeCounter}</Text>}
                     IconBadgeStyle={
                         {
                         width: 18,
                         height: 19,
                         left: 12,
-                        top: -15,
-                        marginBottom: 10,
+                        top: -5,
+                        marginBottom: 0,
                         backgroundColor: focused ? 'red' : 'red',
                         borderWidth: 1,
                         borderColor: focused ?  colors.WHITE : colors.WHITE,
                         }
-                        }
-                    Hidden={Badgecontador === 0}
+                    }
+                    Hidden={badgeCounter === 0}
                 />
             ),
         })
@@ -75,9 +81,9 @@ const TNavigator = TabNavigator({
     HowScreen:{
         screen: HowScreen, 
         navigationOptions:() =>({
-            title: 'Ayuda',
+            title: `${I18n.t('help')}`,
             // header: null,
-            headerTitle: 'Ayuda',
+            // headerTitle: 'Ayuda',
             tabBarIcon: ({ tintColor, focused }) => ( 
                 <Ionicons name={focused ? 'ios-information-circle' : 'ios-information-circle-outline'} size={Platform.OS === 'ios' ? tabIcon : 24} style={{color: tintColor}}/>
             )
@@ -103,12 +109,12 @@ const TNavigator = TabNavigator({
             height: 53,
             paddingVertical: 5,
             borderTopWidth: 2,
-            borderTopColor: colors.PRIMARYRGBA,
+            borderTopColor: colors.PRIMARY,
         }
     }
 });
 
-const MeModal = StackNavigator({
+const MeModal = createStackNavigator({
     Authentication: {
         screen: MeScreen,
         navigationOptions: () => ({
@@ -124,7 +130,7 @@ const MeModal = StackNavigator({
     }
 );
 
-export const SNavigator = StackNavigator({
+export const SNavigator = createStackNavigator({
     Historical:{
         screen: TNavigator,
         navigationOptions: ({ navigation }) => ({
@@ -132,7 +138,7 @@ export const SNavigator = StackNavigator({
             headerRight: (
                 <ButtonHeader side="right" 
                 onPress={() => { navigation.navigate('Me')}}>
-                    <Text style={{fontSize: 16, color: colors.WHITE, fontWeight: '500'}}>Eric Torres</Text>
+                    <Text style={{fontSize: 15, color: colors.GRAY600, fontWeight: '500'}}>Eric Torres</Text>
                 </ButtonHeader>
             ),
             // headerLeft: (
@@ -220,10 +226,10 @@ export const SNavigator = StackNavigator({
     },
     navigationOptions: () => ({
         headerStyle:{
-            backgroundColor: colors.PRIMARY,
+            backgroundColor: colors.WHITERGBA,
         },
         headerTitleStyle:{
-            color: colors.WHITE,
+            color: colors.PRIMARY,
             fontSize: 20,
             fontWeight: '400',
             fontFamily: 'sspRegular'
@@ -234,9 +240,49 @@ export const SNavigator = StackNavigator({
 })
 
 class ClientNavigator extends Component {
+    constructor(){
+        super();
+        this.state = {
+          fontLoaded: false,
+          languages: [],
+          value: false,
+          langValue: "en",
+          select: "Select language"
+        }
+        this.onLanguage = this.onLanguage.bind(this);
+      }
+
+    componentWillMount() {
+        I18n.locale = "es"
+    }
+
+    onSelectLanguage() {
+        return(
+            language.map((data, i) => {
+                
+            })
+        )
+    }
+
+  
+    onSelectedLang(text) {
+        this.setState({
+        value: false,
+        select: text
+        })
+        I18n.locale = text.code;
+    }
+
+    onLanguage() {
+        this.setState({
+            value: true
+        })
+    }
+
     render() {
         return (
-            <SNavigator/>
+            // <SNavigator/>
+            <TNavigator/>
         );
     }
 }

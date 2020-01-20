@@ -50,7 +50,7 @@ const DisccountContainer = styled.View`
     height: ${sizeDisccount};
     width: ${sizeDisccount};
     borderRadius: ${radiusDisccount}
-    backgroundColor: ${props => props.theme.PINK200};
+    backgroundColor: ${props => props.theme.SECUNDARY};
     alignItems: center;
     marginHorizontal: 3;
     justifyContent: center;

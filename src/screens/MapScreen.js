@@ -165,8 +165,6 @@ class MapScreen extends Component {
               this.setState({markerPosition: lastRegion})
           })
 
-          
-
         const data = this.props.allpdpr.data;    
         let markersapi;
         for (let i = 0; i < data.length; i++) {
@@ -194,12 +192,35 @@ class MapScreen extends Component {
 
     _markerlongclick(nuevalat, nuevalong){
         this.getDirections(`${this.state.lat},${this.state.lng}`,`${nuevalat},${nuevalong}`, '')
+        console.log(nuevalat, nuevalong)
     }
 
     _markerclick(){
-        const { navigate } = this.props.navigation;
-            navigate('HOrderScreen', { name: `Detalles de pedido`})
-            
+        // const { navigate } = this.props.navigation;
+        //     navigate('HOrderScreen', { name: `Detalles del pedido`})
+        Alert.alert(
+            'Whepa Alert Title',
+            'My Alert Msg',
+            [
+              {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+              {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            { cancelable: false }
+          )
+    }
+
+    _deliverMarkerPressed(){
+        Alert.alert(
+            'Alert Title',
+            'My Alert Msg',
+            [
+              {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+              {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            { cancelable: false }
+          )
     }
 
     async getDirections(startLoc, destinationLoc, waypoints) {
@@ -229,8 +250,7 @@ class MapScreen extends Component {
 
 
     render() {
-        
-
+    
         const { 
             allpdpr: {
                 isFetched,
@@ -257,14 +277,15 @@ class MapScreen extends Component {
                     followUserLocation> 
                 <StatusBar
                     backgroundColor="#E72B73"
-                    barStyle="default"
+                    barStyle="dark-content"
                 />
                     <MapView.Marker
                         coordinate={this.state.markerPosition}
                         title={'Durango'}
-                        description={'Consentimos a tu ropa para que ella te consienta a ti'}>
+                        description={'¡Consentimos a tu ropa para que ella te consienta a ti!'}
+                        onPress={() => this._deliverMarkerPressed()}>
                             {/* <LogoContainer> */}
-                                <Logo source={require('../../assets/rutero.png')}/>
+                                <Logo source={require('../../assets/rutero2.png')}/>
                             {/* </LogoContainer> */}
                     </MapView.Marker>
 
@@ -280,20 +301,20 @@ class MapScreen extends Component {
                         <MapView.Marker
                             key={i}
                             coordinate={marker.latlng}
-                            title={marker.title}
+                            title={`${marker.title}`}
                             description={marker.description}>
                                 <MarkerMap background={marker.pincolor} 
-                                onPress={() => {this._markerclick()}}
-                                onLongPress={() => {this._markerlongclick(marker.latlng.latitude,marker.latlng.longitude)}}>
+                                    onPress={() => this._markerclick()}
+                                    onLongPress={() => {this._markerlongclick(marker.latlng.latitude, marker.latlng.longitude)}}>
                                         {marker.id}
                                 </MarkerMap>
                             </MapView.Marker>
                     ))}
 
                     <MapView.Polyline 
-                                coordinates={this.state.coords}
-                                strokeWidth={3}
-                                strokeColor={colors.SECUNDARY}/>
+                        coordinates={this.state.coords}
+                        strokeWidth={3}
+                        strokeColor={colors.SECUNDARY}/>
                         
                         {/* {this.state.latlngr.map(markerR => (
                             <MapView.Marker

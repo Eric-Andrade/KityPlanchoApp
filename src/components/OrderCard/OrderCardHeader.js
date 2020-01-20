@@ -94,12 +94,12 @@ function OrderCardHeader({IDPEDIDO, PPRECIOTOTAL, PFECHA }){
     return(
         <Root>
             <KPLogoContainer>
-                <KPLogo source={require('../../../assets/rutero.png')}/>
+                <KPLogo source={require('../../../assets/klinoicon.png')}/>
             </KPLogoContainer>
             <MetadataContainer>
                 <MetadataTopContainer>
                     <OrderInfo>
-                        ID Pedido 
+                        Pedido 
                         <OrderInfoID> {IDPEDIDO} </OrderInfoID>
                     </OrderInfo>
                     <OrderAmountContainer>

@@ -19,6 +19,7 @@ const LogoContainer = styled.View`
     borderRadius: 45;
     justifyContent: center;
     alignItems: center;
+    marginTop: 30;
     backgroundColor: ${props => props.theme.WHITE};
 `;
 const Logo = styled.Image`
@@ -37,7 +38,7 @@ const ButtonConfirm = styled(Touchable).attrs({
     feedback: 'opacity',
     hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
 })`
-    marginTop: 15;
+    marginTop: 30;
     width: 70%;
     height: 45;
     backgroundColor: ${props => props.theme.PRIMARY};
@@ -59,12 +60,12 @@ const InputWrapper = styled.View`
     height: 45;
     width: 70%;
     borderBottomWidth: 1;
-    borderBottomColor: ${props => props.theme.PINK200};
+    borderBottomColor: ${props => props.theme.SECUNDARY};
     justifyContent: flex-end;
 `;
 const Input = styled.TextInput.attrs({
     placeholderTextColor: colors.GRAY600,
-    selectionColor: Platform.OS === 'ios' ? colors.PINK200 : undefined,
+    selectionColor: Platform.OS === 'ios' ? colors.SECUNDARY : undefined,
     autoCorrect: false,
 })`
     alignSelf: center;
@@ -98,7 +99,7 @@ const ButtonRemoveAccount = styled(Touchable).attrs({
     feedback: 'opacity',
     hitSlot: {top: 15, bottom: 15, right: 15, left: 15}
 })`
-    marginTop: 40;
+    marginTop: 30;
     width: 50%;
     height: 35;
     backgroundColor: transparent;
@@ -147,7 +148,7 @@ class MeScreen extends Component {
                 
                 <Wrapper>
                 <LogoContainer>
-                    <Logo source={require('../../assets/logokity.png')}/>
+                    <Logo source={require('../../assets/profile.jpg')}/>
                 </LogoContainer>
                     <InputWrapper>
                         <Input 

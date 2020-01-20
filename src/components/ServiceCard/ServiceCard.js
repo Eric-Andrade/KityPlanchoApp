@@ -10,14 +10,15 @@ const CardContainer = styled.View`
     flexDirection: column;
     alignItems: center;
     justifyContent: center;
-    padding: 1px;
+    padding: 2px;
     margin: 2px;
     shadowColor: ${props => props.theme.GRAY777};
     shadowOffset: 0px 2px;
     shadowRadius: 2;
-    shadowOpacity: 0.1;
-    elevation: 2;
-    height: ${Platform.OS === 'ios' ? 100 : 90};
+    shadowOpacity: 0.0;
+    elevation: 0;
+    height: ${Platform.OS === 'ios' ? 105 : 90};
+    width: 95%;
     borderRadius: 5;
     backgroundColor: ${props => props.theme.WHITE};
 `;
@@ -27,9 +28,9 @@ const CardContainer = styled.View`
 
 const ImageService = styled.Image`
     marginVertical: 3;
-    padding: 10px;
+    padding: 6px;
     height: ${Platform.OS === 'ios' ? 50 : 40};
-    width: ${Platform.OS === 'ios' ? 70 : 50};
+    width: ${Platform.OS === 'ios' ? 50 : 50};
 `;
 
 function ServiceCard({allserviciosactivos, itemWidth}){
@@ -38,7 +39,7 @@ function ServiceCard({allserviciosactivos, itemWidth}){
 
         <Root>
             <CardContainer style={{width: itemWidth}}>
-                <ImageService source={require('../../../assets/kitypink.png')}/>
+                <ImageService source={require('../../../assets/klinoicon.png')}/>
                 <ServiceCardBottom {...allserviciosactivos}/>
             </CardContainer>
         </Root>

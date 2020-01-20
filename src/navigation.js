@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { Ionicons, EvilIcons, Entypo } from '@expo/vector-icons';
 import { Keyboard, Platform, StatusBar, Text } from 'react-native';
-import IconBadge from 'react-native-icon-badge'
+import IconBadge from 'react-native-icon-badge';
 // import { connect } from 'react-redux';
 import { colors } from './util/constants';
 import ButtonHeader from './components/ButtonHeader';
@@ -23,15 +23,15 @@ import HowScreen from './screens/HowScreen';
 const majorVersionIOS = parseInt(Platform.Version, 10);
 const tabIcon = 27;
 const slideIcon = 25;
-// const {width} = Dimensions.get('window');
 const Badgecontador = 18;
+// const {width} = Dimensions.get('window');
 
 // @connect(state => ({
 //     sumapdpr: state.employeeorderscount.sumapdpr
 //     }),
 //     { fetchsumaPDPR })
 
-const TNavigator = TabNavigator({
+const TNavigator = createBottomTabNavigator({
     Map:{
         screen: MapScreen, 
         navigationOptions:() =>({
@@ -207,7 +207,7 @@ const TNavigator = TabNavigator({
     
 // })
 
-const AuthenticationModal = StackNavigator({
+const AuthenticationModal = createStackNavigator({
     Authentication: {
         screen: MeScreen,
         navigationOptions: () => ({
@@ -223,7 +223,7 @@ const AuthenticationModal = StackNavigator({
     }
 );
 
-export const SNavigator = StackNavigator({
+export const SNavigator = createStackNavigator({
     Historical:{
         screen: TNavigator,
         navigationOptions: ({ navigation }) => ({

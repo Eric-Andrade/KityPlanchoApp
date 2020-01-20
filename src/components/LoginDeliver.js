@@ -3,7 +3,7 @@ import { Entypo }  from '@expo/vector-icons'
 import { Platform, Keyboard, AsyncStorage } from 'react-native';
 import styled from 'styled-components/native';
 import Touchable from '@appandflow/touchable';
-import { colors } from '../util/constants'
+import { colors, variables } from '../util/constants'
 import { LoadingScreen } from '../commons/LoadingScreen';
 
 const Root = styled(Touchable).attrs({
@@ -127,7 +127,7 @@ class LoginDeliver extends Component {
                     <BackImage style={{width: null, height: null}}
                                 source={require('../../assets/backgroundgray.png')}>
                             <TContainer>
-                                <T>Ingresa como rutero de KityPlancho</T>
+                                <T>Ingresa como rutero de { variables.COMPANYNAME }</T>
                             </TContainer>    
                             <Wrapper>
                                 <InputWrapper>

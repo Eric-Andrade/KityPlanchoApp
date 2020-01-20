@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { FlatList, StatusBar } from 'react-native';
 // import Toast from 'react-native-smart-toast';
@@ -91,7 +91,7 @@ class HistoricalScreen extends Component {
             <Root>
                 <StatusBar
                     backgroundColor="#E72B73"
-                    barStyle="light-content"
+                    barStyle="dark-content"
                 />
                 <FlatList
                     data={data}
@@ -104,7 +104,7 @@ class HistoricalScreen extends Component {
                             </Touch>
                         )
                     }
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
                     />
              
